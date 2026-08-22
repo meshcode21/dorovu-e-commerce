@@ -6,3 +6,6 @@ allowBuilds:
   esbuild: false
   prisma: false
   unrs-resolver: false
+minimumReleaseAgeExclude:
+  - react-hook-form@7.86.0
+  - shadcn@4.19.0

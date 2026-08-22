@@ -61,16 +61,16 @@ Last updated: August 2026
 ### Setup
 - ✅ Next.js 14 app created
 - ✅ Tailwind configured
-- ⬜ shadcn/ui installed
-- ⬜ TanStack Query provider setup
-- ⬜ Axios instance configured
-- ⬜ Zustand cart store created
-- ⬜ Zustand auth store created
+- ✅ shadcn/ui installed
+- ✅ TanStack Query provider setup
+- ✅ Axios instance configured
+- ✅ Zustand cart store created
+- ✅ Zustand auth store created
 
 ### Auth Pages
-- ⬜ Login page
-- ⬜ Register page
-- ⬜ Protected route logic
+- ✅ Login page
+- ✅ Register page
+- ✅ Protected route logic
 
 ### Public Pages
 - ⬜ Homepage
