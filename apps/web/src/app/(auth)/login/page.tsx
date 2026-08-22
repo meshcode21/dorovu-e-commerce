@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useLogin } from "@/hooks/use-auth";
+import { useLogin, useGoogleLogin } from "@/hooks/use-auth";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const { mutate: login, isPending } = useLogin();
+  const { mutate: googleLogin } = useGoogleLogin();
 
   const {
     register,
@@ -46,6 +48,24 @@ export default function LoginPage() {
           {isPending ? "Signing in..." : "Sign in"}
         </Button>
       </form>
+
+      <div className="mt-6 flex items-center justify-center">
+        <span className="text-sm text-ink-60 px-2 bg-cream absolute">Or continue with</span>
+        <div className="w-full h-px bg-ink-20"></div>
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            if (credentialResponse.credential) {
+              googleLogin(credentialResponse.credential);
+            }
+          }}
+          onError={() => {
+            console.error("Google Login Failed");
+          }}
+        />
+      </div>
       
       <div className="mt-6 text-center text-sm text-ink-60">
         Don't have an account?{" "}

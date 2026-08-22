@@ -19,13 +19,17 @@ Last updated: August 2026
 - ✅ Shared package configured
 - ✅ TypeScript configured across all apps
 
-### Auth
-- ⬜ Register endpoint
-- ⬜ Login endpoint (httpOnly JWT cookie)
-- ⬜ Logout endpoint
-- ⬜ Get current user endpoint
-- ⬜ authenticate middleware
-- ⬜ requireRole middleware
+### Phase 1: Core Foundation & API
+- [x] **Step 1: Setup Workspace**
+  - Next.js 14 + Tailwind v4 + Express + Prisma + Turborepo 
+- [x] **Step 2: Auth (Backend)**
+  - `POST /api/v1/auth/register`
+  - `POST /api/v1/auth/login` (httpOnly cookie JWT)
+  - `POST /api/v1/auth/google` (OAuth integration)
+  - `POST /api/v1/auth/logout`
+  - `GET /api/v1/auth/me`
+  - `authenticate` middleware
+  - `requireRole` middleware
 
 ### Crafter Onboarding
 - ⬜ Apply as crafter endpoint

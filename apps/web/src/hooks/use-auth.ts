@@ -20,6 +20,22 @@ export const useLogin = () => {
   });
 };
 
+export const useGoogleLogin = () => {
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  return useMutation({
+    mutationFn: async (idToken: string) => {
+      const response = await api.post('/auth/google', { idToken });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      setUser(data.user);
+      router.push('/');
+    },
+  });
+};
+
 export const useRegister = () => {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);

@@ -1,6 +1,14 @@
 import { Card } from "@/components/ui/card";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken");
+
+  if (token) {
+    redirect("/");
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-cream p-4">
       <div className="w-full max-w-md">
