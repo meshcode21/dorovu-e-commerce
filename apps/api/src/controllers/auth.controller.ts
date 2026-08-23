@@ -8,6 +8,7 @@ const setCookies = (res: Response, accessToken: string, refreshToken: string) =>
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
+    path: '/',
     maxAge: 15 * 60 * 1000, // 15 minutes
   });
 
@@ -15,6 +16,7 @@ const setCookies = (res: Response, accessToken: string, refreshToken: string) =>
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
+    path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 };
@@ -63,8 +65,15 @@ export const AuthController = {
 
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      res.clearCookie('accessToken');
-      res.clearCookie('refreshToken');
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax' as const,
+        path: '/',
+        maxAge: 0,
+      };
+      res.cookie('accessToken', '', cookieOptions);
+      res.cookie('refreshToken', '', cookieOptions);
       res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
       next(error);

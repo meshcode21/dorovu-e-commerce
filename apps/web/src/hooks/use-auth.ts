@@ -53,7 +53,6 @@ export const useRegister = () => {
 };
 
 export const useLogout = () => {
-  const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
   const queryClient = useQueryClient();
 
@@ -64,7 +63,7 @@ export const useLogout = () => {
     onSuccess: () => {
       logout();
       queryClient.clear();
-      router.push('/login');
+      window.location.href = '/login';
     },
   });
 };
