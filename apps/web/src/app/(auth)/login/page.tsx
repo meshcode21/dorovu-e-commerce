@@ -44,14 +44,18 @@ export default function LoginPage() {
           {errors.password && <p className="text-error text-sm">{errors.password.message}</p>}
         </div>
 
-        <Button type="submit" className="w-full bg-clay hover:bg-clay-light text-white" disabled={isPending}>
+        <Button type="submit" className="w-full bg-forest hover:bg-forest/90 text-white" disabled={isPending}>
           {isPending ? "Signing in..." : "Sign in"}
         </Button>
       </form>
 
-      <div className="mt-6 flex items-center justify-center">
-        <span className="text-sm text-ink-60 px-2 bg-cream absolute">Or continue with</span>
-        <div className="w-full h-px bg-ink-20"></div>
+      <div className="mt-6 flex items-center justify-center relative">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-sand"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="bg-white px-2 text-ink-60">Or continue with</span>
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center">
@@ -69,7 +73,7 @@ export default function LoginPage() {
       
       <div className="mt-6 text-center text-sm text-ink-60">
         Don't have an account?{" "}
-        <Link href="/register" className="text-clay hover:underline font-medium">
+        <Link href="/register" className="text-forest hover:underline font-medium">
           Create one
         </Link>
       </div>
