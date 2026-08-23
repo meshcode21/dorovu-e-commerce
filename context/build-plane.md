@@ -23,7 +23,7 @@ Build in this exact order. Do not jump ahead.
 - [x] GET  /api/v1/admin/applications (admin only)
 - [x] PUT  /api/v1/admin/applications/:id/approve
 - [x] PUT  /api/v1/admin/applications/:id/reject
-- [ ] Build Admin Panel UI for managing applications
+- [x] Build Admin Panel UI for managing applications
 
 ### Step 4 — Products
 - [ ] POST   /api/v1/products (crafter only)
