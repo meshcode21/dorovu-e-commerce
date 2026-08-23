@@ -9,6 +9,11 @@ Rules the agent must follow when building any UI component or page.
 - Success/confirmation states use `sage` color
 - All pages have a max-width of `1280px` centered
 
+## Fonts
+- **Display/Headings** (`--font-display`): `DM Sans` (used as our Google Sans alternative)
+- **Body/Sans** (`--font-sans`): `Inter`
+- **Monospace** (`--font-mono`): `JetBrains Mono`
+
 ## Buttons
 ```tsx
 // Primary — clay filled
