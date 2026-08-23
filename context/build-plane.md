@@ -23,6 +23,7 @@ Build in this exact order. Do not jump ahead.
 - [x] GET  /api/v1/admin/applications (admin only)
 - [x] PUT  /api/v1/admin/applications/:id/approve
 - [x] PUT  /api/v1/admin/applications/:id/reject
+- [ ] Build Admin Panel UI for managing applications
 
 ### Step 4 — Products
 - [ ] POST   /api/v1/products (crafter only)
@@ -73,8 +74,6 @@ Build in this exact order. Do not jump ahead.
 - [ ] Crafter analytics dashboard
 - [ ] Payout tracking
 - [ ] Wishlist + follow system
-- [ ] Admin panel UI
-
 ## Phase 3 — Polish
 - [ ] Google OAuth
 - [ ] Full-text search (PostgreSQL tsvector)

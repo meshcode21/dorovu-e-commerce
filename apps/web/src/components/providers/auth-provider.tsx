@@ -15,6 +15,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
       .catch(() => {
         setUser(null);
+        useAuthStore.getState().setLoading(false);
       });
   }, [setUser]);
 

@@ -17,10 +17,25 @@ export default function Home() {
               Discover unique, handcrafted treasures from Nepal's most talented artisans. Every piece tells a story.
             </p>
             <div className="flex gap-4">
-              <Link href="/products" className={buttonVariants({ size: "lg", className: "bg-white text-forest hover:bg-cream hover:text-forest shadow-md font-semibold px-8" })}>
+              <Link 
+                href="/products" 
+                className={buttonVariants({ 
+                  size: "lg", 
+                  className: "bg-white text-forest hover:bg-cream hover:text-forest shadow-md font-semibold px-8" 
+                })}
+                style={{ color: "#2E4A3F", backgroundColor: "#ffffff" }}
+              >
                 Shop Now
               </Link>
-              <Link href="/apply" className={buttonVariants({ size: "lg", variant: "outline", className: "border-forest-subtle text-white hover:bg-white/10" })}>
+              <Link 
+                href="/apply" 
+                className={buttonVariants({ 
+                  size: "lg", 
+                  variant: "outline", 
+                  className: "border-white text-white bg-transparent hover:bg-white/10" 
+                })}
+                style={{ color: "#ffffff", borderColor: "#ffffff" }}
+              >
                 Start Selling
               </Link>
             </div>

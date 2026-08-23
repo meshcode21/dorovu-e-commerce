@@ -83,6 +83,9 @@ Last updated: August 2026
 - ⬜ Crafter shop page
 - [x] Crafter application page
 
+### Admin Dashboard
+- [x] Overview / Applications list
+
 ### Buyer Pages
 - ⬜ Cart page
 - ⬜ Checkout page
@@ -94,10 +97,6 @@ Last updated: August 2026
 - ⬜ Product manager
 - ⬜ Order manager
 - ⬜ Shop settings
-
-### Admin Panel
-- ⬜ Applications queue
-- ⬜ User management
 
 ---
 

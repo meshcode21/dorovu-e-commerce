@@ -48,6 +48,11 @@ export function Navbar() {
 
           {user ? (
             <div className="flex items-center gap-2 ml-2 border-l border-sand pl-4">
+              {user.role === "ADMIN" && (
+                <Link href="/admin/applications" className={buttonVariants({ variant: "ghost", className: "text-ink hover:text-forest hidden md:flex" })}>
+                  Admin
+                </Link>
+              )}
               <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                 <div className="w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center font-medium text-sm">
                   {user.firstName[0]}

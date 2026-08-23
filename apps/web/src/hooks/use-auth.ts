@@ -15,7 +15,11 @@ export const useLogin = () => {
     },
     onSuccess: (data) => {
       setUser(data.user);
-      router.push('/');
+      if (data.user.role === 'ADMIN') {
+        router.push('/admin/applications');
+      } else {
+        router.push('/');
+      }
     },
   });
 };
@@ -31,7 +35,11 @@ export const useGoogleLogin = () => {
     },
     onSuccess: (data) => {
       setUser(data.user);
-      router.push('/');
+      if (data.user.role === 'ADMIN') {
+        router.push('/admin/applications');
+      } else {
+        router.push('/');
+      }
     },
   });
 };
