@@ -53,7 +53,17 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   CrafterApplication: 'CrafterApplication',
-  CrafterProfile: 'CrafterProfile'
+  CrafterProfile: 'CrafterProfile',
+  Category: 'Category',
+  CraftType: 'CraftType',
+  Product: 'Product',
+  ProductVariant: 'ProductVariant',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Review: 'Review',
+  MessageThread: 'MessageThread',
+  Message: 'Message',
+  Payout: 'Payout'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -107,6 +117,9 @@ export const CrafterProfileScalarFieldEnum = {
   storeName: 'storeName',
   description: 'description',
   craftType: 'craftType',
+  portfolioImages: 'portfolioImages',
+  isApproved: 'isApproved',
+  commissionRate: 'commissionRate',
   rating: 'rating',
   totalSales: 'totalSales',
   createdAt: 'createdAt',
@@ -116,12 +129,154 @@ export const CrafterProfileScalarFieldEnum = {
 export type CrafterProfileScalarFieldEnum = (typeof CrafterProfileScalarFieldEnum)[keyof typeof CrafterProfileScalarFieldEnum]
 
 
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const CraftTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CraftTypeScalarFieldEnum = (typeof CraftTypeScalarFieldEnum)[keyof typeof CraftTypeScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  crafterId: 'crafterId',
+  title: 'title',
+  description: 'description',
+  price: 'price',
+  images: 'images',
+  tags: 'tags',
+  craftType: 'craftType',
+  category: 'category',
+  isCustomOrder: 'isCustomOrder',
+  leadTime: 'leadTime',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ProductVariantScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  name: 'name',
+  stock: 'stock',
+  priceAdjustment: 'priceAdjustment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductVariantScalarFieldEnum = (typeof ProductVariantScalarFieldEnum)[keyof typeof ProductVariantScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  buyerId: 'buyerId',
+  totalAmount: 'totalAmount',
+  paymentStatus: 'paymentStatus',
+  paymentReference: 'paymentReference',
+  shippingAddress: 'shippingAddress',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  variantId: 'variantId',
+  crafterId: 'crafterId',
+  quantity: 'quantity',
+  priceAtPurchase: 'priceAtPurchase',
+  status: 'status',
+  trackingNumber: 'trackingNumber',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  orderItemId: 'orderItemId',
+  rating: 'rating',
+  comment: 'comment',
+  crafterReply: 'crafterReply',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const MessageThreadScalarFieldEnum = {
+  id: 'id',
+  buyerId: 'buyerId',
+  crafterId: 'crafterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MessageThreadScalarFieldEnum = (typeof MessageThreadScalarFieldEnum)[keyof typeof MessageThreadScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  threadId: 'threadId',
+  senderId: 'senderId',
+  content: 'content',
+  attachmentUrl: 'attachmentUrl',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const PayoutScalarFieldEnum = {
+  id: 'id',
+  crafterId: 'crafterId',
+  amount: 'amount',
+  commissionDeducted: 'commissionDeducted',
+  payoutMethod: 'payoutMethod',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PayoutScalarFieldEnum = (typeof PayoutScalarFieldEnum)[keyof typeof PayoutScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -138,4 +293,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

@@ -6,6 +6,9 @@ import { errorHandler } from './middleware/error.middleware';
 import authRoutes from './routes/auth.routes';
 import crafterRoutes from './routes/crafter.routes';
 import adminRoutes from './routes/admin.routes';
+import productRoutes from './routes/product.routes';
+import categoryRoutes from './routes/category.routes';
+import craftTypeRoutes from './routes/craft-type.routes';
 
 const app = express();
 
@@ -18,10 +21,17 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+// Serve static files from the public directory
+import path from 'path';
+app.use('/public', express.static(path.join(process.cwd(), 'public')));
+
 // Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/crafters', crafterRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/categories', categoryRoutes);
+app.use('/api/v1/craft-types', craftTypeRoutes);
 
 // Error Handling
 app.use(errorHandler);

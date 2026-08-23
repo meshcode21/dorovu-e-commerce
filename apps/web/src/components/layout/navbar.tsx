@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck, Store } from "lucide-react";
+import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck, Store, Tag, Scissors } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { useLogout } from "@/hooks/use-auth";
 import { Button, buttonVariants } from "@/components/ui/button";

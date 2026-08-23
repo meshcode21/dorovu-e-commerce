@@ -32,3 +32,53 @@ export type CrafterApplication = Prisma.CrafterApplicationModel
  * 
  */
 export type CrafterProfile = Prisma.CrafterProfileModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model CraftType
+ * 
+ */
+export type CraftType = Prisma.CraftTypeModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model MessageThread
+ * 
+ */
+export type MessageThread = Prisma.MessageThreadModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model Payout
+ * 
+ */
+export type Payout = Prisma.PayoutModel

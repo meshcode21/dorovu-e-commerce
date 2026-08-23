@@ -216,6 +216,9 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
   crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
+  orders?: Prisma.OrderListRelationFilter
+  messagesSent?: Prisma.MessageListRelationFilter
+  messageThreads?: Prisma.MessageThreadListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -230,6 +233,9 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   crafterApplication?: Prisma.CrafterApplicationOrderByWithRelationInput
   crafterProfile?: Prisma.CrafterProfileOrderByWithRelationInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
+  messagesSent?: Prisma.MessageOrderByRelationAggregateInput
+  messageThreads?: Prisma.MessageThreadOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -247,6 +253,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
   crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
+  orders?: Prisma.OrderListRelationFilter
+  messagesSent?: Prisma.MessageListRelationFilter
+  messageThreads?: Prisma.MessageThreadListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -291,6 +300,9 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
   crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -305,6 +317,9 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
   crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
 }
 
 export type UserUpdateInput = {
@@ -319,6 +334,9 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
   crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -333,6 +351,9 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
   crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -456,6 +477,48 @@ export type UserUpdateOneRequiredWithoutCrafterProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterProfileInput, Prisma.UserUpdateWithoutCrafterProfileInput>, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
 }
 
+export type UserCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.UserUpsertWithoutOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutMessageThreadsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageThreadsInput, Prisma.UserUncheckedCreateWithoutMessageThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessageThreadsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageThreadsInput, Prisma.UserUncheckedCreateWithoutMessageThreadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageThreadsInput
+  upsert?: Prisma.UserUpsertWithoutMessageThreadsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageThreadsInput, Prisma.UserUpdateWithoutMessageThreadsInput>, Prisma.UserUncheckedUpdateWithoutMessageThreadsInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  upsert?: Prisma.UserUpsertWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesSentInput, Prisma.UserUpdateWithoutMessagesSentInput>, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
 export type UserCreateWithoutCrafterApplicationInput = {
   id?: string
   email: string
@@ -467,6 +530,9 @@ export type UserCreateWithoutCrafterApplicationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
 }
 
 export type UserUncheckedCreateWithoutCrafterApplicationInput = {
@@ -480,6 +546,9 @@ export type UserUncheckedCreateWithoutCrafterApplicationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
 }
 
 export type UserCreateOrConnectWithoutCrafterApplicationInput = {
@@ -509,6 +578,9 @@ export type UserUpdateWithoutCrafterApplicationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrafterApplicationInput = {
@@ -522,6 +594,9 @@ export type UserUncheckedUpdateWithoutCrafterApplicationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
 }
 
 export type UserCreateWithoutCrafterProfileInput = {
@@ -535,6 +610,9 @@ export type UserCreateWithoutCrafterProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
 }
 
 export type UserUncheckedCreateWithoutCrafterProfileInput = {
@@ -548,6 +626,9 @@ export type UserUncheckedCreateWithoutCrafterProfileInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
 }
 
 export type UserCreateOrConnectWithoutCrafterProfileInput = {
@@ -577,6 +658,9 @@ export type UserUpdateWithoutCrafterProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCrafterProfileInput = {
@@ -590,8 +674,298 @@ export type UserUncheckedUpdateWithoutCrafterProfileInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
 }
 
+export type UserCreateWithoutOrdersInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
+}
+
+export type UserUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
+}
+
+export type UserCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+}
+
+export type UserUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
+}
+
+export type UserCreateWithoutMessageThreadsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
+}
+
+export type UserUncheckedCreateWithoutMessageThreadsInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+}
+
+export type UserCreateOrConnectWithoutMessageThreadsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageThreadsInput, Prisma.UserUncheckedCreateWithoutMessageThreadsInput>
+}
+
+export type UserUpsertWithoutMessageThreadsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessageThreadsInput, Prisma.UserUncheckedUpdateWithoutMessageThreadsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageThreadsInput, Prisma.UserUncheckedCreateWithoutMessageThreadsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessageThreadsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessageThreadsInput, Prisma.UserUncheckedUpdateWithoutMessageThreadsInput>
+}
+
+export type UserUpdateWithoutMessageThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessageThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+}
+
+export type UserCreateWithoutMessagesSentInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
+}
+
+export type UserUncheckedCreateWithoutMessagesSentInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
+}
+
+export type UserCreateOrConnectWithoutMessagesSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+}
+
+export type UserUpsertWithoutMessagesSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  orders: number
+  messagesSent: number
+  messageThreads: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  orders?: boolean | UserCountOutputTypeCountOrdersArgs
+  messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
+  messageThreads?: boolean | UserCountOutputTypeCountMessageThreadsArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessageThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageThreadWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -606,6 +980,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
   crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  messageThreads?: boolean | Prisma.User$messageThreadsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -648,6 +1026,10 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
   crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  messageThreads?: boolean | Prisma.User$messageThreadsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -657,6 +1039,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     crafterApplication: Prisma.$CrafterApplicationPayload<ExtArgs> | null
     crafterProfile: Prisma.$CrafterProfilePayload<ExtArgs> | null
+    orders: Prisma.$OrderPayload<ExtArgs>[]
+    messagesSent: Prisma.$MessagePayload<ExtArgs>[]
+    messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1064,6 +1449,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   crafterApplication<T extends Prisma.User$crafterApplicationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterApplicationArgs<ExtArgs>>): Prisma.Prisma__CrafterApplicationClient<runtime.Types.Result.GetResult<Prisma.$CrafterApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   crafterProfile<T extends Prisma.User$crafterProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterProfileArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  orders<T extends Prisma.User$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messageThreads<T extends Prisma.User$messageThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1530,6 +1918,78 @@ export type User$crafterProfileArgs<ExtArgs extends runtime.Types.Extensions.Int
    */
   include?: Prisma.CrafterProfileInclude<ExtArgs> | null
   where?: Prisma.CrafterProfileWhereInput
+}
+
+/**
+ * User.orders
+ */
+export type User$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * User.messagesSent
+ */
+export type User$messagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Message
+   */
+  select?: Prisma.MessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Message
+   */
+  omit?: Prisma.MessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageInclude<ExtArgs> | null
+  where?: Prisma.MessageWhereInput
+  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
+  cursor?: Prisma.MessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
+}
+
+/**
+ * User.messageThreads
+ */
+export type User$messageThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageThread
+   */
+  select?: Prisma.MessageThreadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageThread
+   */
+  omit?: Prisma.MessageThreadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageThreadInclude<ExtArgs> | null
+  where?: Prisma.MessageThreadWhereInput
+  orderBy?: Prisma.MessageThreadOrderByWithRelationInput | Prisma.MessageThreadOrderByWithRelationInput[]
+  cursor?: Prisma.MessageThreadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageThreadScalarFieldEnum | Prisma.MessageThreadScalarFieldEnum[]
 }
 
 /**

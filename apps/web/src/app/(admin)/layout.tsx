@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/auth.store";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { LogOut, Users, LayoutDashboard, Settings } from "lucide-react";
+import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors } from "lucide-react";
 import { useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 
@@ -51,6 +51,17 @@ export default function AdminLayout({
         
         <nav className="flex-1 p-4 space-y-1">
           <Link 
+            href="/admin"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+              pathname === '/admin'
+                ? 'bg-white/20 text-white font-medium shadow-sm' 
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <LayoutDashboard className="w-4 h-4" />
+            Overview
+          </Link>
+          <Link 
             href="/admin/applications"
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
               pathname.includes('/applications') 
@@ -62,11 +73,26 @@ export default function AdminLayout({
             Applications
           </Link>
           <Link 
-            href="/admin"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+            href="/admin/categories"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+              pathname.includes('/categories') 
+                ? 'bg-white/20 text-white font-medium shadow-sm' 
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+            }`}
           >
-            <LayoutDashboard className="w-4 h-4" />
-            Overview
+            <Tag className="w-4 h-4" />
+            Categories
+          </Link>
+          <Link 
+            href="/admin/craft-types"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
+              pathname.includes('/craft-types') 
+                ? 'bg-white/20 text-white font-medium shadow-sm' 
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <Scissors className="w-4 h-4" />
+            Craft Types
           </Link>
           <Link 
             href="/admin"

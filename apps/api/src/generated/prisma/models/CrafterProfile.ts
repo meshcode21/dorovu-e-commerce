@@ -27,11 +27,13 @@ export type AggregateCrafterProfile = {
 }
 
 export type CrafterProfileAvgAggregateOutputType = {
+  commissionRate: number | null
   rating: number | null
   totalSales: number | null
 }
 
 export type CrafterProfileSumAggregateOutputType = {
+  commissionRate: number | null
   rating: number | null
   totalSales: number | null
 }
@@ -42,6 +44,8 @@ export type CrafterProfileMinAggregateOutputType = {
   storeName: string | null
   description: string | null
   craftType: string | null
+  isApproved: boolean | null
+  commissionRate: number | null
   rating: number | null
   totalSales: number | null
   createdAt: Date | null
@@ -54,6 +58,8 @@ export type CrafterProfileMaxAggregateOutputType = {
   storeName: string | null
   description: string | null
   craftType: string | null
+  isApproved: boolean | null
+  commissionRate: number | null
   rating: number | null
   totalSales: number | null
   createdAt: Date | null
@@ -66,6 +72,9 @@ export type CrafterProfileCountAggregateOutputType = {
   storeName: number
   description: number
   craftType: number
+  portfolioImages: number
+  isApproved: number
+  commissionRate: number
   rating: number
   totalSales: number
   createdAt: number
@@ -75,11 +84,13 @@ export type CrafterProfileCountAggregateOutputType = {
 
 
 export type CrafterProfileAvgAggregateInputType = {
+  commissionRate?: true
   rating?: true
   totalSales?: true
 }
 
 export type CrafterProfileSumAggregateInputType = {
+  commissionRate?: true
   rating?: true
   totalSales?: true
 }
@@ -90,6 +101,8 @@ export type CrafterProfileMinAggregateInputType = {
   storeName?: true
   description?: true
   craftType?: true
+  isApproved?: true
+  commissionRate?: true
   rating?: true
   totalSales?: true
   createdAt?: true
@@ -102,6 +115,8 @@ export type CrafterProfileMaxAggregateInputType = {
   storeName?: true
   description?: true
   craftType?: true
+  isApproved?: true
+  commissionRate?: true
   rating?: true
   totalSales?: true
   createdAt?: true
@@ -114,6 +129,9 @@ export type CrafterProfileCountAggregateInputType = {
   storeName?: true
   description?: true
   craftType?: true
+  portfolioImages?: true
+  isApproved?: true
+  commissionRate?: true
   rating?: true
   totalSales?: true
   createdAt?: true
@@ -213,6 +231,9 @@ export type CrafterProfileGroupByOutputType = {
   storeName: string
   description: string
   craftType: string
+  portfolioImages: string[]
+  isApproved: boolean
+  commissionRate: number
   rating: number
   totalSales: number
   createdAt: Date
@@ -248,11 +269,18 @@ export type CrafterProfileWhereInput = {
   storeName?: Prisma.StringFilter<"CrafterProfile"> | string
   description?: Prisma.StringFilter<"CrafterProfile"> | string
   craftType?: Prisma.StringFilter<"CrafterProfile"> | string
+  portfolioImages?: Prisma.StringNullableListFilter<"CrafterProfile">
+  isApproved?: Prisma.BoolFilter<"CrafterProfile"> | boolean
+  commissionRate?: Prisma.FloatFilter<"CrafterProfile"> | number
   rating?: Prisma.FloatFilter<"CrafterProfile"> | number
   totalSales?: Prisma.IntFilter<"CrafterProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"CrafterProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrafterProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
+  messageThreads?: Prisma.MessageThreadListRelationFilter
+  payouts?: Prisma.PayoutListRelationFilter
 }
 
 export type CrafterProfileOrderByWithRelationInput = {
@@ -261,11 +289,18 @@ export type CrafterProfileOrderByWithRelationInput = {
   storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   craftType?: Prisma.SortOrder
+  portfolioImages?: Prisma.SortOrder
+  isApproved?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
+  orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
+  messageThreads?: Prisma.MessageThreadOrderByRelationAggregateInput
+  payouts?: Prisma.PayoutOrderByRelationAggregateInput
 }
 
 export type CrafterProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -277,11 +312,18 @@ export type CrafterProfileWhereUniqueInput = Prisma.AtLeast<{
   storeName?: Prisma.StringFilter<"CrafterProfile"> | string
   description?: Prisma.StringFilter<"CrafterProfile"> | string
   craftType?: Prisma.StringFilter<"CrafterProfile"> | string
+  portfolioImages?: Prisma.StringNullableListFilter<"CrafterProfile">
+  isApproved?: Prisma.BoolFilter<"CrafterProfile"> | boolean
+  commissionRate?: Prisma.FloatFilter<"CrafterProfile"> | number
   rating?: Prisma.FloatFilter<"CrafterProfile"> | number
   totalSales?: Prisma.IntFilter<"CrafterProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"CrafterProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CrafterProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
+  messageThreads?: Prisma.MessageThreadListRelationFilter
+  payouts?: Prisma.PayoutListRelationFilter
 }, "id" | "userId">
 
 export type CrafterProfileOrderByWithAggregationInput = {
@@ -290,6 +332,9 @@ export type CrafterProfileOrderByWithAggregationInput = {
   storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   craftType?: Prisma.SortOrder
+  portfolioImages?: Prisma.SortOrder
+  isApproved?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -310,6 +355,9 @@ export type CrafterProfileScalarWhereWithAggregatesInput = {
   storeName?: Prisma.StringWithAggregatesFilter<"CrafterProfile"> | string
   description?: Prisma.StringWithAggregatesFilter<"CrafterProfile"> | string
   craftType?: Prisma.StringWithAggregatesFilter<"CrafterProfile"> | string
+  portfolioImages?: Prisma.StringNullableListFilter<"CrafterProfile">
+  isApproved?: Prisma.BoolWithAggregatesFilter<"CrafterProfile"> | boolean
+  commissionRate?: Prisma.FloatWithAggregatesFilter<"CrafterProfile"> | number
   rating?: Prisma.FloatWithAggregatesFilter<"CrafterProfile"> | number
   totalSales?: Prisma.IntWithAggregatesFilter<"CrafterProfile"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CrafterProfile"> | Date | string
@@ -321,11 +369,18 @@ export type CrafterProfileCreateInput = {
   storeName: string
   description: string
   craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
   rating?: number
   totalSales?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCrafterProfileInput
+  products?: Prisma.ProductCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCrafterInput
 }
 
 export type CrafterProfileUncheckedCreateInput = {
@@ -334,10 +389,17 @@ export type CrafterProfileUncheckedCreateInput = {
   storeName: string
   description: string
   craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
   rating?: number
   totalSales?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCrafterInput
 }
 
 export type CrafterProfileUpdateInput = {
@@ -345,11 +407,18 @@ export type CrafterProfileUpdateInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCrafterProfileNestedInput
+  products?: Prisma.ProductUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCrafterNestedInput
 }
 
 export type CrafterProfileUncheckedUpdateInput = {
@@ -358,10 +427,17 @@ export type CrafterProfileUncheckedUpdateInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCrafterNestedInput
 }
 
 export type CrafterProfileCreateManyInput = {
@@ -370,6 +446,9 @@ export type CrafterProfileCreateManyInput = {
   storeName: string
   description: string
   craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
   rating?: number
   totalSales?: number
   createdAt?: Date | string
@@ -381,6 +460,9 @@ export type CrafterProfileUpdateManyMutationInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -393,6 +475,9 @@ export type CrafterProfileUncheckedUpdateManyInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -404,12 +489,23 @@ export type CrafterProfileNullableScalarRelationFilter = {
   isNot?: Prisma.CrafterProfileWhereInput | null
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type CrafterProfileCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   craftType?: Prisma.SortOrder
+  portfolioImages?: Prisma.SortOrder
+  isApproved?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -417,6 +513,7 @@ export type CrafterProfileCountOrderByAggregateInput = {
 }
 
 export type CrafterProfileAvgOrderByAggregateInput = {
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
 }
@@ -427,6 +524,8 @@ export type CrafterProfileMaxOrderByAggregateInput = {
   storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   craftType?: Prisma.SortOrder
+  isApproved?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -439,6 +538,8 @@ export type CrafterProfileMinOrderByAggregateInput = {
   storeName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   craftType?: Prisma.SortOrder
+  isApproved?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -446,8 +547,14 @@ export type CrafterProfileMinOrderByAggregateInput = {
 }
 
 export type CrafterProfileSumOrderByAggregateInput = {
+  commissionRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalSales?: Prisma.SortOrder
+}
+
+export type CrafterProfileScalarRelationFilter = {
+  is?: Prisma.CrafterProfileWhereInput
+  isNot?: Prisma.CrafterProfileWhereInput
 }
 
 export type CrafterProfileCreateNestedOneWithoutUserInput = {
@@ -482,6 +589,19 @@ export type CrafterProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CrafterProfileUpdateToOneWithWhereWithoutUserInput, Prisma.CrafterProfileUpdateWithoutUserInput>, Prisma.CrafterProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type CrafterProfileCreateportfolioImagesInput = {
+  set: string[]
+}
+
+export type CrafterProfileUpdateportfolioImagesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type FloatFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -498,15 +618,78 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type CrafterProfileCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutProductsInput, Prisma.CrafterProfileUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutProductsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+}
+
+export type CrafterProfileUpdateOneRequiredWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutProductsInput, Prisma.CrafterProfileUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.CrafterProfileUpsertWithoutProductsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrafterProfileUpdateToOneWithWhereWithoutProductsInput, Prisma.CrafterProfileUpdateWithoutProductsInput>, Prisma.CrafterProfileUncheckedUpdateWithoutProductsInput>
+}
+
+export type CrafterProfileCreateNestedOneWithoutOrderItemsInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutOrderItemsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+}
+
+export type CrafterProfileUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutOrderItemsInput
+  upsert?: Prisma.CrafterProfileUpsertWithoutOrderItemsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrafterProfileUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.CrafterProfileUpdateWithoutOrderItemsInput>, Prisma.CrafterProfileUncheckedUpdateWithoutOrderItemsInput>
+}
+
+export type CrafterProfileCreateNestedOneWithoutMessageThreadsInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedCreateWithoutMessageThreadsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutMessageThreadsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+}
+
+export type CrafterProfileUpdateOneRequiredWithoutMessageThreadsNestedInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedCreateWithoutMessageThreadsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutMessageThreadsInput
+  upsert?: Prisma.CrafterProfileUpsertWithoutMessageThreadsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrafterProfileUpdateToOneWithWhereWithoutMessageThreadsInput, Prisma.CrafterProfileUpdateWithoutMessageThreadsInput>, Prisma.CrafterProfileUncheckedUpdateWithoutMessageThreadsInput>
+}
+
+export type CrafterProfileCreateNestedOneWithoutPayoutsInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedCreateWithoutPayoutsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutPayoutsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+}
+
+export type CrafterProfileUpdateOneRequiredWithoutPayoutsNestedInput = {
+  create?: Prisma.XOR<Prisma.CrafterProfileCreateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedCreateWithoutPayoutsInput>
+  connectOrCreate?: Prisma.CrafterProfileCreateOrConnectWithoutPayoutsInput
+  upsert?: Prisma.CrafterProfileUpsertWithoutPayoutsInput
+  connect?: Prisma.CrafterProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CrafterProfileUpdateToOneWithWhereWithoutPayoutsInput, Prisma.CrafterProfileUpdateWithoutPayoutsInput>, Prisma.CrafterProfileUncheckedUpdateWithoutPayoutsInput>
+}
+
 export type CrafterProfileCreateWithoutUserInput = {
   id?: string
   storeName: string
   description: string
   craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
   rating?: number
   totalSales?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCrafterInput
 }
 
 export type CrafterProfileUncheckedCreateWithoutUserInput = {
@@ -514,10 +697,17 @@ export type CrafterProfileUncheckedCreateWithoutUserInput = {
   storeName: string
   description: string
   craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
   rating?: number
   totalSales?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCrafterInput
 }
 
 export type CrafterProfileCreateOrConnectWithoutUserInput = {
@@ -541,10 +731,17 @@ export type CrafterProfileUpdateWithoutUserInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCrafterNestedInput
 }
 
 export type CrafterProfileUncheckedUpdateWithoutUserInput = {
@@ -552,12 +749,427 @@ export type CrafterProfileUncheckedUpdateWithoutUserInput = {
   storeName?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSales?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCrafterNestedInput
 }
 
+export type CrafterProfileCreateWithoutProductsInput = {
+  id?: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCrafterProfileInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileUncheckedCreateWithoutProductsInput = {
+  id?: string
+  userId: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileCreateOrConnectWithoutProductsInput = {
+  where: Prisma.CrafterProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutProductsInput, Prisma.CrafterProfileUncheckedCreateWithoutProductsInput>
+}
+
+export type CrafterProfileUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutProductsInput, Prisma.CrafterProfileUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutProductsInput, Prisma.CrafterProfileUncheckedCreateWithoutProductsInput>
+  where?: Prisma.CrafterProfileWhereInput
+}
+
+export type CrafterProfileUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.CrafterProfileWhereInput
+  data: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutProductsInput, Prisma.CrafterProfileUncheckedUpdateWithoutProductsInput>
+}
+
+export type CrafterProfileUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCrafterProfileNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileCreateWithoutOrderItemsInput = {
+  id?: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCrafterProfileInput
+  products?: Prisma.ProductCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileUncheckedCreateWithoutOrderItemsInput = {
+  id?: string
+  userId: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileCreateOrConnectWithoutOrderItemsInput = {
+  where: Prisma.CrafterProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedCreateWithoutOrderItemsInput>
+}
+
+export type CrafterProfileUpsertWithoutOrderItemsInput = {
+  update: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedUpdateWithoutOrderItemsInput>
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedCreateWithoutOrderItemsInput>
+  where?: Prisma.CrafterProfileWhereInput
+}
+
+export type CrafterProfileUpdateToOneWithWhereWithoutOrderItemsInput = {
+  where?: Prisma.CrafterProfileWhereInput
+  data: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutOrderItemsInput, Prisma.CrafterProfileUncheckedUpdateWithoutOrderItemsInput>
+}
+
+export type CrafterProfileUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCrafterProfileNestedInput
+  products?: Prisma.ProductUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileUncheckedUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileCreateWithoutMessageThreadsInput = {
+  id?: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCrafterProfileInput
+  products?: Prisma.ProductCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileUncheckedCreateWithoutMessageThreadsInput = {
+  id?: string
+  userId: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutCrafterInput
+  payouts?: Prisma.PayoutUncheckedCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileCreateOrConnectWithoutMessageThreadsInput = {
+  where: Prisma.CrafterProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedCreateWithoutMessageThreadsInput>
+}
+
+export type CrafterProfileUpsertWithoutMessageThreadsInput = {
+  update: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedUpdateWithoutMessageThreadsInput>
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedCreateWithoutMessageThreadsInput>
+  where?: Prisma.CrafterProfileWhereInput
+}
+
+export type CrafterProfileUpdateToOneWithWhereWithoutMessageThreadsInput = {
+  where?: Prisma.CrafterProfileWhereInput
+  data: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutMessageThreadsInput, Prisma.CrafterProfileUncheckedUpdateWithoutMessageThreadsInput>
+}
+
+export type CrafterProfileUpdateWithoutMessageThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCrafterProfileNestedInput
+  products?: Prisma.ProductUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileUncheckedUpdateWithoutMessageThreadsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutCrafterNestedInput
+  payouts?: Prisma.PayoutUncheckedUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileCreateWithoutPayoutsInput = {
+  id?: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCrafterProfileInput
+  products?: Prisma.ProductCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileUncheckedCreateWithoutPayoutsInput = {
+  id?: string
+  userId: string
+  storeName: string
+  description: string
+  craftType: string
+  portfolioImages?: Prisma.CrafterProfileCreateportfolioImagesInput | string[]
+  isApproved?: boolean
+  commissionRate?: number
+  rating?: number
+  totalSales?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutCrafterInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutCrafterInput
+  messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutCrafterInput
+}
+
+export type CrafterProfileCreateOrConnectWithoutPayoutsInput = {
+  where: Prisma.CrafterProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedCreateWithoutPayoutsInput>
+}
+
+export type CrafterProfileUpsertWithoutPayoutsInput = {
+  update: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedUpdateWithoutPayoutsInput>
+  create: Prisma.XOR<Prisma.CrafterProfileCreateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedCreateWithoutPayoutsInput>
+  where?: Prisma.CrafterProfileWhereInput
+}
+
+export type CrafterProfileUpdateToOneWithWhereWithoutPayoutsInput = {
+  where?: Prisma.CrafterProfileWhereInput
+  data: Prisma.XOR<Prisma.CrafterProfileUpdateWithoutPayoutsInput, Prisma.CrafterProfileUncheckedUpdateWithoutPayoutsInput>
+}
+
+export type CrafterProfileUpdateWithoutPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCrafterProfileNestedInput
+  products?: Prisma.ProductUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUpdateManyWithoutCrafterNestedInput
+}
+
+export type CrafterProfileUncheckedUpdateWithoutPayoutsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  storeName?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  craftType?: Prisma.StringFieldUpdateOperationsInput | string
+  portfolioImages?: Prisma.CrafterProfileUpdateportfolioImagesInput | string[]
+  isApproved?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSales?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutCrafterNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutCrafterNestedInput
+  messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutCrafterNestedInput
+}
+
+
+/**
+ * Count Type CrafterProfileCountOutputType
+ */
+
+export type CrafterProfileCountOutputType = {
+  products: number
+  orderItems: number
+  messageThreads: number
+  payouts: number
+}
+
+export type CrafterProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  products?: boolean | CrafterProfileCountOutputTypeCountProductsArgs
+  orderItems?: boolean | CrafterProfileCountOutputTypeCountOrderItemsArgs
+  messageThreads?: boolean | CrafterProfileCountOutputTypeCountMessageThreadsArgs
+  payouts?: boolean | CrafterProfileCountOutputTypeCountPayoutsArgs
+}
+
+/**
+ * CrafterProfileCountOutputType without action
+ */
+export type CrafterProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrafterProfileCountOutputType
+   */
+  select?: Prisma.CrafterProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CrafterProfileCountOutputType without action
+ */
+export type CrafterProfileCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
+
+/**
+ * CrafterProfileCountOutputType without action
+ */
+export type CrafterProfileCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemWhereInput
+}
+
+/**
+ * CrafterProfileCountOutputType without action
+ */
+export type CrafterProfileCountOutputTypeCountMessageThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageThreadWhereInput
+}
+
+/**
+ * CrafterProfileCountOutputType without action
+ */
+export type CrafterProfileCountOutputTypeCountPayoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PayoutWhereInput
+}
 
 
 export type CrafterProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -566,11 +1178,19 @@ export type CrafterProfileSelect<ExtArgs extends runtime.Types.Extensions.Intern
   storeName?: boolean
   description?: boolean
   craftType?: boolean
+  portfolioImages?: boolean
+  isApproved?: boolean
+  commissionRate?: boolean
   rating?: boolean
   totalSales?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.CrafterProfile$productsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.CrafterProfile$orderItemsArgs<ExtArgs>
+  messageThreads?: boolean | Prisma.CrafterProfile$messageThreadsArgs<ExtArgs>
+  payouts?: boolean | Prisma.CrafterProfile$payoutsArgs<ExtArgs>
+  _count?: boolean | Prisma.CrafterProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["crafterProfile"]>
 
 export type CrafterProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -579,6 +1199,9 @@ export type CrafterProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   storeName?: boolean
   description?: boolean
   craftType?: boolean
+  portfolioImages?: boolean
+  isApproved?: boolean
+  commissionRate?: boolean
   rating?: boolean
   totalSales?: boolean
   createdAt?: boolean
@@ -592,6 +1215,9 @@ export type CrafterProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   storeName?: boolean
   description?: boolean
   craftType?: boolean
+  portfolioImages?: boolean
+  isApproved?: boolean
+  commissionRate?: boolean
   rating?: boolean
   totalSales?: boolean
   createdAt?: boolean
@@ -605,15 +1231,23 @@ export type CrafterProfileSelectScalar = {
   storeName?: boolean
   description?: boolean
   craftType?: boolean
+  portfolioImages?: boolean
+  isApproved?: boolean
+  commissionRate?: boolean
   rating?: boolean
   totalSales?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CrafterProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "storeName" | "description" | "craftType" | "rating" | "totalSales" | "createdAt" | "updatedAt", ExtArgs["result"]["crafterProfile"]>
+export type CrafterProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "storeName" | "description" | "craftType" | "portfolioImages" | "isApproved" | "commissionRate" | "rating" | "totalSales" | "createdAt" | "updatedAt", ExtArgs["result"]["crafterProfile"]>
 export type CrafterProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.CrafterProfile$productsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.CrafterProfile$orderItemsArgs<ExtArgs>
+  messageThreads?: boolean | Prisma.CrafterProfile$messageThreadsArgs<ExtArgs>
+  payouts?: boolean | Prisma.CrafterProfile$payoutsArgs<ExtArgs>
+  _count?: boolean | Prisma.CrafterProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CrafterProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -626,6 +1260,10 @@ export type $CrafterProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
   name: "CrafterProfile"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    products: Prisma.$ProductPayload<ExtArgs>[]
+    orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+    messageThreads: Prisma.$MessageThreadPayload<ExtArgs>[]
+    payouts: Prisma.$PayoutPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -633,6 +1271,9 @@ export type $CrafterProfilePayload<ExtArgs extends runtime.Types.Extensions.Inte
     storeName: string
     description: string
     craftType: string
+    portfolioImages: string[]
+    isApproved: boolean
+    commissionRate: number
     rating: number
     totalSales: number
     createdAt: Date
@@ -1032,6 +1673,10 @@ readonly fields: CrafterProfileFieldRefs;
 export interface Prisma__CrafterProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  products<T extends Prisma.CrafterProfile$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfile$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderItems<T extends Prisma.CrafterProfile$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfile$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messageThreads<T extends Prisma.CrafterProfile$messageThreadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfile$messageThreadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageThreadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payouts<T extends Prisma.CrafterProfile$payoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfile$payoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PayoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1066,6 +1711,9 @@ export interface CrafterProfileFieldRefs {
   readonly storeName: Prisma.FieldRef<"CrafterProfile", 'String'>
   readonly description: Prisma.FieldRef<"CrafterProfile", 'String'>
   readonly craftType: Prisma.FieldRef<"CrafterProfile", 'String'>
+  readonly portfolioImages: Prisma.FieldRef<"CrafterProfile", 'String[]'>
+  readonly isApproved: Prisma.FieldRef<"CrafterProfile", 'Boolean'>
+  readonly commissionRate: Prisma.FieldRef<"CrafterProfile", 'Float'>
   readonly rating: Prisma.FieldRef<"CrafterProfile", 'Float'>
   readonly totalSales: Prisma.FieldRef<"CrafterProfile", 'Int'>
   readonly createdAt: Prisma.FieldRef<"CrafterProfile", 'DateTime'>
@@ -1468,6 +2116,102 @@ export type CrafterProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many CrafterProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * CrafterProfile.products
+ */
+export type CrafterProfile$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * CrafterProfile.orderItems
+ */
+export type CrafterProfile$orderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderItem
+   */
+  select?: Prisma.OrderItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderItem
+   */
+  omit?: Prisma.OrderItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderItemInclude<ExtArgs> | null
+  where?: Prisma.OrderItemWhereInput
+  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
+}
+
+/**
+ * CrafterProfile.messageThreads
+ */
+export type CrafterProfile$messageThreadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageThread
+   */
+  select?: Prisma.MessageThreadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageThread
+   */
+  omit?: Prisma.MessageThreadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageThreadInclude<ExtArgs> | null
+  where?: Prisma.MessageThreadWhereInput
+  orderBy?: Prisma.MessageThreadOrderByWithRelationInput | Prisma.MessageThreadOrderByWithRelationInput[]
+  cursor?: Prisma.MessageThreadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageThreadScalarFieldEnum | Prisma.MessageThreadScalarFieldEnum[]
+}
+
+/**
+ * CrafterProfile.payouts
+ */
+export type CrafterProfile$payoutsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payout
+   */
+  select?: Prisma.PayoutSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payout
+   */
+  omit?: Prisma.PayoutOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PayoutInclude<ExtArgs> | null
+  where?: Prisma.PayoutWhereInput
+  orderBy?: Prisma.PayoutOrderByWithRelationInput | Prisma.PayoutOrderByWithRelationInput[]
+  cursor?: Prisma.PayoutWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PayoutScalarFieldEnum | Prisma.PayoutScalarFieldEnum[]
 }
 
 /**
