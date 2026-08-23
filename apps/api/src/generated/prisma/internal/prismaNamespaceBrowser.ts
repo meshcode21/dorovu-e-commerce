@@ -51,7 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  CrafterApplication: 'CrafterApplication',
+  CrafterProfile: 'CrafterProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -83,6 +85,35 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CrafterApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  craftType: 'craftType',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrafterApplicationScalarFieldEnum = (typeof CrafterApplicationScalarFieldEnum)[keyof typeof CrafterApplicationScalarFieldEnum]
+
+
+export const CrafterProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  craftType: 'craftType',
+  rating: 'rating',
+  totalSales: 'totalSales',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrafterProfileScalarFieldEnum = (typeof CrafterProfileScalarFieldEnum)[keyof typeof CrafterProfileScalarFieldEnum]
 
 
 export const SortOrder = {

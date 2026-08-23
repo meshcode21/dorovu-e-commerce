@@ -29,5 +29,43 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  crafterApplication CrafterApplication?
+  crafterProfile     CrafterProfile?
+
   @@map("users")
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model CrafterApplication {
+  id               String            @id @default(uuid())
+  userId           String            @unique
+  user             User              @relation(fields: [userId], references: [id])
+  storeName        String
+  description      String
+  craftType        String
+  status           ApplicationStatus @default(PENDING)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@map("crafter_applications")
+}
+
+model CrafterProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id])
+  storeName        String
+  description      String
+  craftType        String
+  rating           Float    @default(0)
+  totalSales       Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("crafter_profiles")
 }

@@ -214,6 +214,8 @@ export type UserWhereInput = {
   googleId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
+  crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -226,6 +228,8 @@ export type UserOrderByWithRelationInput = {
   googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  crafterApplication?: Prisma.CrafterApplicationOrderByWithRelationInput
+  crafterProfile?: Prisma.CrafterProfileOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -241,6 +245,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
+  crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -283,6 +289,8 @@ export type UserCreateInput = {
   googleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -295,6 +303,8 @@ export type UserUncheckedCreateInput = {
   googleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -307,6 +317,8 @@ export type UserUpdateInput = {
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -319,6 +331,8 @@ export type UserUncheckedUpdateInput = {
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -393,6 +407,11 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -409,6 +428,170 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutCrafterApplicationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterApplicationInput, Prisma.UserUncheckedCreateWithoutCrafterApplicationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterApplicationInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCrafterApplicationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterApplicationInput, Prisma.UserUncheckedCreateWithoutCrafterApplicationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterApplicationInput
+  upsert?: Prisma.UserUpsertWithoutCrafterApplicationInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterApplicationInput, Prisma.UserUpdateWithoutCrafterApplicationInput>, Prisma.UserUncheckedUpdateWithoutCrafterApplicationInput>
+}
+
+export type UserCreateNestedOneWithoutCrafterProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCrafterProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterProfileInput
+  upsert?: Prisma.UserUpsertWithoutCrafterProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterProfileInput, Prisma.UserUpdateWithoutCrafterProfileInput>, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
+}
+
+export type UserCreateWithoutCrafterApplicationInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCrafterApplicationInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCrafterApplicationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterApplicationInput, Prisma.UserUncheckedCreateWithoutCrafterApplicationInput>
+}
+
+export type UserUpsertWithoutCrafterApplicationInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCrafterApplicationInput, Prisma.UserUncheckedUpdateWithoutCrafterApplicationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterApplicationInput, Prisma.UserUncheckedCreateWithoutCrafterApplicationInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCrafterApplicationInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCrafterApplicationInput, Prisma.UserUncheckedUpdateWithoutCrafterApplicationInput>
+}
+
+export type UserUpdateWithoutCrafterApplicationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCrafterApplicationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCrafterProfileInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCrafterProfileInput = {
+  id?: string
+  email: string
+  password?: string | null
+  firstName: string
+  lastName: string
+  role?: $Enums.Role
+  googleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCrafterProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+}
+
+export type UserUpsertWithoutCrafterProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCrafterProfileInput, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCrafterProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCrafterProfileInput, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
+}
+
+export type UserUpdateWithoutCrafterProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCrafterProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
+}
+
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -421,6 +604,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   googleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
+  crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -460,10 +645,19 @@ export type UserSelectScalar = {
 }
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "role" | "googleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
+  crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    crafterApplication: Prisma.$CrafterApplicationPayload<ExtArgs> | null
+    crafterProfile: Prisma.$CrafterProfilePayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
@@ -868,6 +1062,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  crafterApplication<T extends Prisma.User$crafterApplicationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterApplicationArgs<ExtArgs>>): Prisma.Prisma__CrafterApplicationClient<runtime.Types.Result.GetResult<Prisma.$CrafterApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  crafterProfile<T extends Prisma.User$crafterProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterProfileArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -923,6 +1119,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -941,6 +1141,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -958,6 +1162,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -1007,6 +1215,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1054,6 +1266,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which Users to fetch.
    */
@@ -1103,6 +1319,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The data needed to create a User.
    */
   data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
@@ -1150,6 +1370,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1217,6 +1441,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1243,6 +1471,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1263,6 +1495,44 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.crafterApplication
+ */
+export type User$crafterApplicationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrafterApplication
+   */
+  select?: Prisma.CrafterApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrafterApplication
+   */
+  omit?: Prisma.CrafterApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrafterApplicationInclude<ExtArgs> | null
+  where?: Prisma.CrafterApplicationWhereInput
+}
+
+/**
+ * User.crafterProfile
+ */
+export type User$crafterProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CrafterProfile
+   */
+  select?: Prisma.CrafterProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CrafterProfile
+   */
+  omit?: Prisma.CrafterProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CrafterProfileInclude<ExtArgs> | null
+  where?: Prisma.CrafterProfileWhereInput
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1274,4 +1544,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

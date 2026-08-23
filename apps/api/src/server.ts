@@ -4,6 +4,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { errorHandler } from './middleware/error.middleware';
 import authRoutes from './routes/auth.routes';
+import crafterRoutes from './routes/crafter.routes';
+import adminRoutes from './routes/admin.routes';
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/crafters', crafterRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
 // Error Handling
 app.use(errorHandler);

@@ -9,19 +9,20 @@ Build in this exact order. Do not jump ahead.
 - [x] Prisma + PostgreSQL connected
 - [x] Shared package setup
 
-### Step 2 — Auth (In Progress)
-- [ ] POST /api/v1/auth/register
-- [ ] POST /api/v1/auth/login (httpOnly cookie JWT)
-- [ ] POST /api/v1/auth/logout
-- [ ] GET  /api/v1/auth/me
-- [ ] authenticate middleware
-- [ ] requireRole middleware
+### Step 2 — Auth (Completed) ✅
+- [x] POST /api/v1/auth/register
+- [x] POST /api/v1/auth/login (httpOnly cookie JWT)
+- [x] POST /api/v1/auth/logout
+- [x] GET  /api/v1/auth/me
+- [x] authenticate middleware
+- [x] requireRole middleware
+- [x] Google OAuth Integration
 
-### Step 3 — Crafter Onboarding
-- [ ] POST /api/v1/crafters/apply
-- [ ] GET  /api/v1/admin/applications (admin only)
-- [ ] PUT  /api/v1/admin/applications/:id/approve
-- [ ] PUT  /api/v1/admin/applications/:id/reject
+### Step 3 — Crafter Onboarding (Completed) ✅
+- [x] POST /api/v1/crafters/apply
+- [x] GET  /api/v1/admin/applications (admin only)
+- [x] PUT  /api/v1/admin/applications/:id/approve
+- [x] PUT  /api/v1/admin/applications/:id/reject
 
 ### Step 4 — Products
 - [ ] POST   /api/v1/products (crafter only)

@@ -46,3 +46,13 @@ export { Prisma }
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model CrafterApplication
+ * 
+ */
+export type CrafterApplication = Prisma.CrafterApplicationModel
+/**
+ * Model CrafterProfile
+ * 
+ */
+export type CrafterProfile = Prisma.CrafterProfileModel

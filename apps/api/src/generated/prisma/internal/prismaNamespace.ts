@@ -397,7 +397,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  CrafterApplication: 'CrafterApplication',
+  CrafterProfile: 'CrafterProfile'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -413,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "crafterApplication" | "crafterProfile"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -491,6 +493,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CrafterApplication: {
+      payload: Prisma.$CrafterApplicationPayload<ExtArgs>
+      fields: Prisma.CrafterApplicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrafterApplicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrafterApplicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        findFirst: {
+          args: Prisma.CrafterApplicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrafterApplicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        findMany: {
+          args: Prisma.CrafterApplicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>[]
+        }
+        create: {
+          args: Prisma.CrafterApplicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        createMany: {
+          args: Prisma.CrafterApplicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrafterApplicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>[]
+        }
+        delete: {
+          args: Prisma.CrafterApplicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        update: {
+          args: Prisma.CrafterApplicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CrafterApplicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrafterApplicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrafterApplicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CrafterApplicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterApplicationPayload>
+        }
+        aggregate: {
+          args: Prisma.CrafterApplicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrafterApplication>
+        }
+        groupBy: {
+          args: Prisma.CrafterApplicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrafterApplicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrafterApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrafterApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    CrafterProfile: {
+      payload: Prisma.$CrafterProfilePayload<ExtArgs>
+      fields: Prisma.CrafterProfileFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CrafterProfileFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CrafterProfileFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        findFirst: {
+          args: Prisma.CrafterProfileFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CrafterProfileFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        findMany: {
+          args: Prisma.CrafterProfileFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>[]
+        }
+        create: {
+          args: Prisma.CrafterProfileCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        createMany: {
+          args: Prisma.CrafterProfileCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CrafterProfileCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>[]
+        }
+        delete: {
+          args: Prisma.CrafterProfileDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        update: {
+          args: Prisma.CrafterProfileUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        deleteMany: {
+          args: Prisma.CrafterProfileDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CrafterProfileUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CrafterProfileUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>[]
+        }
+        upsert: {
+          args: Prisma.CrafterProfileUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CrafterProfilePayload>
+        }
+        aggregate: {
+          args: Prisma.CrafterProfileAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCrafterProfile>
+        }
+        groupBy: {
+          args: Prisma.CrafterProfileGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrafterProfileGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CrafterProfileCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CrafterProfileCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -543,6 +693,35 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CrafterApplicationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  craftType: 'craftType',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrafterApplicationScalarFieldEnum = (typeof CrafterApplicationScalarFieldEnum)[keyof typeof CrafterApplicationScalarFieldEnum]
+
+
+export const CrafterProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  storeName: 'storeName',
+  description: 'description',
+  craftType: 'craftType',
+  rating: 'rating',
+  totalSales: 'totalSales',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CrafterProfileScalarFieldEnum = (typeof CrafterProfileScalarFieldEnum)[keyof typeof CrafterProfileScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -614,6 +793,34 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ApplicationStatus'
+ */
+export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ApplicationStatus[]'
+ */
+export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -782,6 +989,8 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  crafterApplication?: Prisma.CrafterApplicationOmit
+  crafterProfile?: Prisma.CrafterProfileOmit
 }
 
 /* Types for Logging */

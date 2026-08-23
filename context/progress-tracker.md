@@ -32,10 +32,10 @@ Last updated: August 2026
   - `requireRole` middleware
 
 ### Crafter Onboarding
-- ⬜ Apply as crafter endpoint
-- ⬜ Admin list applications endpoint
-- ⬜ Admin approve application endpoint
-- ⬜ Admin reject application endpoint
+- [x] Apply as crafter endpoint
+- [x] Admin list applications endpoint
+- [x] Admin approve application endpoint
+- [x] Admin reject application endpoint
 
 ### Products
 - ⬜ Create product endpoint
