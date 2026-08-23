@@ -77,10 +77,11 @@ Last updated: August 2026
 - ✅ Protected route logic
 
 ### Public Pages
-- ⬜ Homepage
+- [x] Homepage
 - ⬜ Product search/browse page
 - ⬜ Product detail page
 - ⬜ Crafter shop page
+- [x] Crafter application page
 
 ### Buyer Pages
 - ⬜ Cart page
