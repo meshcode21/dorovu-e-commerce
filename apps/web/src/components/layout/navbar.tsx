@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck } from "lucide-react";
+import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck, Store } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { useLogout } from "@/hooks/use-auth";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -71,6 +71,17 @@ export function Navbar() {
                         <Link href="/admin/applications" className="flex items-center w-full p-3">
                           <ShieldCheck className="w-5 h-5 mr-3 text-ink-60 group-hover:text-forest" />
                           <span className="font-medium group-hover:text-forest">Admin Dashboard</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className="bg-sand my-1" />
+                    </>
+                  )}
+                  {user.role === "CRAFTER" && (
+                    <>
+                      <DropdownMenuItem className="p-0 cursor-pointer text-ink hover:bg-cream rounded-lg group">
+                        <Link href="/crafter" className="flex items-center w-full p-3">
+                          <Store className="w-5 h-5 mr-3 text-ink-60 group-hover:text-forest" />
+                          <span className="font-medium group-hover:text-forest">Crafter Dashboard</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator className="bg-sand my-1" />

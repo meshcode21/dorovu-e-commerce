@@ -93,7 +93,7 @@ Last updated: August 2026
 - ⬜ Wishlist page
 
 ### Crafter Dashboard
-- ⬜ Dashboard overview
+- [x] Dashboard overview
 - ⬜ Product manager
 - ⬜ Order manager
 - ⬜ Shop settings

@@ -57,7 +57,7 @@ Build in this exact order. Do not jump ahead.
 - [ ] Crafter shop page
 
 ### Step 9 — Frontend Crafter Dashboard
-- [ ] /dashboard overview
+- [x] /dashboard overview
 - [ ] /dashboard/products (CRUD)
 - [ ] /dashboard/orders
 
