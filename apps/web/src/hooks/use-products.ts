@@ -22,6 +22,8 @@ export interface Product {
   category: string;
   isCustomOrder: boolean;
   leadTime: number;
+  avgRating: number;
+  totalReviews: number;
   createdAt: string;
   updatedAt: string;
   variants: ProductVariant[];

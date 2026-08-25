@@ -19,11 +19,11 @@ import {
 function Logo() {
   return (
     <Link href="/" className="shrink-0 flex items-center">
-      <Image 
-        src="/dorovu_logo.png" 
-        alt="Dorovu Logo" 
-        width={140} 
-        height={40} 
+      <Image
+        src="/dorovu_logo.png"
+        alt="Dorovu Logo"
+        width={140}
+        height={40}
         className="object-contain"
       />
     </Link>
@@ -34,9 +34,9 @@ function SearchBox() {
   return (
     <div className="flex-1 max-w-xl mx-auto hidden md:flex items-center relative">
       <Search className="absolute left-3 w-4 h-4 text-muted-foreground" />
-      <input 
-        type="text" 
-        placeholder="Search for handmade crafts..." 
+      <input
+        type="text"
+        placeholder="Search for handmade crafts..."
         className="w-full h-10 pl-10 pr-4 rounded-full border border-border bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
       />
     </div>
@@ -78,28 +78,6 @@ function UserDropdown({ user, logout }: { user: any; logout: () => void }) {
           </span>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-64 p-2 bg-white border-border shadow-lg rounded-xl">
-          {user.role === "ADMIN" && (
-            <>
-              <DropdownMenuItem className="p-0 cursor-pointer text-foreground hover:bg-background rounded-lg group">
-                <Link href="/admin/applications" className="flex items-center w-full p-3">
-                  <ShieldCheck className="w-5 h-5 mr-3 text-muted-foreground group-hover:text-primary" />
-                  <span className="font-medium group-hover:text-primary">Admin Dashboard</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border my-1" />
-            </>
-          )}
-          {user.role === "CRAFTER" && (
-            <>
-              <DropdownMenuItem className="p-0 cursor-pointer text-foreground hover:bg-background rounded-lg group">
-                <Link href="/crafter" className="flex items-center w-full p-3">
-                  <Store className="w-5 h-5 mr-3 text-muted-foreground group-hover:text-primary" />
-                  <span className="font-medium group-hover:text-primary">Crafter Dashboard</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border my-1" />
-            </>
-          )}
           <DropdownMenuItem className="p-0 cursor-pointer text-foreground hover:bg-background rounded-lg group">
             <Link href="/profile" className="flex items-center w-full p-3">
               <UserCircle className="w-5 h-5 mr-3 text-muted-foreground group-hover:text-primary" />
@@ -131,7 +109,7 @@ function UserDropdown({ user, logout }: { user: any; logout: () => void }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator className="bg-border my-1" />
-          <DropdownMenuItem 
+          <DropdownMenuItem
             onClick={() => logout()}
             className="p-3 cursor-pointer text-destructive hover:bg-destructive/10 hover:text-destructive rounded-lg"
           >
@@ -153,9 +131,6 @@ export function NavbarPublic() {
         <Logo />
         <SearchBox />
         <div className="flex items-center gap-2 shrink-0">
-          <Link href="/apply" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
-            Start Selling
-          </Link>
           <CartButton />
           <AuthButtons />
         </div>
@@ -176,6 +151,7 @@ export function NavbarAdmin() {
           <Link href="/admin" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
             Admin Panel
           </Link>
+          <CartButton />
           {user && <UserDropdown user={user} logout={logout} />}
         </div>
       </div>
@@ -227,7 +203,7 @@ export function NavbarCrafter() {
 
 export function Navbar() {
   const user = useAuthStore((state) => state.user);
-  
+
   if (!user) return <NavbarPublic />;
   if (user.role === "ADMIN") return <NavbarAdmin />;
   if (user.role === "CRAFTER") return <NavbarCrafter />;

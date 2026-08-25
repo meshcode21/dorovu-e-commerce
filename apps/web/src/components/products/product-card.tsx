@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@/hooks/use-products';
 
@@ -34,12 +35,11 @@ export function ProductCard({ product }: ProductCardProps) {
           </p>
           <div className="mt-auto flex justify-between items-center pt-2">
             <span className="font-semibold text-primary">Rs. {priceToDisplay.toLocaleString()}</span>
-            <Button size="sm" variant="outline" className="h-8 rounded-full border-border hover:border-primary hover:text-primary" onClick={(e) => {
-              e.preventDefault(); // Prevent navigating to detail page when adding to cart
-              // TODO: Implement cart functionality
-            }}>
-              Add
-            </Button>
+            <div className="flex items-center gap-1 text-sm font-medium text-muted-foreground">
+              <Star className="w-4 h-4 fill-primary text-primary" />
+              <span>{product.avgRating?.toFixed(1) || '0.0'}</span>
+              <span className="text-xs">({product.totalReviews || 0})</span>
+            </div>
           </div>
         </div>
       </div>

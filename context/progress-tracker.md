@@ -47,11 +47,11 @@ Last updated: August 2026
 - [x] Categories & Craft Types admin endpoints
 
 ### Orders
-- ⬜ Create order endpoint
-- ⬜ List orders endpoint
-- ⬜ Get order detail endpoint
-- ⬜ Update order status endpoint
-- ⬜ Cancel order endpoint
+- [x] Create order endpoint
+- [x] List orders endpoint
+- [x] Get order detail endpoint
+- [x] Update order status endpoint
+- [x] Cancel order endpoint
 
 ### Payments
 - ⬜ eSewa initiate endpoint
@@ -104,8 +104,8 @@ Last updated: August 2026
 ## Database
 - ✅ PostgreSQL running locally
 - ✅ Prisma schema written (users, crafter_profiles, products)
-- ⬜ Full schema (orders, order_items, reviews, messages, payouts)
-- ⬜ Initial migration run
+- ✅ Full schema (orders, order_items, reviews, messages, payouts, avg_rating)
+- ✅ Initial migration run (db push)
 
 ---
 

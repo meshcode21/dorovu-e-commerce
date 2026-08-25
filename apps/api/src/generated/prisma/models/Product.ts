@@ -29,11 +29,15 @@ export type AggregateProduct = {
 export type ProductAvgAggregateOutputType = {
   price: number | null
   leadTime: number | null
+  avgRating: number | null
+  totalReviews: number | null
 }
 
 export type ProductSumAggregateOutputType = {
   price: number | null
   leadTime: number | null
+  avgRating: number | null
+  totalReviews: number | null
 }
 
 export type ProductMinAggregateOutputType = {
@@ -46,6 +50,8 @@ export type ProductMinAggregateOutputType = {
   category: string | null
   isCustomOrder: boolean | null
   leadTime: number | null
+  avgRating: number | null
+  totalReviews: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +66,8 @@ export type ProductMaxAggregateOutputType = {
   category: string | null
   isCustomOrder: boolean | null
   leadTime: number | null
+  avgRating: number | null
+  totalReviews: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -76,6 +84,8 @@ export type ProductCountAggregateOutputType = {
   category: number
   isCustomOrder: number
   leadTime: number
+  avgRating: number
+  totalReviews: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -85,11 +95,15 @@ export type ProductCountAggregateOutputType = {
 export type ProductAvgAggregateInputType = {
   price?: true
   leadTime?: true
+  avgRating?: true
+  totalReviews?: true
 }
 
 export type ProductSumAggregateInputType = {
   price?: true
   leadTime?: true
+  avgRating?: true
+  totalReviews?: true
 }
 
 export type ProductMinAggregateInputType = {
@@ -102,6 +116,8 @@ export type ProductMinAggregateInputType = {
   category?: true
   isCustomOrder?: true
   leadTime?: true
+  avgRating?: true
+  totalReviews?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -116,6 +132,8 @@ export type ProductMaxAggregateInputType = {
   category?: true
   isCustomOrder?: true
   leadTime?: true
+  avgRating?: true
+  totalReviews?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -132,6 +150,8 @@ export type ProductCountAggregateInputType = {
   category?: true
   isCustomOrder?: true
   leadTime?: true
+  avgRating?: true
+  totalReviews?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -235,6 +255,8 @@ export type ProductGroupByOutputType = {
   category: string
   isCustomOrder: boolean
   leadTime: number
+  avgRating: number
+  totalReviews: number
   createdAt: Date
   updatedAt: Date
   _count: ProductCountAggregateOutputType | null
@@ -274,6 +296,8 @@ export type ProductWhereInput = {
   category?: Prisma.StringFilter<"Product"> | string
   isCustomOrder?: Prisma.BoolFilter<"Product"> | boolean
   leadTime?: Prisma.IntFilter<"Product"> | number
+  avgRating?: Prisma.FloatFilter<"Product"> | number
+  totalReviews?: Prisma.IntFilter<"Product"> | number
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
@@ -292,6 +316,8 @@ export type ProductOrderByWithRelationInput = {
   category?: Prisma.SortOrder
   isCustomOrder?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   crafter?: Prisma.CrafterProfileOrderByWithRelationInput
@@ -313,6 +339,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   category?: Prisma.StringFilter<"Product"> | string
   isCustomOrder?: Prisma.BoolFilter<"Product"> | boolean
   leadTime?: Prisma.IntFilter<"Product"> | number
+  avgRating?: Prisma.FloatFilter<"Product"> | number
+  totalReviews?: Prisma.IntFilter<"Product"> | number
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
@@ -331,6 +359,8 @@ export type ProductOrderByWithAggregationInput = {
   category?: Prisma.SortOrder
   isCustomOrder?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
@@ -355,6 +385,8 @@ export type ProductScalarWhereWithAggregatesInput = {
   category?: Prisma.StringWithAggregatesFilter<"Product"> | string
   isCustomOrder?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   leadTime?: Prisma.IntWithAggregatesFilter<"Product"> | number
+  avgRating?: Prisma.FloatWithAggregatesFilter<"Product"> | number
+  totalReviews?: Prisma.IntWithAggregatesFilter<"Product"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
 }
@@ -370,6 +402,8 @@ export type ProductCreateInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   crafter: Prisma.CrafterProfileCreateNestedOneWithoutProductsInput
@@ -388,6 +422,8 @@ export type ProductUncheckedCreateInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   variants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutProductInput
@@ -404,6 +440,8 @@ export type ProductUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutProductsNestedInput
@@ -422,6 +460,8 @@ export type ProductUncheckedUpdateInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variants?: Prisma.ProductVariantUncheckedUpdateManyWithoutProductNestedInput
@@ -439,6 +479,8 @@ export type ProductCreateManyInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -454,6 +496,8 @@ export type ProductUpdateManyMutationInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -470,6 +514,8 @@ export type ProductUncheckedUpdateManyInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -496,6 +542,8 @@ export type ProductCountOrderByAggregateInput = {
   category?: Prisma.SortOrder
   isCustomOrder?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -503,6 +551,8 @@ export type ProductCountOrderByAggregateInput = {
 export type ProductAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
 }
 
 export type ProductMaxOrderByAggregateInput = {
@@ -515,6 +565,8 @@ export type ProductMaxOrderByAggregateInput = {
   category?: Prisma.SortOrder
   isCustomOrder?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -529,6 +581,8 @@ export type ProductMinOrderByAggregateInput = {
   category?: Prisma.SortOrder
   isCustomOrder?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -536,6 +590,8 @@ export type ProductMinOrderByAggregateInput = {
 export type ProductSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   leadTime?: Prisma.SortOrder
+  avgRating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
 }
 
 export type ProductScalarRelationFilter = {
@@ -628,6 +684,8 @@ export type ProductCreateWithoutCrafterInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   variants?: Prisma.ProductVariantCreateNestedManyWithoutProductInput
@@ -644,6 +702,8 @@ export type ProductUncheckedCreateWithoutCrafterInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   variants?: Prisma.ProductVariantUncheckedCreateNestedManyWithoutProductInput
@@ -690,6 +750,8 @@ export type ProductScalarWhereInput = {
   category?: Prisma.StringFilter<"Product"> | string
   isCustomOrder?: Prisma.BoolFilter<"Product"> | boolean
   leadTime?: Prisma.IntFilter<"Product"> | number
+  avgRating?: Prisma.FloatFilter<"Product"> | number
+  totalReviews?: Prisma.IntFilter<"Product"> | number
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
 }
@@ -705,6 +767,8 @@ export type ProductCreateWithoutVariantsInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   crafter: Prisma.CrafterProfileCreateNestedOneWithoutProductsInput
@@ -722,6 +786,8 @@ export type ProductUncheckedCreateWithoutVariantsInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -753,6 +819,8 @@ export type ProductUpdateWithoutVariantsInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutProductsNestedInput
@@ -770,6 +838,8 @@ export type ProductUncheckedUpdateWithoutVariantsInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -785,6 +855,8 @@ export type ProductCreateManyCrafterInput = {
   category: string
   isCustomOrder?: boolean
   leadTime?: number
+  avgRating?: number
+  totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -800,6 +872,8 @@ export type ProductUpdateWithoutCrafterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variants?: Prisma.ProductVariantUpdateManyWithoutProductNestedInput
@@ -816,6 +890,8 @@ export type ProductUncheckedUpdateWithoutCrafterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variants?: Prisma.ProductVariantUncheckedUpdateManyWithoutProductNestedInput
@@ -832,6 +908,8 @@ export type ProductUncheckedUpdateManyWithoutCrafterInput = {
   category?: Prisma.StringFieldUpdateOperationsInput | string
   isCustomOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
   leadTime?: Prisma.IntFieldUpdateOperationsInput | number
+  avgRating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -879,6 +957,8 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   category?: boolean
   isCustomOrder?: boolean
   leadTime?: boolean
+  avgRating?: boolean
+  totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
@@ -898,6 +978,8 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   category?: boolean
   isCustomOrder?: boolean
   leadTime?: boolean
+  avgRating?: boolean
+  totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
@@ -915,6 +997,8 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   category?: boolean
   isCustomOrder?: boolean
   leadTime?: boolean
+  avgRating?: boolean
+  totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
@@ -932,11 +1016,13 @@ export type ProductSelectScalar = {
   category?: boolean
   isCustomOrder?: boolean
   leadTime?: boolean
+  avgRating?: boolean
+  totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "crafterId" | "title" | "description" | "price" | "images" | "tags" | "craftType" | "category" | "isCustomOrder" | "leadTime" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "crafterId" | "title" | "description" | "price" | "images" | "tags" | "craftType" | "category" | "isCustomOrder" | "leadTime" | "avgRating" | "totalReviews" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
   variants?: boolean | Prisma.Product$variantsArgs<ExtArgs>
@@ -967,6 +1053,8 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     category: string
     isCustomOrder: boolean
     leadTime: number
+    avgRating: number
+    totalReviews: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["product"]>
@@ -1405,6 +1493,8 @@ export interface ProductFieldRefs {
   readonly category: Prisma.FieldRef<"Product", 'String'>
   readonly isCustomOrder: Prisma.FieldRef<"Product", 'Boolean'>
   readonly leadTime: Prisma.FieldRef<"Product", 'Int'>
+  readonly avgRating: Prisma.FieldRef<"Product", 'Float'>
+  readonly totalReviews: Prisma.FieldRef<"Product", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
 }

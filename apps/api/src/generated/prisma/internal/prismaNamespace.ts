@@ -1511,6 +1511,8 @@ export const ProductScalarFieldEnum = {
   category: 'category',
   isCustomOrder: 'isCustomOrder',
   leadTime: 'leadTime',
+  avgRating: 'avgRating',
+  totalReviews: 'totalReviews',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

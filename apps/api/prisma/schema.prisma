@@ -115,6 +115,8 @@ model Product {
   category      String
   isCustomOrder Boolean        @default(false)
   leadTime      Int            @default(3)
+  avgRating     Float          @default(0) @map("avg_rating")
+  totalReviews  Int            @default(0) @map("total_reviews")
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
