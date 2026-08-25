@@ -40,8 +40,8 @@ export default function ApplyPage() {
   return (
     <div className="max-w-4xl mx-auto py-16 px-4">
       <div className="mb-12 text-center">
-        <h1 className="font-display font-bold text-4xl text-ink mb-4">Become a Dorovu Crafter</h1>
-        <p className="text-ink-60 text-lg max-w-2xl mx-auto">
+        <h1 className="font-display font-bold text-4xl text-foreground mb-4">Become a Dorovu Crafter</h1>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
           Join our community of talented Nepali artisans and share your unique handcrafted creations with the world.
         </p>
       </div>
@@ -49,8 +49,8 @@ export default function ApplyPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-1 space-y-6">
           <div className="bg-sand/30 p-6 rounded-xl border border-sand">
-            <h3 className="font-semibold text-ink mb-2">Why sell with us?</h3>
-            <ul className="space-y-3 text-sm text-ink-60">
+            <h3 className="font-semibold text-foreground mb-2">Why sell with us?</h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-forest mt-0.5">•</span>
                 Reach thousands of buyers looking for authentic handmade goods.
@@ -77,15 +77,15 @@ export default function ApplyPage() {
                   placeholder="e.g. Himalayan Knits" 
                   {...register("storeName")} 
                 />
-                {errors.storeName && <p className="text-error text-sm">{errors.storeName.message}</p>}
-                <p className="text-xs text-ink-30">This will be your public shop name on Dorovu.</p>
+                {errors.storeName && <p className="text-destructive text-sm">{errors.storeName.message}</p>}
+                <p className="text-xs text-muted-foreground/50">This will be your public shop name on Dorovu.</p>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="craftType">Primary Craft Category</Label>
                 <select 
                   id="craftType"
-                  className="w-full h-10 px-3 rounded-lg border border-sand bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-forest/50"
+                  className="w-full h-10 px-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-forest/50"
                   {...register("craftType")}
                 >
                   <option value="">Select a category...</option>
@@ -96,7 +96,7 @@ export default function ApplyPage() {
                   <option value="TEXTILES">Textiles & Weaving</option>
                   <option value="OTHER">Other Handmade Art</option>
                 </select>
-                {errors.craftType && <p className="text-error text-sm">{errors.craftType.message}</p>}
+                {errors.craftType && <p className="text-destructive text-sm">{errors.craftType.message}</p>}
               </div>
 
               <div className="space-y-2">
@@ -104,10 +104,10 @@ export default function ApplyPage() {
                 <textarea 
                   id="description" 
                   placeholder="Tell us about what you make and the story behind your craft..."
-                  className="w-full min-h-[120px] p-3 rounded-lg border border-sand bg-white text-ink text-sm focus:outline-none focus:ring-2 focus:ring-forest/50 resize-y"
+                  className="w-full min-h-[120px] p-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-forest/50 resize-y"
                   {...register("description")} 
                 />
-                {errors.description && <p className="text-error text-sm">{errors.description.message}</p>}
+                {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
 
               <div className="pt-4">

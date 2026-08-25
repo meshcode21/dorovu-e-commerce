@@ -116,7 +116,7 @@ export default function CrafterLayout({
       {/* Main Content */}
       <main className="flex-1 min-w-0 overflow-y-auto">
         <header className="bg-white border-b border-sand h-16 flex items-center justify-between px-8 shadow-sm">
-          <h2 className="text-lg font-semibold text-ink font-display capitalize">
+          <h2 className="text-lg font-semibold text-foreground font-display capitalize">
             {pathname.split('/').pop() === 'crafter' ? 'Overview' : pathname.split('/').pop()}
           </h2>
           <Link href="/" className={buttonVariants({ variant: "outline", className: "border-forest-subtle text-forest hover:bg-forest/5" })}>

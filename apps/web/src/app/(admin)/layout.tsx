@@ -122,7 +122,7 @@ export default function AdminLayout({
       {/* Main Content */}
       <main className="flex-1 min-w-0 overflow-y-auto">
         <header className="bg-white border-b border-sand h-16 flex items-center px-8 shadow-sm">
-          <h2 className="text-lg font-semibold text-ink font-display">
+          <h2 className="text-lg font-semibold text-foreground font-display">
             {pathname.includes('/applications') ? 'Crafter Applications' : 'Dashboard'}
           </h2>
         </header>

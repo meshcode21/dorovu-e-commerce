@@ -47,4 +47,24 @@ export const CrafterService = {
       },
     });
   },
+
+  async getCrafterById(id: string) {
+    const crafter = await prisma.crafterProfile.findUnique({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
+
+    if (!crafter) {
+      throw new AppError(404, 'Crafter not found');
+    }
+
+    return crafter;
+  },
 };

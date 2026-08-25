@@ -30,15 +30,15 @@ export default function AdminCraftTypesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-display font-bold text-ink">Craft Types</h1>
-        <p className="text-ink-60 text-sm mt-1">Manage the specific crafting techniques crafters can select.</p>
+        <h1 className="text-2xl font-display font-bold text-foreground">Craft Types</h1>
+        <p className="text-muted-foreground text-sm mt-1">Manage the specific crafting techniques crafters can select.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Create Form */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl border border-sand p-6 shadow-sm sticky top-6">
-            <h2 className="text-lg font-medium text-ink mb-4">Add New Craft Type</h2>
+            <h2 className="text-lg font-medium text-foreground mb-4">Add New Craft Type</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Craft Type Name</Label>
@@ -81,7 +81,7 @@ export default function AdminCraftTypesPage() {
               </div>
             ) : craftTypes && craftTypes.length > 0 ? (
               <table className="w-full text-left text-sm">
-                <thead className="bg-sand/30 border-b border-sand text-ink-60 font-medium">
+                <thead className="bg-sand/30 border-b border-sand text-muted-foreground font-medium">
                   <tr>
                     <th className="px-6 py-4">Craft Type Name</th>
                     <th className="px-6 py-4">Description</th>
@@ -91,18 +91,18 @@ export default function AdminCraftTypesPage() {
                 <tbody className="divide-y divide-sand">
                   {craftTypes.map((type) => (
                     <tr key={type.id} className="hover:bg-sand/10 transition-colors">
-                      <td className="px-6 py-4 font-medium text-ink flex items-center gap-2">
+                      <td className="px-6 py-4 font-medium text-foreground flex items-center gap-2">
                         <Scissors className="w-4 h-4 text-forest" />
                         {type.name}
                       </td>
-                      <td className="px-6 py-4 text-ink-60">
-                        {type.description || <span className="italic text-ink-40">No description</span>}
+                      <td className="px-6 py-4 text-muted-foreground">
+                        {type.description || <span className="italic text-foreground-40">No description</span>}
                       </td>
                       <td className="px-6 py-4 text-right">
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="text-ink-60 hover:text-rose hover:bg-rose/10"
+                          className="text-muted-foreground hover:text-rose hover:bg-rose/10"
                           onClick={() => {
                             if (confirm(`Are you sure you want to delete the craft type "${type.name}"?`)) {
                               deleteCraftType(type.id);
@@ -117,7 +117,7 @@ export default function AdminCraftTypesPage() {
                 </tbody>
               </table>
             ) : (
-              <div className="p-12 text-center text-ink-60">
+              <div className="p-12 text-center text-muted-foreground">
                 No craft types found. Create one to get started.
               </div>
             )}

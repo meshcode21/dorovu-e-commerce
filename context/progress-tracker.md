@@ -77,11 +77,11 @@ Last updated: August 2026
 - ✅ Register page
 - ✅ Protected route logic
 
-### Public Pages
-- [x] Homepage
-- ⬜ Product search/browse page
-- ⬜ Product detail page
-- ⬜ Crafter shop page
+### Frontend Pages
+- [x] Homepage & Navigation
+- [x] Product search/filter page
+- [x] Product detail page
+- [x] Crafter shop page
 - [x] Crafter application page
 
 ### Admin Dashboard

@@ -25,8 +25,8 @@ export default function CrafterProductsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-display font-bold text-ink">Products</h1>
-          <p className="text-ink-60 text-sm mt-1">Manage your shop inventory</p>
+          <h1 className="text-2xl font-display font-bold text-foreground">Products</h1>
+          <p className="text-muted-foreground text-sm mt-1">Manage your shop inventory</p>
         </div>
         <Link 
           href="/crafter/products/new" 
@@ -41,7 +41,7 @@ export default function CrafterProductsPage() {
         {products && products.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-sand/30 border-b border-sand text-ink-60 font-medium">
+              <thead className="bg-sand/30 border-b border-sand text-muted-foreground font-medium">
                 <tr>
                   <th className="px-6 py-4">Product</th>
                   <th className="px-6 py-4">Category</th>
@@ -66,19 +66,19 @@ export default function CrafterProductsPage() {
                               className="object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-ink-40">
+                            <div className="w-full h-full flex items-center justify-center text-foreground-40">
                               <Package className="w-5 h-5" />
                             </div>
                           )}
                         </div>
                         <div>
-                          <p className="font-medium text-ink">{product.title}</p>
-                          <p className="text-xs text-ink-60 truncate max-w-[200px]">{product.description}</p>
+                          <p className="font-medium text-foreground">{product.title}</p>
+                          <p className="text-xs text-muted-foreground truncate max-w-[200px]">{product.description}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-ink-60 capitalize">{product.category}</td>
-                    <td className="px-6 py-4 font-medium text-ink">Rs. {product.price}</td>
+                    <td className="px-6 py-4 text-muted-foreground capitalize">{product.category}</td>
+                    <td className="px-6 py-4 font-medium text-foreground">Rs. {product.price}</td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                         totalStock > 10 ? 'bg-forest/10 text-forest' : 
@@ -89,13 +89,13 @@ export default function CrafterProductsPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Link href={`/crafter/products/${product.id}/edit`} className={buttonVariants({ variant: "ghost", size: "icon", className: "text-ink-60 hover:text-forest" })}>
+                        <Link href={`/crafter/products/${product.id}/edit`} className={buttonVariants({ variant: "ghost", size: "icon", className: "text-muted-foreground hover:text-forest" })}>
                           <Edit className="w-4 h-4" />
                         </Link>
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="text-ink-60 hover:text-rose hover:bg-rose/10"
+                          className="text-muted-foreground hover:text-rose hover:bg-rose/10"
                           onClick={() => {
                             if (confirm('Are you sure you want to delete this product?')) {
                               deleteProduct(product.id);
@@ -114,10 +114,10 @@ export default function CrafterProductsPage() {
         ) : (
           <div className="p-12 text-center">
             <div className="w-16 h-16 bg-sand rounded-full flex items-center justify-center mx-auto mb-4">
-              <Package className="w-8 h-8 text-ink-40" />
+              <Package className="w-8 h-8 text-foreground-40" />
             </div>
-            <h3 className="text-lg font-medium text-ink mb-1">No products yet</h3>
-            <p className="text-ink-60 mb-6">Get started by creating your first product.</p>
+            <h3 className="text-lg font-medium text-foreground mb-1">No products yet</h3>
+            <p className="text-muted-foreground mb-6">Get started by creating your first product.</p>
             <Link 
               href="/crafter/products/new" 
               className={buttonVariants({ variant: "outline" })}

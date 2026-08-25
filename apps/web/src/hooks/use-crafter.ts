@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import type { ApplyCrafterDTO } from '@dorovu/shared';
 import { useRouter } from 'next/navigation';
@@ -20,5 +20,16 @@ export const useApplyCrafter = () => {
       const message = error.response?.data?.message || 'Failed to submit application';
       toast.error(message);
     },
+  });
+};
+
+export const useCrafter = (id: string) => {
+  return useQuery({
+    queryKey: ['crafter', id],
+    queryFn: async () => {
+      const { data } = await api.get(`/crafters/${id}`);
+      return data.data; // the controller returns { success: true, data: crafter }
+    },
+    enabled: !!id,
   });
 };

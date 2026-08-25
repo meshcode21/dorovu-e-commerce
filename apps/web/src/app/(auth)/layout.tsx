@@ -11,7 +11,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
     redirect("/");
   }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cream p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8 flex flex-col items-center">
           <Image 
@@ -22,7 +22,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
             priority
             className="mb-4"
           />
-          <p className="font-sans text-base text-ink-60">Nepal's handmade crafts marketplace</p>
+          <p className="font-sans text-base text-muted-foreground">Nepal's handmade crafts marketplace</p>
         </div>
         <Card className="p-6 bg-white border-sand shadow-sm rounded-xl">
           {children}

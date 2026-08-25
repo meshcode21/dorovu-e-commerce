@@ -18,4 +18,18 @@ export const CrafterController = {
       next(error);
     }
   },
+
+  async getCrafterById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const crafter = await CrafterService.getCrafterById(id as string);
+      
+      res.json({
+        success: true,
+        data: crafter,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

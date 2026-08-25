@@ -39,3 +39,5 @@ yarn-error.log*
 
 # Uploads
 apps/api/public/uploads
+
+/apps/test/*

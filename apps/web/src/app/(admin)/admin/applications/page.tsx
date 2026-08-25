@@ -15,28 +15,28 @@ export default function ApplicationsPage() {
       <div className="flex items-center gap-2 mb-6 border-b border-sand pb-4">
         <Button 
           variant={filter === 'PENDING' ? 'default' : 'ghost'} 
-          className={filter === 'PENDING' ? 'bg-forest text-white' : 'text-ink-60'}
+          className={filter === 'PENDING' ? 'bg-forest text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('PENDING')}
         >
           Pending
         </Button>
         <Button 
           variant={filter === 'APPROVED' ? 'default' : 'ghost'} 
-          className={filter === 'APPROVED' ? 'bg-forest text-white' : 'text-ink-60'}
+          className={filter === 'APPROVED' ? 'bg-forest text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('APPROVED')}
         >
           Approved
         </Button>
         <Button 
           variant={filter === 'REJECTED' ? 'default' : 'ghost'} 
-          className={filter === 'REJECTED' ? 'bg-forest text-white' : 'text-ink-60'}
+          className={filter === 'REJECTED' ? 'bg-forest text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('REJECTED')}
         >
           Rejected
         </Button>
         <Button 
           variant={filter === undefined ? 'default' : 'ghost'} 
-          className={filter === undefined ? 'bg-forest text-white' : 'text-ink-60'}
+          className={filter === undefined ? 'bg-forest text-white' : 'text-muted-foreground'}
           onClick={() => setFilter(undefined)}
         >
           All
@@ -49,11 +49,11 @@ export default function ApplicationsPage() {
         </div>
       ) : applications?.length === 0 ? (
         <Card className="p-12 text-center bg-white border-sand shadow-sm">
-          <div className="w-16 h-16 bg-cream rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-forest-subtle" />
           </div>
-          <h3 className="text-xl font-display font-semibold text-ink mb-2">No applications found</h3>
-          <p className="text-ink-60">There are no {filter ? filter.toLowerCase() : ''} applications to review right now.</p>
+          <h3 className="text-xl font-display font-semibold text-foreground mb-2">No applications found</h3>
+          <p className="text-muted-foreground">There are no {filter ? filter.toLowerCase() : ''} applications to review right now.</p>
         </Card>
       ) : (
         <div className="grid gap-4">
@@ -77,22 +77,22 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
       <div className="flex-1 space-y-4">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="text-xl font-display font-semibold text-ink">{application.storeName}</h3>
-            <p className="text-sm text-ink-60 mt-1">Applicant: {application.user.firstName} {application.user.lastName} ({application.user.email})</p>
+            <h3 className="text-xl font-display font-semibold text-foreground">{application.storeName}</h3>
+            <p className="text-sm text-muted-foreground mt-1">Applicant: {application.user.firstName} {application.user.lastName} ({application.user.email})</p>
           </div>
           <StatusBadge status={application.status} />
         </div>
         
         <div>
-          <span className="inline-flex px-2 py-1 bg-sand/50 text-ink-60 rounded text-xs font-mono font-medium tracking-wide uppercase mb-3">
+          <span className="inline-flex px-2 py-1 bg-sand/50 text-muted-foreground rounded text-xs font-mono font-medium tracking-wide uppercase mb-3">
             {application.craftType}
           </span>
-          <p className="text-sm text-ink leading-relaxed bg-cream p-4 rounded-lg border border-sand whitespace-pre-wrap">
+          <p className="text-sm text-foreground leading-relaxed bg-background p-4 rounded-lg border border-sand whitespace-pre-wrap">
             {application.description}
           </p>
         </div>
         
-        <p className="text-xs text-ink-30">
+        <p className="text-xs text-muted-foreground/50">
           Applied on: {new Date(application.createdAt).toLocaleDateString()}
         </p>
       </div>
@@ -109,7 +109,7 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
           </Button>
           <Button 
             variant="outline"
-            className="border-error text-error hover:bg-error/10 w-full"
+            className="border-destructive text-destructive hover:bg-destructive/10 w-full"
             onClick={() => reject(application.id)}
             disabled={isApproving || isRejecting}
           >
@@ -132,13 +132,13 @@ function StatusBadge({ status }: { status: ApplicationStatus }) {
   }
   if (status === 'REJECTED') {
     return (
-      <span className="flex items-center gap-1.5 px-3 py-1 bg-error/10 text-error rounded-full text-xs font-semibold">
+      <span className="flex items-center gap-1.5 px-3 py-1 bg-destructive/10 text-destructive rounded-full text-xs font-semibold">
         <XCircle className="w-3.5 h-3.5" /> Rejected
       </span>
     );
   }
   return (
-    <span className="flex items-center gap-1.5 px-3 py-1 bg-ink-10 text-ink-60 rounded-full text-xs font-semibold">
+    <span className="flex items-center gap-1.5 px-3 py-1 bg-ink-10 text-muted-foreground rounded-full text-xs font-semibold">
       <Clock className="w-3.5 h-3.5" /> Pending
     </span>
   );

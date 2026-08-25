@@ -145,13 +145,13 @@ export default function EditProductPage() {
       <div className="flex items-center gap-4">
         <Link 
           href="/crafter/products" 
-          className={buttonVariants({ variant: "ghost", size: "icon", className: "text-ink-60 hover:text-ink" })}
+          className={buttonVariants({ variant: "ghost", size: "icon", className: "text-muted-foreground hover:text-foreground" })}
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-display font-bold text-ink">Edit Product</h1>
-          <p className="text-ink-60 text-sm mt-1">Update the details for your listing</p>
+          <h1 className="text-2xl font-display font-bold text-foreground">Edit Product</h1>
+          <p className="text-muted-foreground text-sm mt-1">Update the details for your listing</p>
         </div>
       </div>
 
@@ -162,7 +162,7 @@ export default function EditProductPage() {
           <div className="space-y-3">
             <div className="flex justify-between items-end">
               <Label>Product Images</Label>
-              <span className="text-xs text-ink-60">{imagePreviews.length} / 5 uploaded</span>
+              <span className="text-xs text-muted-foreground">{imagePreviews.length} / 5 uploaded</span>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -182,7 +182,7 @@ export default function EditProductPage() {
               {imagePreviews.length < 5 && (
                 <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center aspect-square border-2 border-sand border-dashed rounded-xl cursor-pointer bg-sand/10 hover:bg-sand/30 transition-colors">
                   <div className="flex flex-col items-center justify-center p-4 text-center">
-                    <ImageIcon className="w-6 h-6 text-ink-40 mb-2" />
+                    <ImageIcon className="w-6 h-6 text-foreground-40 mb-2" />
                     <span className="text-xs text-forest font-medium">Add Image</span>
                   </div>
                   <input 
@@ -254,7 +254,7 @@ export default function EditProductPage() {
           
           <div className="space-y-3 flex items-center">
             <input id="isCustomOrder" name="isCustomOrder" type="checkbox" defaultChecked={product.isCustomOrder} className="h-4 w-4 rounded border-gray-300 text-forest focus:ring-forest mr-2" />
-            <Label htmlFor="isCustomOrder" className="font-normal text-ink-60">Allow Custom Orders</Label>
+            <Label htmlFor="isCustomOrder" className="font-normal text-muted-foreground">Allow Custom Orders</Label>
           </div>
 
           <div className="space-y-3">
@@ -273,8 +273,8 @@ export default function EditProductPage() {
           <div className="border border-sand rounded-xl overflow-hidden">
             <div className="bg-sand/30 p-4 border-b border-sand flex justify-between items-center">
               <div>
-                <h3 className="font-medium text-ink">Product Variants</h3>
-                <p className="text-xs text-ink-60 mt-1">Add sizes, colors, or materials. At least one variant is required.</p>
+                <h3 className="font-medium text-foreground">Product Variants</h3>
+                <p className="text-xs text-muted-foreground mt-1">Add sizes, colors, or materials. At least one variant is required.</p>
               </div>
               <Button type="button" variant="outline" size="sm" onClick={addVariant} className="text-forest border-forest/20 hover:bg-forest/10">
                 <Plus className="w-4 h-4 mr-2" />

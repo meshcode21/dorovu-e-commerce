@@ -52,10 +52,10 @@ Build in this exact order. Do not jump ahead.
 - [ ] protected route middleware
 
 ### Step 8 — Frontend Core Pages
-- [ ] Homepage
-- [ ] Product listing/search page
-- [ ] Product detail page
-- [ ] Crafter shop page
+- [x] Homepage
+- [x] Product listing/search page
+- [x] Product detail page
+- [x] Crafter shop page
 
 ### Step 9 — Frontend Crafter Dashboard
 - [x] /dashboard overview

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type LoginDTO } from "@dorovu/shared";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { useLogin, useGoogleLogin } from "@/hooks/use-auth";
 import { GoogleLogin } from "@react-oauth/google";
@@ -28,12 +28,12 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h2 className="font-display font-semibold text-2xl text-ink mb-6 text-center">Welcome back</h2>
+      <h2 className="font-display font-semibold text-2xl text-foreground mb-6 text-center">Welcome back</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
-          {errors.email && <p className="text-error text-sm">{errors.email.message}</p>}
+          {errors.email && <p className="text-destructive text-sm">{errors.email.message}</p>}
         </div>
         
         <div className="space-y-2">
@@ -41,10 +41,10 @@ export default function LoginPage() {
             <Label htmlFor="password">Password</Label>
           </div>
           <Input id="password" type="password" {...register("password")} />
-          {errors.password && <p className="text-error text-sm">{errors.password.message}</p>}
+          {errors.password && <p className="text-destructive text-sm">{errors.password.message}</p>}
         </div>
 
-        <Button type="submit" className="w-full bg-forest hover:bg-forest/90 text-white" disabled={isPending}>
+        <Button type="submit" size={'lg'} className="w-full bg-primary hover:bg-primary/90 text-white" disabled={isPending}>
           {isPending ? "Signing in..." : "Sign in"}
         </Button>
       </form>
@@ -54,7 +54,7 @@ export default function LoginPage() {
           <div className="w-full border-t border-sand"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-white px-2 text-ink-60">Or continue with</span>
+          <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
 
@@ -71,9 +71,9 @@ export default function LoginPage() {
         />
       </div>
       
-      <div className="mt-6 text-center text-sm text-ink-60">
+      <div className="mt-6 text-center text-sm text-muted-foreground">
         Don't have an account?{" "}
-        <Link href="/register" className="text-forest hover:underline font-medium">
+        <Link href="/register" className="hover:underline">
           Create one
         </Link>
       </div>

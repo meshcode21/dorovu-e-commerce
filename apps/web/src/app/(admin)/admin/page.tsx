@@ -21,8 +21,8 @@ export default function AdminOverviewPage() {
               <Users className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-ink-60">Pending Applications</p>
-              <h3 className="text-2xl font-display font-bold text-ink">
+              <p className="text-sm font-medium text-muted-foreground">Pending Applications</p>
+              <h3 className="text-2xl font-display font-bold text-foreground">
                 {isLoading ? "-" : pendingCount}
               </h3>
             </div>
@@ -40,8 +40,8 @@ export default function AdminOverviewPage() {
               <Store className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-ink-60">Approved Crafters</p>
-              <h3 className="text-2xl font-display font-bold text-ink">
+              <p className="text-sm font-medium text-muted-foreground">Approved Crafters</p>
+              <h3 className="text-2xl font-display font-bold text-foreground">
                 {isLoading ? "-" : approvedCount}
               </h3>
             </div>
@@ -50,11 +50,11 @@ export default function AdminOverviewPage() {
 
         <Card className="p-6 bg-white border-sand shadow-sm">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-ink-10 text-ink-60 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-ink-10 text-muted-foreground rounded-xl flex items-center justify-center">
               <LayoutDashboard className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-ink-60">System Health</p>
+              <p className="text-sm font-medium text-muted-foreground">System Health</p>
               <h3 className="text-xl font-display font-bold text-forest">Online</h3>
             </div>
           </div>
@@ -62,8 +62,8 @@ export default function AdminOverviewPage() {
       </div>
 
       <div className="bg-white border border-sand rounded-xl p-8 text-center mt-12">
-        <h3 className="text-xl font-display font-semibold text-ink mb-2">Welcome to the Admin Dashboard</h3>
-        <p className="text-ink-60 max-w-md mx-auto mb-6">
+        <h3 className="text-xl font-display font-semibold text-foreground mb-2">Welcome to the Admin Dashboard</h3>
+        <p className="text-muted-foreground max-w-md mx-auto mb-6">
           From here you can manage all aspects of the Dorovu platform. Start by reviewing pending crafter applications.
         </p>
         <Link href="/admin/applications" className={buttonVariants({ className: "bg-forest text-white hover:bg-forest/90" })}>
