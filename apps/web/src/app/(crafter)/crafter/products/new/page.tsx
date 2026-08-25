@@ -20,14 +20,14 @@ export default function NewProductPage() {
   const { mutate: createProduct, isPending } = useCreateProduct();
   const { data: categories } = useCategories();
   const { data: craftTypes } = useCraftTypes();
-  
+
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  
+
   const [variants, setVariants] = useState<VariantInput[]>([
     { name: 'Default', stock: 0, priceAdjustment: 0 }
   ]);
-  
+
   const addVariant = () => {
     setVariants([...variants, { name: '', stock: 0, priceAdjustment: 0 }]);
   };
@@ -47,7 +47,7 @@ export default function NewProductPage() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files).slice(0, 5 - files.length); // Max 5 total
-      
+
       const newFiles = [...files, ...selectedFiles];
       setFiles(newFiles);
 
@@ -73,16 +73,16 @@ export default function NewProductPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     // The native input is uncontrolled, we need to inject the manually managed files
     formData.delete('images'); // Remove any default
     files.forEach(file => {
       formData.append('images', file);
     });
-    
+
     // Add variants to form data
     formData.append('variants', JSON.stringify(variants));
-    
+
     // Handle tags
     const tagsInput = formData.get('tags') as string;
     if (tagsInput && tagsInput.trim() !== '') {
@@ -102,8 +102,8 @@ export default function NewProductPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
-        <Link 
-          href="/crafter/products" 
+        <Link
+          href="/crafter/products"
           className={buttonVariants({ variant: "ghost", size: "icon", className: "text-muted-foreground hover:text-foreground" })}
         >
           <ArrowLeft className="w-5 h-5" />
@@ -116,38 +116,38 @@ export default function NewProductPage() {
 
       <div className="bg-white rounded-xl border border-sand p-6 shadow-sm">
         <form onSubmit={handleSubmit} className="space-y-8">
-          
+
           {/* Image Upload */}
           <div className="space-y-3">
             <div className="flex justify-between items-end">
               <Label>Product Images</Label>
               <span className="text-xs text-muted-foreground">{files.length} / 5 uploaded</span>
             </div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {imagePreviews.map((preview, idx) => (
                 <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-sand group">
                   <img src={preview} alt="Preview" className="w-full h-full object-cover" />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => removeImage(idx)}
-                    className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-rose"
+                    className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-secondary/80"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               ))}
-              
+
               {files.length < 5 && (
                 <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center aspect-square border-2 border-sand border-dashed rounded-xl cursor-pointer bg-sand/10 hover:bg-sand/30 transition-colors">
                   <div className="flex flex-col items-center justify-center p-4 text-center">
                     <ImageIcon className="w-6 h-6 text-foreground-40 mb-2" />
-                    <span className="text-xs text-forest font-medium">Add Image</span>
+                    <span className="text-xs text-primary font-medium">Add Image</span>
                   </div>
-                  <input 
-                    id="dropzone-file" 
-                    type="file" 
-                    className="hidden" 
+                  <input
+                    id="dropzone-file"
+                    type="file"
+                    className="hidden"
                     accept="image/jpeg, image/png, image/webp"
                     onChange={handleImageChange}
                     multiple
@@ -155,7 +155,7 @@ export default function NewProductPage() {
                 </label>
               )}
             </div>
-            {files.length === 0 && <p className="text-xs text-rose mt-1">At least one image is required.</p>}
+            {files.length === 0 && <p className="text-xs text-secondary/80 mt-1">At least one image is required.</p>}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,12 +163,12 @@ export default function NewProductPage() {
               <Label htmlFor="title">Product Title</Label>
               <Input id="title" name="title" placeholder="e.g. Handwoven Dhaka Scarf" required />
             </div>
-            
+
             <div className="space-y-3">
               <Label htmlFor="category">Category</Label>
-              <select 
-                id="category" 
-                name="category" 
+              <select
+                id="category"
+                name="category"
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
                 required
               >
@@ -181,9 +181,9 @@ export default function NewProductPage() {
 
             <div className="space-y-3">
               <Label htmlFor="craftType">Craft Type</Label>
-              <select 
-                id="craftType" 
-                name="craftType" 
+              <select
+                id="craftType"
+                name="craftType"
                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
                 required
               >
@@ -209,17 +209,17 @@ export default function NewProductPage() {
               <Input id="leadTime" name="leadTime" type="number" min="1" defaultValue="3" placeholder="e.g. 3" required />
             </div>
           </div>
-          
+
           <div className="space-y-3 flex items-center">
-            <input id="isCustomOrder" name="isCustomOrder" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-forest focus:ring-forest mr-2" />
+            <input id="isCustomOrder" name="isCustomOrder" type="checkbox" className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary mr-2" />
             <Label htmlFor="isCustomOrder" className="font-normal text-muted-foreground">Allow Custom Orders</Label>
           </div>
 
           <div className="space-y-3">
             <Label htmlFor="description">Description</Label>
-            <textarea 
-              id="description" 
-              name="description" 
+            <textarea
+              id="description"
+              name="description"
               className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
               placeholder="Describe your product, materials used, and the story behind it..."
               required
@@ -233,7 +233,7 @@ export default function NewProductPage() {
                 <h3 className="font-medium text-foreground">Product Variants</h3>
                 <p className="text-xs text-muted-foreground mt-1">Add sizes, colors, or materials. At least one variant is required.</p>
               </div>
-              <Button type="button" variant="outline" size="sm" onClick={addVariant} className="text-forest border-forest/20 hover:bg-forest/10">
+              <Button type="button" variant="outline" size="sm" onClick={addVariant} className="text-primary border-primary/20 hover:bg-primary/10">
                 <Plus className="w-4 h-4 mr-2" />
                 Add Variant
               </Button>
@@ -243,8 +243,8 @@ export default function NewProductPage() {
                 <div key={index} className="flex flex-col md:flex-row gap-4 items-end pb-4 border-b border-sand/50 last:border-0 last:pb-0">
                   <div className="flex-1 space-y-2">
                     <Label className="text-xs">Variant Name</Label>
-                    <Input 
-                      placeholder="e.g. Small, Red, Oak" 
+                    <Input
+                      placeholder="e.g. Small, Red, Oak"
                       value={variant.name}
                       onChange={(e) => updateVariant(index, 'name', e.target.value)}
                       required
@@ -252,8 +252,8 @@ export default function NewProductPage() {
                   </div>
                   <div className="w-full md:w-32 space-y-2">
                     <Label className="text-xs">Stock</Label>
-                    <Input 
-                      type="number" 
+                    <Input
+                      type="number"
                       min="0"
                       value={variant.stock}
                       onChange={(e) => updateVariant(index, 'stock', parseInt(e.target.value) || 0)}
@@ -262,20 +262,20 @@ export default function NewProductPage() {
                   </div>
                   <div className="w-full md:w-40 space-y-2">
                     <Label className="text-xs">Price Adjustment (Rs.)</Label>
-                    <Input 
-                      type="number" 
+                    <Input
+                      type="number"
                       placeholder="e.g. 200 or -50"
                       value={variant.priceAdjustment}
                       onChange={(e) => updateVariant(index, 'priceAdjustment', parseInt(e.target.value) || 0)}
                     />
                   </div>
                   {variants.length > 1 && (
-                    <Button 
-                      type="button" 
-                      variant="ghost" 
-                      size="icon" 
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
                       onClick={() => removeVariant(index)}
-                      className="text-rose hover:bg-rose/10 shrink-0"
+                      className="text-secondary/80 hover:bg-secondary/80/10 shrink-0"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -289,7 +289,7 @@ export default function NewProductPage() {
             <Link href="/crafter/products" className={buttonVariants({ variant: "outline" })}>
               Cancel
             </Link>
-            <Button type="submit" className="bg-forest text-white hover:bg-forest/90" disabled={isPending || files.length === 0}>
+            <Button type="submit" className="bg-primary text-white hover:bg-primary/90" disabled={isPending || files.length === 0}>
               {isPending ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>

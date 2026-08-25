@@ -11,14 +11,14 @@ export default function AdminCraftTypesPage() {
   const { data: craftTypes, isLoading } = useCraftTypes();
   const { mutate: createCraftType, isPending } = useCreateCraftType();
   const { mutate: deleteCraftType } = useDeleteCraftType();
-  
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
-    
+
     createCraftType({ name, description }, {
       onSuccess: () => {
         setName("");
@@ -42,25 +42,25 @@ export default function AdminCraftTypesPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Craft Type Name</Label>
-                <Input 
-                  id="name" 
+                <Input
+                  id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Woodworking, Pottery" 
-                  required 
+                  placeholder="e.g. Woodworking, Pottery"
+                  required
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="description">Description (Optional)</Label>
-                <textarea 
-                  id="description" 
+                <textarea
+                  id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
                   placeholder="Brief description of this craft type"
                 ></textarea>
               </div>
-              <Button type="submit" className="w-full bg-forest text-white hover:bg-forest/90" disabled={isPending || !name.trim()}>
+              <Button type="submit" className="w-full bg-primary text-white hover:bg-primary/90" disabled={isPending || !name.trim()}>
                 {isPending ? 'Adding...' : (
                   <>
                     <Plus className="w-4 h-4 mr-2" />
@@ -77,7 +77,7 @@ export default function AdminCraftTypesPage() {
           <div className="bg-white rounded-xl border border-sand overflow-hidden">
             {isLoading ? (
               <div className="flex justify-center items-center h-48">
-                <div className="w-8 h-8 border-4 border-forest border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : craftTypes && craftTypes.length > 0 ? (
               <table className="w-full text-left text-sm">
@@ -92,17 +92,17 @@ export default function AdminCraftTypesPage() {
                   {craftTypes.map((type) => (
                     <tr key={type.id} className="hover:bg-sand/10 transition-colors">
                       <td className="px-6 py-4 font-medium text-foreground flex items-center gap-2">
-                        <Scissors className="w-4 h-4 text-forest" />
+                        <Scissors className="w-4 h-4 text-primary" />
                         {type.name}
                       </td>
                       <td className="px-6 py-4 text-muted-foreground">
                         {type.description || <span className="italic text-foreground-40">No description</span>}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="text-muted-foreground hover:text-rose hover:bg-rose/10"
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-muted-foreground hover:text-secondary/80 hover:bg-secondary/80/10"
                           onClick={() => {
                             if (confirm(`Are you sure you want to delete the craft type "${type.name}"?`)) {
                               deleteCraftType(type.id);

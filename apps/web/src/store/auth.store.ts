@@ -6,6 +6,8 @@ interface User {
   role: 'BUYER' | 'CRAFTER' | 'ADMIN';
   firstName: string;
   lastName: string;
+  createdAt?: string;
+  googleId?: string | null;
 }
 
 interface AuthStore {

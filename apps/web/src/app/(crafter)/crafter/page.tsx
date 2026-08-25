@@ -16,9 +16,9 @@ export default function CrafterOverviewPage() {
           <h1 className="text-3xl font-display font-bold text-foreground">Welcome back, {user?.firstName}!</h1>
           <p className="text-muted-foreground mt-1">Here is what's happening with your shop today.</p>
         </div>
-        <Link 
-          href="/crafter/products/new" 
-          className={buttonVariants({ className: "bg-forest text-white hover:bg-forest/90 shadow-sm" })}
+        <Link
+          href="/crafter/products/new"
+          className={buttonVariants({ className: "bg-primary text-white hover:bg-primary/90 shadow-sm" })}
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Product
@@ -28,7 +28,7 @@ export default function CrafterOverviewPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="p-6 bg-white border-sand shadow-sm">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 bg-forest/10 text-forest rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
               <TrendingUp className="w-6 h-6" />
             </div>
             <div>
@@ -40,7 +40,7 @@ export default function CrafterOverviewPage() {
 
         <Card className="p-6 bg-white border-sand shadow-sm">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 bg-rose/10 text-rose rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-secondary/80/10 text-secondary/80 rounded-xl flex items-center justify-center">
               <ShoppingBag className="w-6 h-6" />
             </div>
             <div>
@@ -74,7 +74,7 @@ export default function CrafterOverviewPage() {
         <p className="text-muted-foreground max-w-md mx-auto mb-6">
           Your shop is empty! Start by adding your first handcrafted product to your catalog.
         </p>
-        <Link href="/crafter/products/new" className={buttonVariants({ className: "bg-forest text-white hover:bg-forest/90" })}>
+        <Link href="/crafter/products/new" className={buttonVariants({ className: "bg-primary text-white hover:bg-primary/90" })}>
           <Plus className="w-4 h-4 mr-2" /> Add Your First Product
         </Link>
       </div>

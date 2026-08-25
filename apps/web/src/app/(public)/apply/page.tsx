@@ -52,15 +52,15 @@ export default function ApplyPage() {
             <h3 className="font-semibold text-foreground mb-2">Why sell with us?</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
-                <span className="text-forest mt-0.5">•</span>
+                <span className="text-primary mt-0.5">•</span>
                 Reach thousands of buyers looking for authentic handmade goods.
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-forest mt-0.5">•</span>
+                <span className="text-primary mt-0.5">•</span>
                 Low commission rates designed to support independent creators.
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-forest mt-0.5">•</span>
+                <span className="text-primary mt-0.5">•</span>
                 Secure and reliable payment processing directly to your bank.
               </li>
             </ul>
@@ -72,10 +72,10 @@ export default function ApplyPage() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="storeName">Store Name</Label>
-                <Input 
-                  id="storeName" 
-                  placeholder="e.g. Himalayan Knits" 
-                  {...register("storeName")} 
+                <Input
+                  id="storeName"
+                  placeholder="e.g. Himalayan Knits"
+                  {...register("storeName")}
                 />
                 {errors.storeName && <p className="text-destructive text-sm">{errors.storeName.message}</p>}
                 <p className="text-xs text-muted-foreground/50">This will be your public shop name on Dorovu.</p>
@@ -83,9 +83,9 @@ export default function ApplyPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="craftType">Primary Craft Category</Label>
-                <select 
+                <select
                   id="craftType"
-                  className="w-full h-10 px-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-forest/50"
+                  className="w-full h-10 px-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   {...register("craftType")}
                 >
                   <option value="">Select a category...</option>
@@ -101,19 +101,19 @@ export default function ApplyPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="description">Store Description</Label>
-                <textarea 
-                  id="description" 
+                <textarea
+                  id="description"
                   placeholder="Tell us about what you make and the story behind your craft..."
-                  className="w-full min-h-[120px] p-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-forest/50 resize-y"
-                  {...register("description")} 
+                  className="w-full min-h-[120px] p-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 resize-y"
+                  {...register("description")}
                 />
                 {errors.description && <p className="text-destructive text-sm">{errors.description.message}</p>}
               </div>
 
               <div className="pt-4">
-                <Button 
-                  type="submit" 
-                  className="w-full sm:w-auto bg-forest hover:bg-forest/90 text-white px-8" 
+                <Button
+                  type="submit"
+                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white px-8"
                   disabled={isPending}
                 >
                   {isPending ? "Submitting Application..." : "Submit Application"}

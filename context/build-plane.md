@@ -46,10 +46,11 @@ Build in this exact order. Do not jump ahead.
 - [ ] GET  /api/v1/payments/esewa/verify (callback)
 
 ### Step 7 — Frontend Auth Pages
-- [ ] /login page
-- [ ] /register page
-- [ ] auth store (Zustand)
-- [ ] protected route middleware
+- [x] /login page
+- [x] /register page
+- [x] auth store (Zustand)
+- [x] protected route middleware
+- [x] /profile page and User CRUD
 
 ### Step 8 — Frontend Core Pages
 - [x] Homepage

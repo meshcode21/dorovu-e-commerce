@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Heart, Package } from "lucide-react";
 import { TrendingProducts } from "@/components/products/trending-products";
 
@@ -39,7 +39,7 @@ export default function Home() {
             </div>
           </div>
           <div className="hidden md:flex justify-center relative">
-            <div className="w-80 h-80 bg-secondary/20 rounded-full absolute -top-10 -right-10 blur-3xl"></div>
+            <div className="w-80 h-80 bg-secondary/30 rounded-full absolute -top-10 -right-10 blur-3xl"></div>
             <Image
               src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=800&auto=format&fit=crop"
               alt="Handmade crafts"

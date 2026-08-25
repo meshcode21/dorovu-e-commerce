@@ -13,30 +13,30 @@ export default function ApplicationsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-6 border-b border-sand pb-4">
-        <Button 
-          variant={filter === 'PENDING' ? 'default' : 'ghost'} 
-          className={filter === 'PENDING' ? 'bg-forest text-white' : 'text-muted-foreground'}
+        <Button
+          variant={filter === 'PENDING' ? 'default' : 'ghost'}
+          className={filter === 'PENDING' ? 'bg-primary text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('PENDING')}
         >
           Pending
         </Button>
-        <Button 
-          variant={filter === 'APPROVED' ? 'default' : 'ghost'} 
-          className={filter === 'APPROVED' ? 'bg-forest text-white' : 'text-muted-foreground'}
+        <Button
+          variant={filter === 'APPROVED' ? 'default' : 'ghost'}
+          className={filter === 'APPROVED' ? 'bg-primary text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('APPROVED')}
         >
           Approved
         </Button>
-        <Button 
-          variant={filter === 'REJECTED' ? 'default' : 'ghost'} 
-          className={filter === 'REJECTED' ? 'bg-forest text-white' : 'text-muted-foreground'}
+        <Button
+          variant={filter === 'REJECTED' ? 'default' : 'ghost'}
+          className={filter === 'REJECTED' ? 'bg-primary text-white' : 'text-muted-foreground'}
           onClick={() => setFilter('REJECTED')}
         >
           Rejected
         </Button>
-        <Button 
-          variant={filter === undefined ? 'default' : 'ghost'} 
-          className={filter === undefined ? 'bg-forest text-white' : 'text-muted-foreground'}
+        <Button
+          variant={filter === undefined ? 'default' : 'ghost'}
+          className={filter === undefined ? 'bg-primary text-white' : 'text-muted-foreground'}
           onClick={() => setFilter(undefined)}
         >
           All
@@ -45,12 +45,12 @@ export default function ApplicationsPage() {
 
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-forest" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
       ) : applications?.length === 0 ? (
         <Card className="p-12 text-center bg-white border-sand shadow-sm">
           <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle className="w-8 h-8 text-forest-subtle" />
+            <CheckCircle className="w-8 h-8 text-primary-subtle" />
           </div>
           <h3 className="text-xl font-display font-semibold text-foreground mb-2">No applications found</h3>
           <p className="text-muted-foreground">There are no {filter ? filter.toLowerCase() : ''} applications to review right now.</p>
@@ -82,7 +82,7 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
           </div>
           <StatusBadge status={application.status} />
         </div>
-        
+
         <div>
           <span className="inline-flex px-2 py-1 bg-sand/50 text-muted-foreground rounded text-xs font-mono font-medium tracking-wide uppercase mb-3">
             {application.craftType}
@@ -91,7 +91,7 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
             {application.description}
           </p>
         </div>
-        
+
         <p className="text-xs text-muted-foreground/50">
           Applied on: {new Date(application.createdAt).toLocaleDateString()}
         </p>
@@ -99,15 +99,15 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
 
       {isPending && (
         <div className="flex md:flex-col gap-3 shrink-0 pt-2 border-t md:border-t-0 md:border-l border-sand md:pl-6 mt-4 md:mt-0 justify-center">
-          <Button 
-            className="bg-forest hover:bg-forest/90 text-white w-full shadow-sm"
+          <Button
+            className="bg-primary hover:bg-primary/90 text-white w-full shadow-sm"
             onClick={() => approve(application.id)}
             disabled={isApproving || isRejecting}
           >
             {isApproving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <CheckCircle className="w-4 h-4 mr-2" />}
             Approve
           </Button>
-          <Button 
+          <Button
             variant="outline"
             className="border-destructive text-destructive hover:bg-destructive/10 w-full"
             onClick={() => reject(application.id)}
@@ -125,7 +125,7 @@ function ApplicationCard({ application }: { application: CrafterApplication }) {
 function StatusBadge({ status }: { status: ApplicationStatus }) {
   if (status === 'APPROVED') {
     return (
-      <span className="flex items-center gap-1.5 px-3 py-1 bg-forest/10 text-forest rounded-full text-xs font-semibold">
+      <span className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">
         <CheckCircle className="w-3.5 h-3.5" /> Approved
       </span>
     );

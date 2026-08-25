@@ -9,14 +9,14 @@ import Image from "next/image";
 
 export default function CrafterProductsPage() {
   const user = useAuthStore((state) => state.user);
-  
+
   const { data: products, isLoading } = useProducts();
   const { mutate: deleteProduct } = useDeleteProduct();
-  
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="w-8 h-8 border-4 border-forest border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -28,9 +28,9 @@ export default function CrafterProductsPage() {
           <h1 className="text-2xl font-display font-bold text-foreground">Products</h1>
           <p className="text-muted-foreground text-sm mt-1">Manage your shop inventory</p>
         </div>
-        <Link 
-          href="/crafter/products/new" 
-          className={buttonVariants({ className: "bg-forest text-white hover:bg-forest/90" })}
+        <Link
+          href="/crafter/products/new"
+          className={buttonVariants({ className: "bg-primary text-white hover:bg-primary/90" })}
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Product
@@ -54,60 +54,60 @@ export default function CrafterProductsPage() {
                 {products.map((product) => {
                   const totalStock = product.variants?.reduce((sum, v) => sum + v.stock, 0) || 0;
                   return (
-                  <tr key={product.id} className="hover:bg-sand/10 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-sand rounded-lg overflow-hidden relative shrink-0">
-                          {product.images && product.images.length > 0 ? (
-                            <Image 
-                              src={product.images[0].startsWith('/') ? `http://localhost:3001${product.images[0]}` : product.images[0]} 
-                              alt={product.title}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-foreground-40">
-                              <Package className="w-5 h-5" />
-                            </div>
-                          )}
+                    <tr key={product.id} className="hover:bg-sand/10 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-sand rounded-lg overflow-hidden relative shrink-0">
+                            {product.images && product.images.length > 0 ? (
+                              <Image
+                                src={product.images[0].startsWith('/') ? `http://localhost:3001${product.images[0]}` : product.images[0]}
+                                alt={product.title}
+                                fill
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-foreground-40">
+                                <Package className="w-5 h-5" />
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium text-foreground">{product.title}</p>
+                            <p className="text-xs text-muted-foreground truncate max-w-[200px]">{product.description}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p className="font-medium text-foreground">{product.title}</p>
-                          <p className="text-xs text-muted-foreground truncate max-w-[200px]">{product.description}</p>
+                      </td>
+                      <td className="px-6 py-4 text-muted-foreground capitalize">{product.category}</td>
+                      <td className="px-6 py-4 font-medium text-foreground">Rs. {product.price}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${totalStock > 10 ? 'bg-primary/10 text-primary' :
+                          totalStock > 0 ? 'bg-amber-100 text-amber-700' : 'bg-secondary/80/10 text-secondary/80'
+                          }`}>
+                          {totalStock} in stock
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Link href={`/crafter/products/${product.id}/edit`} className={buttonVariants({ variant: "ghost", size: "icon", className: "text-muted-foreground hover:text-primary" })}>
+                            <Edit className="w-4 h-4" />
+                          </Link>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-muted-foreground hover:text-secondary/80 hover:bg-secondary/80/10"
+                            onClick={() => {
+                              if (confirm('Are you sure you want to delete this product?')) {
+                                deleteProduct(product.id);
+                              }
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-muted-foreground capitalize">{product.category}</td>
-                    <td className="px-6 py-4 font-medium text-foreground">Rs. {product.price}</td>
-                    <td className="px-6 py-4">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        totalStock > 10 ? 'bg-forest/10 text-forest' : 
-                        totalStock > 0 ? 'bg-amber-100 text-amber-700' : 'bg-rose/10 text-rose'
-                      }`}>
-                        {totalStock} in stock
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <Link href={`/crafter/products/${product.id}/edit`} className={buttonVariants({ variant: "ghost", size: "icon", className: "text-muted-foreground hover:text-forest" })}>
-                          <Edit className="w-4 h-4" />
-                        </Link>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="text-muted-foreground hover:text-rose hover:bg-rose/10"
-                          onClick={() => {
-                            if (confirm('Are you sure you want to delete this product?')) {
-                              deleteProduct(product.id);
-                            }
-                          }}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                )})}
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
@@ -118,8 +118,8 @@ export default function CrafterProductsPage() {
             </div>
             <h3 className="text-lg font-medium text-foreground mb-1">No products yet</h3>
             <p className="text-muted-foreground mb-6">Get started by creating your first product.</p>
-            <Link 
-              href="/crafter/products/new" 
+            <Link
+              href="/crafter/products/new"
               className={buttonVariants({ variant: "outline" })}
             >
               Add Product

@@ -59,8 +59,8 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Image Gallery */}
           <div className="bg-background relative aspect-square md:border-r border-border">
-            <Image 
-              src={primaryImage} 
+            <Image
+              src={primaryImage}
               alt={product.title}
               fill
               className="object-cover"
@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
               {product.title}
             </h1>
-            
+
             <Link href={`/crafters/${product.crafterId}`} className="inline-flex items-center text-muted-foreground hover:text-primary mb-6 transition-colors">
               <Store className="w-4 h-4 mr-2" />
               {product.crafter?.storeName || 'Artisan Shop'}
@@ -92,7 +92,7 @@ export default function ProductDetailPage() {
               Rs. {finalPrice.toLocaleString()}
             </div>
 
-            <div className="prose prose-sm text-muted-foreground mb-8 max-w-none">
+            <div className="psecondary/80 psecondary/80-sm text-muted-foreground mb-8 max-w-none">
               <p>{product.description}</p>
             </div>
 
@@ -105,13 +105,12 @@ export default function ProductDetailPage() {
                     <button
                       key={variant.id}
                       onClick={() => setSelectedVariantId(variant.id)}
-                      className={`px-4 py-2 rounded-lg border text-sm transition-colors ${
-                        activeVariantId === variant.id 
-                          ? 'border-primary bg-primary/10 text-primary font-medium' 
-                          : 'border-border text-foreground hover:border-primary/50'
-                      }`}
+                      className={`px-4 py-2 rounded-lg border text-sm transition-colors ${activeVariantId === variant.id
+                        ? 'border-primary bg-primary/10 text-primary font-medium'
+                        : 'border-border text-foreground hover:border-primary/50'
+                        }`}
                     >
-                      {variant.name} 
+                      {variant.name}
                       {variant.priceAdjustment > 0 && ` (+Rs. ${variant.priceAdjustment})`}
                     </button>
                   ))}
@@ -137,7 +136,7 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="mt-auto">
-              <Button 
+              <Button
                 className="w-full h-14 text-lg bg-primary hover:bg-primary/90 text-white rounded-xl font-medium shadow-md"
                 disabled={!activeVariant || activeVariant.stock === 0}
               >

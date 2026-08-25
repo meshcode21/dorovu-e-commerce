@@ -21,7 +21,7 @@ export default function AdminLayout({
 
   useEffect(() => {
     if (isLoading) return;
-    
+
     if (!user) {
       router.push("/login?redirect=/admin/applications");
     } else if (user.role !== "ADMIN") {
@@ -31,8 +31,8 @@ export default function AdminLayout({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-sand/20">
-        <div className="w-8 h-8 border-4 border-forest border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -40,61 +40,57 @@ export default function AdminLayout({
   if (!user || user.role !== "ADMIN") return null;
 
   return (
-    <div className="flex min-h-screen bg-sand/20">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
-      <aside className="w-64 bg-forest text-white flex flex-col shrink-0 sticky top-0 h-screen overflow-y-auto">
-        <div className="p-6 border-b border-forest-subtle">
+      <aside className="w-64 bg-primary text-white flex flex-col shrink-0 sticky top-0 h-screen overflow-y-auto">
+        <div className="p-6 border-b border-border">
           <Link href="/admin" className="font-display font-bold text-2xl tracking-tight text-white">
             Dorovu Admin
           </Link>
         </div>
-        
+
         <nav className="flex-1 p-4 space-y-1">
-          <Link 
+          <Link
             href="/admin"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-              pathname === '/admin'
-                ? 'bg-white/20 text-white font-medium shadow-sm' 
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
-            }`}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname === '/admin'
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
           >
             <LayoutDashboard className="w-4 h-4" />
             Overview
           </Link>
-          <Link 
+          <Link
             href="/admin/applications"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-              pathname.includes('/applications') 
-                ? 'bg-white/20 text-white font-medium shadow-sm' 
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
-            }`}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/applications')
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
           >
             <Users className="w-4 h-4" />
             Applications
           </Link>
-          <Link 
+          <Link
             href="/admin/categories"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-              pathname.includes('/categories') 
-                ? 'bg-white/20 text-white font-medium shadow-sm' 
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
-            }`}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/categories')
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
           >
             <Tag className="w-4 h-4" />
             Categories
           </Link>
-          <Link 
+          <Link
             href="/admin/craft-types"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-              pathname.includes('/craft-types') 
-                ? 'bg-white/20 text-white font-medium shadow-sm' 
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
-            }`}
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/craft-types')
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
           >
             <Scissors className="w-4 h-4" />
             Craft Types
           </Link>
-          <Link 
+          <Link
             href="/admin"
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"
           >
@@ -103,16 +99,16 @@ export default function AdminLayout({
           </Link>
         </nav>
 
-        <div className="p-4 border-t border-forest-subtle">
+        <div className="p-4 border-t border-border">
           <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-rose text-white flex items-center justify-center font-medium text-sm shrink-0">
+            <div className="w-8 h-8 rounded-full bg-secondary/80 text-white flex items-center justify-center font-medium text-sm shrink-0">
               {user.firstName[0]}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">{user.firstName} {user.lastName}</p>
               <p className="text-xs text-white/50 truncate">Administrator</p>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => logout()} className="text-white/50 hover:text-rose hover:bg-rose/10">
+            <Button variant="ghost" size="icon" onClick={() => logout()} className="text-white/50 hover:text-secondary/80 hover:bg-secondary/80/10">
               <LogOut className="w-4 h-4" />
             </Button>
           </div>
