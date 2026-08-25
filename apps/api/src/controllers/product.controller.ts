@@ -27,7 +27,7 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     const images: string[] = [];
     if (req.files && Array.isArray(req.files)) {
       req.files.forEach((file: Express.Multer.File) => {
-        images.push(`/uploads/${file.filename}`);
+        images.push(file.path);
       });
     }
 
@@ -180,7 +180,7 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
       // If we want to replace entirely when new files are sent:
       // images = [];
       req.files.forEach((file: Express.Multer.File) => {
-        images.push(`/uploads/${file.filename}`);
+        images.push(file.path);
       });
     }
 

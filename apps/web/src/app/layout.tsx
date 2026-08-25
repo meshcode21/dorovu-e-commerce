@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { Toaster } from "sonner";
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-display" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -27,6 +28,7 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>
               {children}
+              <Toaster position="top-right" richColors />
             </AuthProvider>
           </QueryProvider>
         </GoogleOAuthProvider>

@@ -25,13 +25,14 @@ Build in this exact order. Do not jump ahead.
 - [x] PUT  /api/v1/admin/applications/:id/reject
 - [x] Build Admin Panel UI for managing applications
 
-### Step 4 — Products
-- [ ] POST   /api/v1/products (crafter only)
-- [ ] GET    /api/v1/products (public, with search + filter)
-- [ ] GET    /api/v1/products/:id (public)
-- [ ] PUT    /api/v1/products/:id (crafter only, own product)
-- [ ] DELETE /api/v1/products/:id (crafter only, own product)
-- [ ] Image upload via Cloudinary
+### Step 4 — Products (Backend Completed)
+- [x] POST   /api/v1/products (crafter only)
+- [x] GET    /api/v1/products (public, with search + filter)
+- [x] GET    /api/v1/products/:id (public)
+- [x] PUT    /api/v1/products/:id (crafter only, own product)
+- [x] DELETE /api/v1/products/:id (crafter only, own product)
+- [x] Dynamic Categories & Craft Types (Admin panel & endpoints)
+- [x] Cloudinary image upload
 
 ### Step 5 — Cart + Orders
 - [ ] POST /api/v1/orders (create order from cart)
@@ -58,7 +59,7 @@ Build in this exact order. Do not jump ahead.
 
 ### Step 9 — Frontend Crafter Dashboard
 - [x] /dashboard overview
-- [ ] /dashboard/products (CRUD)
+- [x] /dashboard/products (CRUD)
 - [ ] /dashboard/orders
 
 ### Step 10 — Frontend Checkout

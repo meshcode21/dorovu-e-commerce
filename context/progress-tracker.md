@@ -38,12 +38,13 @@ Last updated: August 2026
 - [x] Admin reject application endpoint
 
 ### Products
-- ⬜ Create product endpoint
-- ⬜ List/search products endpoint
-- ⬜ Get single product endpoint
-- ⬜ Update product endpoint
-- ⬜ Delete product endpoint
-- ⬜ Cloudinary image upload
+- [x] Create product endpoint
+- [x] List/search products endpoint
+- [x] Get single product endpoint
+- [x] Update product endpoint
+- [x] Delete product endpoint
+- [x] Cloudinary image upload integration
+- [x] Categories & Craft Types admin endpoints
 
 ### Orders
 - ⬜ Create order endpoint
@@ -94,7 +95,7 @@ Last updated: August 2026
 
 ### Crafter Dashboard
 - [x] Dashboard overview
-- ⬜ Product manager
+- [x] Product manager
 - ⬜ Order manager
 - ⬜ Shop settings
 

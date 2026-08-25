@@ -89,9 +89,9 @@ export default function CrafterProductsPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button variant="ghost" size="icon" className="text-ink-60 hover:text-forest">
+                        <Link href={`/crafter/products/${product.id}/edit`} className={buttonVariants({ variant: "ghost", size: "icon", className: "text-ink-60 hover:text-forest" })}>
                           <Edit className="w-4 h-4" />
-                        </Button>
+                        </Link>
                         <Button 
                           variant="ghost" 
                           size="icon" 
