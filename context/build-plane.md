@@ -35,11 +35,11 @@ Build in this exact order. Do not jump ahead.
 - [x] Cloudinary image upload
 
 ### Step 5 — Cart + Orders
-- [ ] POST /api/v1/orders (create order from cart)
-- [ ] GET  /api/v1/orders (buyer: my orders, crafter: incoming)
-- [ ] GET  /api/v1/orders/:id
-- [ ] PUT  /api/v1/orders/:id/status (crafter updates)
-- [ ] POST /api/v1/orders/:id/cancel
+- [x] POST /api/v1/orders (create order from cart)
+- [x] GET  /api/v1/orders (buyer: my orders, crafter: incoming)
+- [x] GET  /api/v1/orders/:id
+- [x] PUT  /api/v1/orders/items/:itemId/status (crafter updates)
+- [x] POST /api/v1/orders/:id/cancel
 
 ### Step 6 — eSewa Payment
 - [ ] POST /api/v1/payments/esewa/initiate

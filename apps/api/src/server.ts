@@ -9,6 +9,7 @@ import adminRoutes from './routes/admin.routes';
 import productRoutes from './routes/product.routes';
 import categoryRoutes from './routes/category.routes';
 import craftTypeRoutes from './routes/craft-type.routes';
+import orderRoutes from './routes/order.routes';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/craft-types', craftTypeRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 // Error Handling
 app.use(errorHandler);
