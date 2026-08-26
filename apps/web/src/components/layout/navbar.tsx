@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck, Store, Tag, Scissors } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
+import { useCart } from "@/hooks/use-cart";
 import { useLogout } from "@/hooks/use-auth";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -44,11 +45,21 @@ function SearchBox() {
 }
 
 function CartButton() {
+  const user = useAuthStore((state) => state.user);
+  const { data: cart } = useCart(!!user);
+  const itemCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+
   return (
-    <Button variant="ghost" size="icon" className="text-foreground hover:text-primary relative">
-      <ShoppingCart className="w-5 h-5" />
-      <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full"></span>
-    </Button>
+    <Link href="/cart">
+      <Button variant="ghost" size="icon" className="text-foreground hover:text-primary relative">
+        <ShoppingCart className="w-5 h-5" />
+        {itemCount > 0 && (
+          <span className="absolute top-0 right-0 w-4 h-4 bg-primary text-white rounded-full flex items-center justify-center text-[10px] font-bold">
+            {itemCount}
+          </span>
+        )}
+      </Button>
+    </Link>
   );
 }
 
@@ -148,8 +159,8 @@ export function NavbarAdmin() {
         <Logo />
         <SearchBox />
         <div className="flex items-center gap-2 shrink-0">
-          <Link href="/admin" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
-            Admin Panel
+          <Link href="/dashboard" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
+            Admin Dashboard
           </Link>
           <CartButton />
           {user && <UserDropdown user={user} logout={logout} />}
@@ -188,6 +199,9 @@ export function NavbarCrafter() {
         <Logo />
         <SearchBox />
         <div className="flex items-center gap-2 shrink-0">
+          <Link href="/crafter/orders" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
+            Orders
+          </Link>
           <Link href="/crafter" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
             My Store
           </Link>

@@ -88,15 +88,15 @@ Last updated: August 2026
 - [x] Overview / Applications list
 
 ### Buyer Pages
-- ⬜ Cart page
-- ⬜ Checkout page
-- ⬜ Orders page
-- ⬜ Wishlist page
+- [x] Cart page
+- [x] Checkout page
+- [x] Orders page
+- ⬜ Wishlist page (Skipped for now)
 
 ### Crafter Dashboard
 - [x] Dashboard overview
 - [x] Product manager
-- ⬜ Order manager
+- [x] Order manager
 - ⬜ Shop settings
 
 ---
@@ -104,7 +104,7 @@ Last updated: August 2026
 ## Database
 - ✅ PostgreSQL running locally
 - ✅ Prisma schema written (users, crafter_profiles, products)
-- ✅ Full schema (orders, order_items, reviews, messages, payouts, avg_rating)
+- ✅ Full schema (orders, order_items, reviews, messages, payouts, avg_rating, cart, cart_items)
 - ✅ Initial migration run (db push)
 
 ---

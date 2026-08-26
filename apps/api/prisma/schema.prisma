@@ -33,6 +33,7 @@ model User {
   crafterProfile     CrafterProfile?
 
   orders         Order[] // As a buyer
+  cart           Cart?
   messagesSent   Message[]
   messageThreads MessageThread[] @relation("BuyerThreads")
 
@@ -136,8 +137,35 @@ model ProductVariant {
   updatedAt       DateTime @updatedAt
 
   orderItems OrderItem[]
+  cartItems  CartItem[]
 
   @@map("product_variants")
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  items     CartItem[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String         @id @default(uuid())
+  cartId    String
+  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  quantity  Int            @default(1)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@unique([cartId, variantId])
+  @@map("cart_items")
 }
 
 enum PaymentStatus {

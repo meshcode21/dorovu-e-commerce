@@ -61,11 +61,11 @@ Build in this exact order. Do not jump ahead.
 ### Step 9 — Frontend Crafter Dashboard
 - [x] /dashboard overview
 - [x] /dashboard/products (CRUD)
-- [ ] /dashboard/orders
+- [x] /crafter/orders
 
 ### Step 10 — Frontend Checkout
-- [ ] Cart page
-- [ ] Checkout flow
+- [x] Cart page
+- [x] Checkout flow
 - [ ] eSewa payment redirect
 
 ## Phase 2 — Core (After MVP)

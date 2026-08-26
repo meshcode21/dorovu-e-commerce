@@ -68,6 +68,12 @@ export const createOrder = async (req: Request, res: Response): Promise<void> =>
         }
       });
 
+      // Clear the user's cart
+      const cart = await tx.cart.findUnique({ where: { userId } });
+      if (cart) {
+        await tx.cartItem.deleteMany({ where: { cartId: cart.id } });
+      }
+
       return order;
     });
 
@@ -135,7 +141,7 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
             variant: {
               include: {
                 product: {
-                  select: { title: true, images: true, crafter: { select: { storeName: true } } }
+                  select: { id: true, title: true, images: true, crafter: { select: { storeName: true } } }
                 }
               }
             }
