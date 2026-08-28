@@ -230,7 +230,7 @@ users ↔ users    → message_threads → messages
 
 **`crafter_stores`** — Extended profile for crafters. Decoupled from the `User` auth object. Contains shop name, bio, craft types, portfolio images, approval status, commission rate. Linked 1:1 to users. Frontend fetches this via `useCrafterStore`.
 
-**`products`** — Items listed for sale. Belongs to a crafter. Has title, description, price, images (Cloudinary URLs), tags, craft type, category, custom order flag, lead time.
+**`products`** — Items listed for sale. Belongs to a crafter. Has title, description, price, images (Cloudinary URLs), tags, craft type, category, custom order flag, lead time, and `totalSales` (used for the trending products algorithm).
 
 **`product_variants`** — Variations of a product (colour, size). Each variant has its own stock count and optional price adjustment. One product can have many variants.
 

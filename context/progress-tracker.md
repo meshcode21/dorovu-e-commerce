@@ -105,7 +105,15 @@ Last updated: August 2026
 - ✅ PostgreSQL running locally
 - ✅ Prisma schema written (users, crafter_stores, products)
 - ✅ Full schema (orders, order_items, reviews, messages, payouts, avg_rating, cart, cart_items)
-- ✅ Initial migration run (db push)
+- ✅ Added `totalSales` to `products` schema for trending algorithms
+- ✅ Initial migrations run (db push)
+
+---
+
+## Recent Fixes & Features (August 2026)
+- ✅ Trending Products dynamically fetched using actual `totalSales`
+- ✅ Dynamic Notification Badges for pending orders (Crafter Navbar) using shadcn
+- ✅ Crafter Store page routing and UI overhaul (fully public and themed)
 
 ---
 
