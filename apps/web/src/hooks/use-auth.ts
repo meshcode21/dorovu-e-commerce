@@ -1,12 +1,41 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
-import { useAuthStore } from '@/store/auth.store';
 import { useRouter } from 'next/navigation';
 import type { LoginDTO, RegisterDTO } from '@dorovu/shared';
 
+export interface User {
+  id: string;
+  email: string;
+  role: 'BUYER' | 'CRAFTER' | 'ADMIN';
+  firstName: string;
+  lastName: string;
+  createdAt?: string;
+  googleId?: string | null;
+  crafterProfile?: {
+    id: string;
+    storeName: string;
+  };
+}
+
+export const useUser = () => {
+  return useQuery({
+    queryKey: ['auth-user'],
+    queryFn: async () => {
+      try {
+        const { data } = await api.get('/auth/me');
+        return data.user as User;
+      } catch (error) {
+        return null;
+      }
+    },
+    retry: false,
+    staleTime: Infinity, // The user object shouldn't go stale quickly. 
+  });
+};
+
 export const useLogin = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
+  const queryClient = useQueryClient();
   
   return useMutation({
     mutationFn: async (data: LoginDTO) => {
@@ -14,7 +43,7 @@ export const useLogin = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      setUser(data.user);
+      queryClient.setQueryData(['auth-user'], data.user);
       if (data.user.role === 'ADMIN') {
         router.push('/admin/applications');
       } else {
@@ -26,7 +55,7 @@ export const useLogin = () => {
 
 export const useGoogleLogin = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (idToken: string) => {
@@ -34,7 +63,7 @@ export const useGoogleLogin = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      setUser(data.user);
+      queryClient.setQueryData(['auth-user'], data.user);
       if (data.user.role === 'ADMIN') {
         router.push('/admin/applications');
       } else {
@@ -46,7 +75,7 @@ export const useGoogleLogin = () => {
 
 export const useRegister = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: RegisterDTO) => {
@@ -54,24 +83,24 @@ export const useRegister = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      setUser(data.user);
+      queryClient.setQueryData(['auth-user'], data.user);
       router.push('/');
     },
   });
 };
 
 export const useLogout = () => {
-  const logout = useAuthStore((state) => state.logout);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: async () => {
       await api.post('/auth/logout');
     },
     onSuccess: () => {
-      logout();
+      queryClient.setQueryData(['auth-user'], null);
       queryClient.clear();
-      window.location.href = '/login';
+      router.push('/login');
     },
   });
 };

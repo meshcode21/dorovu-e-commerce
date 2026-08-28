@@ -8,12 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useApplyCrafter } from "@/hooks/use-crafter";
-import { useAuthStore } from "@/store/auth.store";
+import { useUser } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function ApplyPage() {
-  const { user } = useAuthStore();
+  const { data: user } = useUser();
   const router = useRouter();
   const { mutate: apply, isPending } = useApplyCrafter();
 

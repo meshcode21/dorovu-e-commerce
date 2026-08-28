@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useProduct } from '@/hooks/use-products';
 import { useAddToCart } from '@/hooks/use-cart';
-import { useAuthStore } from '@/store/auth.store';
+import { useUser } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Store, Package, Clock, ShieldCheck } from 'lucide-react';
@@ -18,7 +18,7 @@ export default function ProductDetailPage() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { mutate: addToCart, isPending: isAdding } = useAddToCart();
 
   if (isLoading) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/store/auth.store";
+import { useUser } from "@/hooks/use-auth";
 import { useUpdateProfile } from "@/hooks/use-user";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { ShieldCheck, UserCircle, Calendar } from "lucide-react";
 
 export default function ProfilePage() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { mutate: updateProfile, isPending } = useUpdateProfile();
 
   const {

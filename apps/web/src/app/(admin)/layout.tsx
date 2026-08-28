@@ -1,11 +1,10 @@
 "use client";
 
-import { useAuthStore } from "@/store/auth.store";
+import { useUser, useLogout } from "@/hooks/use-auth";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors } from "lucide-react";
-import { useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 
 export default function AdminLayout({
@@ -13,8 +12,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = useAuthStore((state) => state.user);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const { data: user, isLoading } = useUser();
   const { mutate: logout } = useLogout();
   const router = useRouter();
   const pathname = usePathname();

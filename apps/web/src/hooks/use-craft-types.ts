@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { useAuthStore } from '../store/auth.store';
+import { api } from '@/lib/api';
+import { useUser } from './use-auth';
 import { toast } from 'sonner';
 
 export interface CraftType {
@@ -9,11 +9,6 @@ export interface CraftType {
   description: string | null;
   createdAt: string;
 }
-
-const api = axios.create({
-  baseURL: 'http://localhost:3001/api/v1',
-  withCredentials: true,
-});
 
 export const useCraftTypes = () => {
   return useQuery({
@@ -27,6 +22,7 @@ export const useCraftTypes = () => {
 
 export const useCreateCraftType = () => {
   const queryClient = useQueryClient();
+  const { data: user } = useUser();
 
   return useMutation({
     mutationFn: async (data: { name: string; description?: string }) => {

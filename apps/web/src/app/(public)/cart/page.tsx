@@ -3,12 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart, useUpdateCartItem, useRemoveCartItem, useClearCart } from '@/hooks/use-cart';
-import { useAuthStore } from '@/store/auth.store';
+import { useUser } from '@/hooks/use-auth';
 import { Button } from '@/components/ui/button';
 import { Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
 
 export default function CartPage() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { data: cart, isLoading } = useCart(!!user);
   const { mutate: updateQuantity } = useUpdateCartItem();
   const { mutate: removeItem } = useRemoveCartItem();

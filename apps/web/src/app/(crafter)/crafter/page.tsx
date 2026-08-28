@@ -4,10 +4,10 @@ import { Card } from "@/components/ui/card";
 import { Package, ShoppingBag, TrendingUp, Plus } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { useAuthStore } from "@/store/auth.store";
+import { useUser } from "@/hooks/use-auth";
 
 export default function CrafterOverviewPage() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
 
   return (
     <div className="space-y-6">

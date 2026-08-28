@@ -48,6 +48,18 @@ export const useProducts = (crafterId?: string, category?: string, search?: stri
   });
 };
 
+export const useCrafterProducts = (crafterId?: string) => {
+  return useQuery({
+    queryKey: ['products', 'crafter', crafterId],
+    queryFn: async () => {
+      if (!crafterId) return [];
+      const { data } = await api.get(`/products?crafterId=${crafterId}`);
+      return data.products as Product[];
+    },
+    enabled: !!crafterId,
+  });
+};
+
 export const useProduct = (id: string) => {
   return useQuery({
     queryKey: ['product', id],

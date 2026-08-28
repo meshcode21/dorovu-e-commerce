@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle, ShieldCheck, Store, Tag, Scissors } from "lucide-react";
-import { useAuthStore } from "@/store/auth.store";
+import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle } from "lucide-react";
+import { useUser, useLogout } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
-import { useLogout } from "@/hooks/use-auth";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -45,7 +44,7 @@ function SearchBox() {
 }
 
 function CartButton() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { data: cart } = useCart(!!user);
   const itemCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
@@ -151,7 +150,7 @@ export function NavbarPublic() {
 }
 
 export function NavbarAdmin() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { mutate: logout } = useLogout();
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -159,7 +158,7 @@ export function NavbarAdmin() {
         <Logo />
         <SearchBox />
         <div className="flex items-center gap-2 shrink-0">
-          <Link href="/dashboard" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
+          <Link href="/admin" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
             Admin Dashboard
           </Link>
           <CartButton />
@@ -171,7 +170,7 @@ export function NavbarAdmin() {
 }
 
 export function NavbarBuyer() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { mutate: logout } = useLogout();
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -191,7 +190,7 @@ export function NavbarBuyer() {
 }
 
 export function NavbarCrafter() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
   const { mutate: logout } = useLogout();
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
@@ -216,7 +215,7 @@ export function NavbarCrafter() {
 // --- MAIN EXPORT ---
 
 export function Navbar() {
-  const user = useAuthStore((state) => state.user);
+  const { data: user } = useUser();
 
   if (!user) return <NavbarPublic />;
   if (user.role === "ADMIN") return <NavbarAdmin />;
