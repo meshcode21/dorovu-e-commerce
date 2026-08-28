@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createProduct, getProducts, getProductById, updateProduct, deleteProduct } from '../controllers/product.controller';
+import { createProduct, getProducts, getTrendingProducts, getProductById, updateProduct, deleteProduct } from '../controllers/product.controller';
 import { authenticate, requireRole } from '../middleware/auth.middleware';
 import { upload } from '../middleware/upload.middleware';
 
@@ -7,6 +7,7 @@ const router = Router();
 
 // Public routes
 router.get('/', getProducts);
+router.get('/trending', getTrendingProducts);
 router.get('/:id', getProductById);
 
 // Protected crafter routes

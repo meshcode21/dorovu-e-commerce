@@ -46,4 +46,18 @@ export const CrafterController = {
       next(error);
     }
   },
+
+  async getTopCrafters(req: Request, res: Response, next: NextFunction) {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 4;
+      const stores = await CrafterService.getTopCrafters(limit);
+      
+      res.json({
+        success: true,
+        data: stores,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

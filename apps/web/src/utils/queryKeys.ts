@@ -5,9 +5,17 @@ export const queryKeys = {
   },
   products: {
     all: () => ['products'] as const,
-    list: (crafterId?: string, category?: string, search?: string) => ['products', crafterId, category, search] as const,
-    crafter: (crafterId?: string) => ['products', 'crafter', crafterId] as const,
-    detail: (id: string) => ['product', id] as const,
+    list: (crafterId?: string, category?: string, search?: string, limit?: number) => {
+      const parts = ['products', 'list'];
+      if (crafterId) parts.push(`crafter-${crafterId}`);
+      if (category) parts.push(`cat-${category}`);
+      if (search) parts.push(`search-${search}`);
+      if (limit) parts.push(`limit-${limit}`);
+      return parts as readonly string[];
+    },
+    detail: (id: string) => ['products', id] as const,
+    crafter: (id?: string) => ['products', 'crafter', id] as const,
+    trending: (limit?: number) => ['products', 'trending', limit] as const,
   },
   cart: {
     all: () => ['cart'] as const,
@@ -28,5 +36,6 @@ export const queryKeys = {
   },
   crafter: {
     profile: (id?: string) => ['crafter', id] as const,
+    top: () => ['crafter', 'top'] as const,
   },
 } as const;

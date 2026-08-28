@@ -1,0 +1,71 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useTopCrafters } from "@/hooks/use-crafter";
+import { Star, User } from "lucide-react";
+
+export const TopCrafters = () => {
+  const { data: crafters, isLoading } = useTopCrafters(4);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="animate-pulse bg-card rounded-xl border border-border p-6 flex flex-col items-center">
+            <div className="w-24 h-24 rounded-full bg-muted mb-4"></div>
+            <div className="h-5 bg-muted rounded w-2/3 mb-2"></div>
+            <div className="h-4 bg-muted rounded w-1/2"></div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (!crafters || crafters.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {crafters.map((store: any) => {
+        // Fallback to a placeholder avatar if no portfolio images exist
+        const avatarImage = store.portfolioImages && store.portfolioImages.length > 0
+          ? store.portfolioImages[0]
+          : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(store.storeName)}`;
+
+        return (
+          <Link href={`/shop/${store.id}`} key={store.id} className="group block">
+            <div className="bg-card rounded-xl border border-border p-6 flex flex-col items-center text-center transition-all hover:shadow-md hover:border-primary/20 h-full">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-background shadow-sm">
+                {/* <Image
+                  src={avatarImage}
+                  alt={store.storeName}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                /> */}
+                <User className="size-full"/>
+              </div>
+
+              <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1 mb-1">
+                {store.storeName}
+              </h3>
+
+              <p className="text-muted-foreground text-sm line-clamp-2 mb-3 h-10">
+                {store.description}
+              </p>
+
+              <div className="flex items-center gap-1 mt-auto">
+                <Star className="w-4 h-4 fill-primary text-primary" />
+                <span className="font-medium text-sm">{store.rating > 0 ? store.rating.toFixed(1) : "New"}</span>
+                {store.totalSales > 0 && (
+                  <span className="text-muted-foreground text-xs ml-1">({store.totalSales} sales)</span>
+                )}
+              </div>
+            </div>
+          </Link>
+        );
+      })}
+    </div>
+  );
+};

@@ -3,6 +3,10 @@ import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Heart, Package } from "lucide-react";
 import { TrendingProducts } from "@/components/products/trending-products";
+import { DynamicCategories } from "@/components/home/dynamic-categories";
+import { DynamicHeroImage } from "@/components/home/dynamic-hero-image";
+import { TopCrafters } from "@/components/home/top-crafters";
+import { RecentlyAddedProducts } from "@/components/products/recently-added-products";
 
 export default function Home() {
   return (
@@ -38,16 +42,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="hidden md:flex justify-center relative">
-            <div className="w-80 h-80 bg-secondary/30 rounded-full absolute -top-10 -right-10 blur-3xl"></div>
-            <Image
-              src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=800&auto=format&fit=crop"
-              alt="Handmade crafts"
-              width={500}
-              height={500}
-              className="rounded-2xl shadow-xl object-cover aspect-square z-10 relative"
-            />
-          </div>
+          <DynamicHeroImage />
         </div>
       </section>
 
@@ -90,32 +85,39 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { name: "Crochet", image: "https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=400&auto=format&fit=crop" },
-            { name: "Pottery", image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=400&auto=format&fit=crop" },
-            { name: "Jewelry", image: "https://images.unsplash.com/photo-1599643477873-ce830919fcd4?q=80&w=400&auto=format&fit=crop" },
-            { name: "Woodwork", image: "https://images.unsplash.com/photo-1611486212557-88be5ff6f941?q=80&w=400&auto=format&fit=crop" }
-          ].map((category) => (
-            <Link href={`/products?category=${category.name.toLowerCase()}`} key={category.name} className="group block">
-              <div className="relative aspect-square rounded-xl overflow-hidden mb-3 bg-muted">
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-colors">{category.name}</h3>
-            </Link>
-          ))}
+        <DynamicCategories />
+      </section>
+
+      {/* Recently Added Products */}
+      <section className="py-20 px-4 max-w-[1280px] mx-auto">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <h2 className="font-display text-3xl font-bold text-foreground mb-2">Fresh Finds</h2>
+            <p className="text-muted-foreground">The newest handcrafted arrivals</p>
+          </div>
+          <Link href="/products" className="text-primary font-medium flex items-center gap-1 hover:underline">
+            Shop All <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
+        <RecentlyAddedProducts />
       </section>
 
       {/* Trending Products */}
       <section className="py-20 px-4 max-w-[1280px] mx-auto border-t border-border">
         <h2 className="font-display text-3xl font-bold text-foreground mb-10 text-center">Trending Discoveries</h2>
         <TrendingProducts />
+      </section>
+
+      {/* Top Crafters */}
+      <section className="py-20 px-4 bg-muted/30 border-y border-border">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="flex flex-col items-center mb-10 text-center">
+            <h2 className="font-display text-3xl font-bold text-foreground mb-2">Meet Our Top Artisans</h2>
+            <p className="text-muted-foreground max-w-lg">Discover the talented creators behind the beautiful handmade products on Dorovu.</p>
+          </div>
+          
+          <TopCrafters />
+        </div>
       </section>
     </div>
   );

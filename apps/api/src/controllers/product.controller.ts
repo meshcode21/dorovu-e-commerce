@@ -88,10 +88,12 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
         { tags: { has: String(search) } }
       ];
     }
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : undefined;
 
     const products = await prisma.product.findMany({
       where,
       orderBy: { createdAt: 'desc' },
+      ...(limit ? { take: limit } : {}),
       include: {
         crafter: {
           select: {
@@ -105,6 +107,30 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
     res.json({ products });
   } catch (error) {
     console.error('Get products error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getTrendingProducts = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 4;
+    
+    const products = await prisma.product.findMany({
+      orderBy: { totalSales: 'desc' },
+      take: limit,
+      include: {
+        crafter: {
+          select: {
+            storeName: true,
+          }
+        },
+        variants: true
+      }
+    });
+
+    res.json({ products });
+  } catch (error) {
+    console.error('Get trending products error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

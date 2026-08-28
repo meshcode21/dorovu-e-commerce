@@ -1663,6 +1663,7 @@ export const ProductScalarFieldEnum = {
   leadTime: 'leadTime',
   avgRating: 'avgRating',
   totalReviews: 'totalReviews',
+  totalSales: 'totalSales',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

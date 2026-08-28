@@ -34,3 +34,13 @@ export const useCrafter = (id: string) => {
     enabled: !!id,
   });
 };
+
+export const useTopCrafters = (limit: number = 4) => {
+  return useQuery({
+    queryKey: queryKeys.crafter.top(),
+    queryFn: async () => {
+      const { data } = await api.get(`/crafters/top?limit=${limit}`);
+      return data.data; // array of crafter stores
+    },
+  });
+};

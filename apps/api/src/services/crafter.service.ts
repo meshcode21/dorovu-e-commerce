@@ -74,4 +74,25 @@ export const CrafterService = {
 
     return store;
   },
+
+  async getTopCrafters(limit: number = 4) {
+    const stores = await prisma.crafterStore.findMany({
+      where: { isApproved: true },
+      orderBy: [
+        { rating: 'desc' },
+        { totalSales: 'desc' },
+      ],
+      take: limit,
+      include: {
+        crafter: {
+          select: {
+            firstName: true,
+            lastName: true,
+          }
+        }
+      }
+    });
+
+    return stores;
+  },
 };

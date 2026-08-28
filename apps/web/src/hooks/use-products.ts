@@ -25,6 +25,7 @@ export interface Product {
   leadTime: number;
   avgRating: number;
   totalReviews: number;
+  totalSales: number;
   createdAt: string;
   updatedAt: string;
   variants: ProductVariant[];
@@ -34,14 +35,15 @@ export interface Product {
   };
 }
 
-export const useAllProducts = (crafterId?: string, category?: string, search?: string) => {
+export const useAllProducts = (crafterId?: string, category?: string, search?: string, limit?: number) => {
   return useQuery({
-    queryKey: queryKeys.products.list(crafterId, category, search),
+    queryKey: queryKeys.products.list(crafterId, category, search, limit),
     queryFn: async () => {
       const params = new URLSearchParams();
       if (crafterId) params.append('crafterId', crafterId);
       if (category) params.append('category', category);
       if (search) params.append('search', search);
+      if (limit) params.append('limit', limit.toString());
 
       const { data } = await api.get(`/products?${params.toString()}`);
       return data.products as Product[];
@@ -58,6 +60,16 @@ export const useProducts = (crafterId?: string) => {
       return data.products as Product[];
     },
     enabled: !!crafterId,
+  });
+};
+
+export const useTrendingProducts = (limit: number = 4) => {
+  return useQuery({
+    queryKey: queryKeys.products.trending(limit),
+    queryFn: async () => {
+      const { data } = await api.get(`/products/trending?limit=${limit}`);
+      return data.products as Product[];
+    },
   });
 };
 

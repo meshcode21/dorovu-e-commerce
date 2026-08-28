@@ -6,16 +6,35 @@ import { useCategories } from '@/hooks/use-categories';
 import { ProductCard } from '@/components/products/product-card';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 function ProductListingContent() {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get('category') || '';
+  const router = useRouter();
+  const categoryParam = searchParams.get('category') || '';
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCategory, setSelectedCategory] = useState(categoryParam);
+
+  // Sync state when URL changes (e.g., user hits back button)
+  useEffect(() => {
+    setSelectedCategory(categoryParam);
+  }, [categoryParam]);
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    
+    // Update the URL without a full page reload
+    const params = new URLSearchParams(searchParams.toString());
+    if (category) {
+      params.set('category', category);
+    } else {
+      params.delete('category');
+    }
+    router.push(`/products?${params.toString()}`);
+  };
 
   const { data: products, isLoading: productsLoading } = useAllProducts(undefined, selectedCategory || undefined, searchTerm || undefined);
   const { data: categories } = useCategories();
@@ -49,7 +68,7 @@ function ProductListingContent() {
               <h3 className="font-medium text-muted-foreground mb-3 text-sm uppercase tracking-wider">Categories</h3>
               <div className="space-y-2 flex flex-col">
                 <button
-                  onClick={() => setSelectedCategory('')}
+                  onClick={() => handleCategorySelect('')}
                   className={`text-left text-sm py-1 px-2 rounded transition-colors ${
                     selectedCategory === '' ? 'bg-primary/10 text-primary font-medium' : 'text-muted-foreground hover:bg-muted'
                   }`}
@@ -59,7 +78,7 @@ function ProductListingContent() {
                 {categories?.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => setSelectedCategory(cat.name)}
+                    onClick={() => handleCategorySelect(cat.name)}
                     className={`text-left text-sm py-1 px-2 rounded transition-colors ${
                       selectedCategory === cat.name ? 'bg-primary/10 text-primary font-medium' : 'text-muted-foreground hover:bg-muted'
                     }`}
