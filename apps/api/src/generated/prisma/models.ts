@@ -10,7 +10,7 @@
  */
 export type * from './models/User.js'
 export type * from './models/CrafterApplication.js'
-export type * from './models/CrafterProfile.js'
+export type * from './models/CrafterStore.js'
 export type * from './models/Category.js'
 export type * from './models/CraftType.js'
 export type * from './models/Product.js'

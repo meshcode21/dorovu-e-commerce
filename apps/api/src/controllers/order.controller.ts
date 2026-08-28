@@ -94,17 +94,17 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
     const { role } = req.query; // 'buyer' or 'crafter'
 
     if (role === 'crafter') {
-      const crafterProfile = await prisma.crafterProfile.findUnique({
-        where: { userId }
+      const crafterStore = await prisma.crafterStore.findUnique({
+        where: { crafterId: userId }
       });
 
-      if (!crafterProfile) {
-        res.status(404).json({ message: 'Crafter profile not found' });
+      if (!crafterStore) {
+        res.status(404).json({ message: 'Crafter store not found' });
         return;
       }
 
       const orderItems = await prisma.orderItem.findMany({
-        where: { crafterId: crafterProfile.id },
+        where: { crafterId: crafterStore.id },
         include: {
           order: {
             select: {
@@ -177,7 +177,7 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
               }
             },
             crafter: {
-              select: { userId: true }
+              select: { crafterId: true }
             }
           }
         }
@@ -191,7 +191,7 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
 
     // Security: User must be the buyer, OR one of the crafters in the order items
     const isBuyer = order.buyerId === userId;
-    const isCrafter = order.orderItems.some(item => item.crafter.userId === userId);
+    const isCrafter = order.orderItems.some((item: any) => item.crafter.crafterId === userId);
 
     if (!isBuyer && !isCrafter) {
       res.status(403).json({ message: 'Not authorized to view this order' });
@@ -211,11 +211,11 @@ export const updateOrderItemStatus = async (req: Request, res: Response): Promis
     const { itemId } = req.params as { itemId: string };
     const validatedData = updateOrderItemStatusSchema.parse(req.body);
 
-    const crafterProfile = await prisma.crafterProfile.findUnique({
-      where: { userId }
+    const crafterStore = await prisma.crafterStore.findUnique({
+      where: { crafterId: userId }
     });
 
-    if (!crafterProfile) {
+    if (!crafterStore) {
       res.status(403).json({ message: 'Not authorized' });
       return;
     }
@@ -229,7 +229,7 @@ export const updateOrderItemStatus = async (req: Request, res: Response): Promis
       return;
     }
 
-    if (orderItem.crafterId !== crafterProfile.id) {
+    if (orderItem.crafterId !== crafterStore.id) {
       res.status(403).json({ message: 'Not authorized to update this item' });
       return;
     }

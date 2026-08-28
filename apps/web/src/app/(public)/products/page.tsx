@@ -1,21 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-import { useProducts } from '@/hooks/use-products';
+import { useAllProducts } from '@/hooks/use-products';
 import { useCategories } from '@/hooks/use-categories';
 import { ProductCard } from '@/components/products/product-card';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ProductListingPage() {
+import { Suspense } from 'react';
+
+function ProductListingContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || '';
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
-  const { data: products, isLoading: productsLoading } = useProducts(undefined, selectedCategory || undefined, searchTerm || undefined);
+  const { data: products, isLoading: productsLoading } = useAllProducts(undefined, selectedCategory || undefined, searchTerm || undefined);
   const { data: categories } = useCategories();
 
   return (
@@ -93,5 +95,13 @@ export default function ProductListingPage() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function ProductListingPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-64"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
+      <ProductListingContent />
+    </Suspense>
   );
 }

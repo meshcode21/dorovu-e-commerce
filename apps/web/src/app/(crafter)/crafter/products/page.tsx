@@ -1,7 +1,8 @@
 "use client";
 
-import { useCrafterProducts, useDeleteProduct } from "@/hooks/use-products";
+import { useProducts, useDeleteProduct } from "@/hooks/use-products";
 import { useUser } from "@/hooks/use-auth";
+import { useCrafterStore } from "@/hooks/use-crafter-store";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Plus, Edit, Trash2, Package } from "lucide-react";
 import Link from "next/link";
@@ -9,8 +10,9 @@ import Image from "next/image";
 
 export default function CrafterProductsPage() {
   const { data: user } = useUser();
+  const { data: store } = useCrafterStore(user?.id);
 
-  const { data: products, isLoading } = useCrafterProducts(user?.crafterProfile?.id);
+  const { data: products, isLoading } = useProducts(store?.id);
   const { mutate: deleteProduct } = useDeleteProduct();
 
   if (isLoading) {

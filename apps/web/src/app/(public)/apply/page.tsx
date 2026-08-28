@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useApplyCrafter } from "@/hooks/use-crafter";
 import { useUser } from "@/hooks/use-auth";
+import { useCraftTypes } from "@/hooks/use-craft-types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -16,6 +17,7 @@ export default function ApplyPage() {
   const { data: user } = useUser();
   const router = useRouter();
   const { mutate: apply, isPending } = useApplyCrafter();
+  const { data: craftTypes, isLoading: isCraftTypesLoading } = useCraftTypes();
 
   const {
     register,
@@ -82,19 +84,19 @@ export default function ApplyPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="craftType">Primary Craft Category</Label>
+                <Label htmlFor="craftType">Primary Craft Type</Label>
                 <select
                   id="craftType"
                   className="w-full h-10 px-3 rounded-lg border border-sand bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   {...register("craftType")}
+                  disabled={isCraftTypesLoading}
                 >
-                  <option value="">Select a category...</option>
-                  <option value="CROCHET">Crochet & Knitting</option>
-                  <option value="POTTERY">Pottery & Ceramics</option>
-                  <option value="JEWELRY">Handmade Jewelry</option>
-                  <option value="WOODWORK">Woodwork & Carving</option>
-                  <option value="TEXTILES">Textiles & Weaving</option>
-                  <option value="OTHER">Other Handmade Art</option>
+                  <option value="">{isCraftTypesLoading ? "Loading categories..." : "Select a category..."}</option>
+                  {craftTypes?.map((type) => (
+                    <option key={type.id} value={type.name}>
+                      {type.name}
+                    </option>
+                  ))}
                 </select>
                 {errors.craftType && <p className="text-destructive text-sm">{errors.craftType.message}</p>}
               </div>

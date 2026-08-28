@@ -41,9 +41,9 @@ export const AdminService = {
         data: { status: 'APPROVED' },
       });
 
-      await tx.crafterProfile.create({
+      await tx.crafterStore.create({
         data: {
-          userId: application.userId,
+          crafterId: application.userId,
           storeName: application.storeName,
           description: application.description,
           craftType: application.craftType,

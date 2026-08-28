@@ -4,12 +4,12 @@ import { createProductSchema, updateProductSchema } from '@dorovu/shared';
 
 export const createProduct = async (req: Request, res: Response): Promise<void> => {
   try {
-    const crafterProfile = await prisma.crafterProfile.findUnique({
-      where: { userId: req.user!.userId },
+    const crafterStore = await prisma.crafterStore.findUnique({
+      where: { crafterId: req.user!.userId },
     });
 
-    if (!crafterProfile) {
-      res.status(404).json({ message: 'Crafter profile not found' });
+    if (!crafterStore) {
+      res.status(404).json({ message: 'Crafter store not found' });
       return;
     }
 
@@ -33,7 +33,7 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
 
     const product = await prisma.product.create({
       data: {
-        crafterId: crafterProfile.id,
+        crafterId: crafterStore.id,
         title: validatedData.title,
         description: validatedData.description,
         price: validatedData.price,
@@ -138,12 +138,12 @@ export const getProductById = async (req: Request, res: Response): Promise<void>
 
 export const updateProduct = async (req: Request, res: Response): Promise<void> => {
   try {
-    const crafterProfile = await prisma.crafterProfile.findUnique({
-      where: { userId: req.user!.userId },
+    const crafterStore = await prisma.crafterStore.findUnique({
+      where: { crafterId: req.user!.userId },
     });
 
-    if (!crafterProfile) {
-      res.status(404).json({ message: 'Crafter profile not found' });
+    if (!crafterStore) {
+      res.status(404).json({ message: 'Crafter store not found' });
       return;
     }
 
@@ -156,7 +156,7 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    if (product.crafterId !== crafterProfile.id) {
+    if (product.crafterId !== crafterStore.id) {
       res.status(403).json({ message: 'Not authorized to update this product' });
       return;
     }
@@ -230,12 +230,12 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
 
 export const deleteProduct = async (req: Request, res: Response): Promise<void> => {
   try {
-    const crafterProfile = await prisma.crafterProfile.findUnique({
-      where: { userId: req.user!.userId },
+    const crafterStore = await prisma.crafterStore.findUnique({
+      where: { crafterId: req.user!.userId },
     });
 
-    if (!crafterProfile) {
-      res.status(404).json({ message: 'Crafter profile not found' });
+    if (!crafterStore) {
+      res.status(404).json({ message: 'Crafter store not found' });
       return;
     }
 
@@ -248,7 +248,7 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    if (product.crafterId !== crafterProfile.id) {
+    if (product.crafterId !== crafterStore.id) {
       res.status(403).json({ message: 'Not authorized to delete this product' });
       return;
     }

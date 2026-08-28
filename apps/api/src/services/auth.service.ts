@@ -82,7 +82,6 @@ export const AuthService = {
         lastName: user.lastName,
         email: user.email,
         role: user.role,
-        // crafterProfile: user.crafterProfile,
       },
       ...tokens,
     };

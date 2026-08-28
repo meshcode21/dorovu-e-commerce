@@ -215,7 +215,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
-  crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
+  crafterStore?: Prisma.XOR<Prisma.CrafterStoreNullableScalarRelationFilter, Prisma.CrafterStoreWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   messagesSent?: Prisma.MessageListRelationFilter
@@ -233,7 +233,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   crafterApplication?: Prisma.CrafterApplicationOrderByWithRelationInput
-  crafterProfile?: Prisma.CrafterProfileOrderByWithRelationInput
+  crafterStore?: Prisma.CrafterStoreOrderByWithRelationInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
   cart?: Prisma.CartOrderByWithRelationInput
   messagesSent?: Prisma.MessageOrderByRelationAggregateInput
@@ -254,7 +254,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   crafterApplication?: Prisma.XOR<Prisma.CrafterApplicationNullableScalarRelationFilter, Prisma.CrafterApplicationWhereInput> | null
-  crafterProfile?: Prisma.XOR<Prisma.CrafterProfileNullableScalarRelationFilter, Prisma.CrafterProfileWhereInput> | null
+  crafterStore?: Prisma.XOR<Prisma.CrafterStoreNullableScalarRelationFilter, Prisma.CrafterStoreWhereInput> | null
   orders?: Prisma.OrderListRelationFilter
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   messagesSent?: Prisma.MessageListRelationFilter
@@ -302,7 +302,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -320,7 +320,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -338,7 +338,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -356,7 +356,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -470,18 +470,18 @@ export type UserUpdateOneRequiredWithoutCrafterApplicationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterApplicationInput, Prisma.UserUpdateWithoutCrafterApplicationInput>, Prisma.UserUncheckedUpdateWithoutCrafterApplicationInput>
 }
 
-export type UserCreateNestedOneWithoutCrafterProfileInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterProfileInput
+export type UserCreateNestedOneWithoutCrafterStoreInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterStoreInput, Prisma.UserUncheckedCreateWithoutCrafterStoreInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterStoreInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutCrafterProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterProfileInput
-  upsert?: Prisma.UserUpsertWithoutCrafterProfileInput
+export type UserUpdateOneRequiredWithoutCrafterStoreNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCrafterStoreInput, Prisma.UserUncheckedCreateWithoutCrafterStoreInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCrafterStoreInput
+  upsert?: Prisma.UserUpsertWithoutCrafterStoreInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterProfileInput, Prisma.UserUpdateWithoutCrafterProfileInput>, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCrafterStoreInput, Prisma.UserUpdateWithoutCrafterStoreInput>, Prisma.UserUncheckedUpdateWithoutCrafterStoreInput>
 }
 
 export type UserCreateNestedOneWithoutCartInput = {
@@ -550,7 +550,7 @@ export type UserCreateWithoutCrafterApplicationInput = {
   googleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -567,7 +567,7 @@ export type UserUncheckedCreateWithoutCrafterApplicationInput = {
   googleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -600,7 +600,7 @@ export type UserUpdateWithoutCrafterApplicationInput = {
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -617,14 +617,14 @@ export type UserUncheckedUpdateWithoutCrafterApplicationInput = {
   googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
 }
 
-export type UserCreateWithoutCrafterProfileInput = {
+export type UserCreateWithoutCrafterStoreInput = {
   id?: string
   email: string
   password?: string | null
@@ -641,7 +641,7 @@ export type UserCreateWithoutCrafterProfileInput = {
   messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
 }
 
-export type UserUncheckedCreateWithoutCrafterProfileInput = {
+export type UserUncheckedCreateWithoutCrafterStoreInput = {
   id?: string
   email: string
   password?: string | null
@@ -658,23 +658,23 @@ export type UserUncheckedCreateWithoutCrafterProfileInput = {
   messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
 }
 
-export type UserCreateOrConnectWithoutCrafterProfileInput = {
+export type UserCreateOrConnectWithoutCrafterStoreInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterStoreInput, Prisma.UserUncheckedCreateWithoutCrafterStoreInput>
 }
 
-export type UserUpsertWithoutCrafterProfileInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutCrafterProfileInput, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterProfileInput, Prisma.UserUncheckedCreateWithoutCrafterProfileInput>
+export type UserUpsertWithoutCrafterStoreInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCrafterStoreInput, Prisma.UserUncheckedUpdateWithoutCrafterStoreInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCrafterStoreInput, Prisma.UserUncheckedCreateWithoutCrafterStoreInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutCrafterProfileInput = {
+export type UserUpdateToOneWithWhereWithoutCrafterStoreInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutCrafterProfileInput, Prisma.UserUncheckedUpdateWithoutCrafterProfileInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCrafterStoreInput, Prisma.UserUncheckedUpdateWithoutCrafterStoreInput>
 }
 
-export type UserUpdateWithoutCrafterProfileInput = {
+export type UserUpdateWithoutCrafterStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -691,7 +691,7 @@ export type UserUpdateWithoutCrafterProfileInput = {
   messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutCrafterProfileInput = {
+export type UserUncheckedUpdateWithoutCrafterStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -719,7 +719,7 @@ export type UserCreateWithoutCartInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
   messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
   messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
@@ -736,7 +736,7 @@ export type UserUncheckedCreateWithoutCartInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
   messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
@@ -769,7 +769,7 @@ export type UserUpdateWithoutCartInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
   messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
@@ -786,7 +786,7 @@ export type UserUncheckedUpdateWithoutCartInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
   messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
@@ -803,7 +803,7 @@ export type UserCreateWithoutOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   cart?: Prisma.CartCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
   messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
@@ -820,7 +820,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
   messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
@@ -853,7 +853,7 @@ export type UserUpdateWithoutOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   cart?: Prisma.CartUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
   messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
@@ -870,7 +870,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
   messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
@@ -887,7 +887,7 @@ export type UserCreateWithoutMessageThreadsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageCreateNestedManyWithoutSenderInput
@@ -904,7 +904,7 @@ export type UserUncheckedCreateWithoutMessageThreadsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
   messagesSent?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
@@ -937,7 +937,7 @@ export type UserUpdateWithoutMessageThreadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUpdateManyWithoutSenderNestedInput
@@ -954,7 +954,7 @@ export type UserUncheckedUpdateWithoutMessageThreadsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
   messagesSent?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
@@ -971,7 +971,7 @@ export type UserCreateWithoutMessagesSentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartCreateNestedOneWithoutUserInput
   messageThreads?: Prisma.MessageThreadCreateNestedManyWithoutBuyerInput
@@ -988,7 +988,7 @@ export type UserUncheckedCreateWithoutMessagesSentInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedCreateNestedOneWithoutUserInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedCreateNestedOneWithoutUserInput
+  crafterStore?: Prisma.CrafterStoreUncheckedCreateNestedOneWithoutCrafterInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutBuyerInput
   cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
   messageThreads?: Prisma.MessageThreadUncheckedCreateNestedManyWithoutBuyerInput
@@ -1021,7 +1021,7 @@ export type UserUpdateWithoutMessagesSentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUpdateOneWithoutUserNestedInput
   messageThreads?: Prisma.MessageThreadUpdateManyWithoutBuyerNestedInput
@@ -1038,7 +1038,7 @@ export type UserUncheckedUpdateWithoutMessagesSentInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   crafterApplication?: Prisma.CrafterApplicationUncheckedUpdateOneWithoutUserNestedInput
-  crafterProfile?: Prisma.CrafterProfileUncheckedUpdateOneWithoutUserNestedInput
+  crafterStore?: Prisma.CrafterStoreUncheckedUpdateOneWithoutCrafterNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutBuyerNestedInput
   cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
   messageThreads?: Prisma.MessageThreadUncheckedUpdateManyWithoutBuyerNestedInput
@@ -1104,7 +1104,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
-  crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
+  crafterStore?: boolean | Prisma.User$crafterStoreArgs<ExtArgs>
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   cart?: boolean | Prisma.User$cartArgs<ExtArgs>
   messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
@@ -1151,7 +1151,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "firstName" | "lastName" | "role" | "googleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   crafterApplication?: boolean | Prisma.User$crafterApplicationArgs<ExtArgs>
-  crafterProfile?: boolean | Prisma.User$crafterProfileArgs<ExtArgs>
+  crafterStore?: boolean | Prisma.User$crafterStoreArgs<ExtArgs>
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   cart?: boolean | Prisma.User$cartArgs<ExtArgs>
   messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
@@ -1165,7 +1165,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     crafterApplication: Prisma.$CrafterApplicationPayload<ExtArgs> | null
-    crafterProfile: Prisma.$CrafterProfilePayload<ExtArgs> | null
+    crafterStore: Prisma.$CrafterStorePayload<ExtArgs> | null
     orders: Prisma.$OrderPayload<ExtArgs>[]
     cart: Prisma.$CartPayload<ExtArgs> | null
     messagesSent: Prisma.$MessagePayload<ExtArgs>[]
@@ -1576,7 +1576,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   crafterApplication<T extends Prisma.User$crafterApplicationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterApplicationArgs<ExtArgs>>): Prisma.Prisma__CrafterApplicationClient<runtime.Types.Result.GetResult<Prisma.$CrafterApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  crafterProfile<T extends Prisma.User$crafterProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterProfileArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  crafterStore<T extends Prisma.User$crafterStoreArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$crafterStoreArgs<ExtArgs>>): Prisma.Prisma__CrafterStoreClient<runtime.Types.Result.GetResult<Prisma.$CrafterStorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   orders<T extends Prisma.User$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cart<T extends Prisma.User$cartArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cartArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2031,22 +2031,22 @@ export type User$crafterApplicationArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * User.crafterProfile
+ * User.crafterStore
  */
-export type User$crafterProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$crafterStoreArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the CrafterProfile
+   * Select specific fields to fetch from the CrafterStore
    */
-  select?: Prisma.CrafterProfileSelect<ExtArgs> | null
+  select?: Prisma.CrafterStoreSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the CrafterProfile
+   * Omit specific fields from the CrafterStore
    */
-  omit?: Prisma.CrafterProfileOmit<ExtArgs> | null
+  omit?: Prisma.CrafterStoreOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CrafterProfileInclude<ExtArgs> | null
-  where?: Prisma.CrafterProfileWhereInput
+  include?: Prisma.CrafterStoreInclude<ExtArgs> | null
+  where?: Prisma.CrafterStoreWhereInput
 }
 
 /**

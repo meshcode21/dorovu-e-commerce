@@ -30,7 +30,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   crafterApplication CrafterApplication?
-  crafterProfile     CrafterProfile?
+  crafterStore     CrafterStore?
 
   orders         Order[] // As a buyer
   cart           Cart?
@@ -60,10 +60,10 @@ model CrafterApplication {
   @@map("crafter_applications")
 }
 
-model CrafterProfile {
+model CrafterStore {
   id              String   @id @default(uuid())
-  userId          String   @unique
-  user            User     @relation(fields: [userId], references: [id])
+  crafterId       String   @unique
+  crafter         User     @relation(fields: [crafterId], references: [id])
   storeName       String
   description     String
   craftType       String
@@ -80,7 +80,7 @@ model CrafterProfile {
   messageThreads MessageThread[] @relation("CrafterThreads")
   payouts        Payout[]
 
-  @@map("crafter_profiles")
+  @@map("crafter_stores")
 }
 
 model Category {
@@ -106,7 +106,7 @@ model CraftType {
 model Product {
   id            String         @id @default(uuid())
   crafterId     String
-  crafter       CrafterProfile @relation(fields: [crafterId], references: [id])
+  crafter       CrafterStore @relation(fields: [crafterId], references: [id])
   title         String
   description   String
   price         Float
@@ -206,7 +206,7 @@ model OrderItem {
   variantId       String
   variant         ProductVariant  @relation(fields: [variantId], references: [id])
   crafterId       String
-  crafter         CrafterProfile  @relation(fields: [crafterId], references: [id])
+  crafter         CrafterStore  @relation(fields: [crafterId], references: [id])
   quantity        Int
   priceAtPurchase Float
   status          OrderItemStatus @default(PENDING)
@@ -237,7 +237,7 @@ model MessageThread {
   buyerId   String
   buyer     User           @relation("BuyerThreads", fields: [buyerId], references: [id])
   crafterId String
-  crafter   CrafterProfile @relation("CrafterThreads", fields: [crafterId], references: [id])
+  crafter   CrafterStore @relation("CrafterThreads", fields: [crafterId], references: [id])
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 
@@ -269,7 +269,7 @@ enum PayoutStatus {
 model Payout {
   id                 String         @id @default(uuid())
   crafterId          String
-  crafter            CrafterProfile @relation(fields: [crafterId], references: [id])
+  crafter            CrafterStore @relation(fields: [crafterId], references: [id])
   amount             Float
   commissionDeducted Float
   payoutMethod       String?

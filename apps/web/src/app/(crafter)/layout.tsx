@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser, useLogout } from "@/hooks/use-auth";
+import { useCrafterStore } from "@/hooks/use-crafter-store";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
@@ -13,6 +14,7 @@ export default function CrafterLayout({
   children: React.ReactNode;
 }) {
   const { data: user, isLoading } = useUser();
+  const { data: store, isLoading: isStoreLoading } = useCrafterStore(user?.id);
   const { mutate: logout } = useLogout();
   const router = useRouter();
   const pathname = usePathname();
@@ -111,7 +113,7 @@ export default function CrafterLayout({
       <main className="flex-1 min-w-0 overflow-y-auto">
         <header className="bg-white border-b border-sand h-16 flex items-center justify-between px-8 shadow-sm">
           <h2 className="text-lg font-semibold text-foreground font-display capitalize">
-            {pathname.split('/').pop() === 'crafter' ? 'Overview' : pathname.split('/').pop()}
+            {isStoreLoading ? "Loading Shop..." : store?.storeName || "My Shop"}
           </h2>
           <Link href="/" className={buttonVariants({ variant: "outline", className: "border-primary-subtle text-primary hover:bg-primary/5" })}>
             View Storefront

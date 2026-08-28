@@ -244,7 +244,7 @@ export type PayoutWhereInput = {
   status?: Prisma.EnumPayoutStatusFilter<"Payout"> | $Enums.PayoutStatus
   createdAt?: Prisma.DateTimeFilter<"Payout"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payout"> | Date | string
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
 }
 
 export type PayoutOrderByWithRelationInput = {
@@ -256,7 +256,7 @@ export type PayoutOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  crafter?: Prisma.CrafterProfileOrderByWithRelationInput
+  crafter?: Prisma.CrafterStoreOrderByWithRelationInput
 }
 
 export type PayoutWhereUniqueInput = Prisma.AtLeast<{
@@ -271,7 +271,7 @@ export type PayoutWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumPayoutStatusFilter<"Payout"> | $Enums.PayoutStatus
   createdAt?: Prisma.DateTimeFilter<"Payout"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payout"> | Date | string
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
 }, "id">
 
 export type PayoutOrderByWithAggregationInput = {
@@ -312,7 +312,7 @@ export type PayoutCreateInput = {
   status?: $Enums.PayoutStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutPayoutsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutPayoutsInput
 }
 
 export type PayoutUncheckedCreateInput = {
@@ -334,7 +334,7 @@ export type PayoutUpdateInput = {
   status?: Prisma.EnumPayoutStatusFieldUpdateOperationsInput | $Enums.PayoutStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutPayoutsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutPayoutsNestedInput
 }
 
 export type PayoutUncheckedUpdateInput = {
@@ -590,7 +590,7 @@ export type PayoutSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payout"]>
 
 export type PayoutSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -602,7 +602,7 @@ export type PayoutSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payout"]>
 
 export type PayoutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -614,7 +614,7 @@ export type PayoutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payout"]>
 
 export type PayoutSelectScalar = {
@@ -630,19 +630,19 @@ export type PayoutSelectScalar = {
 
 export type PayoutOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "crafterId" | "amount" | "commissionDeducted" | "payoutMethod" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["payout"]>
 export type PayoutInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 export type PayoutIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 export type PayoutIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 
 export type $PayoutPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Payout"
   objects: {
-    crafter: Prisma.$CrafterProfilePayload<ExtArgs>
+    crafter: Prisma.$CrafterStorePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1047,7 +1047,7 @@ readonly fields: PayoutFieldRefs;
  */
 export interface Prisma__PayoutClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  crafter<T extends Prisma.CrafterProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crafter<T extends Prisma.CrafterStoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterStoreDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterStoreClient<runtime.Types.Result.GetResult<Prisma.$CrafterStorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

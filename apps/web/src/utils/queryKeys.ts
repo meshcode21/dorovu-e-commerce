@@ -1,6 +1,7 @@
 export const queryKeys = {
   auth: {
     user: () => ['auth-user'] as const,
+    my_store: () => ['my-store'] as const,
   },
   products: {
     all: () => ['products'] as const,
@@ -23,7 +24,7 @@ export const queryKeys = {
     all: () => ['craft-types'] as const,
   },
   admin: {
-    applications: (status?: string) => ['admin', 'applications', status] as const,
+    applications: (status?: string) => status ? ['admin', 'applications', status] as const : ['admin', 'applications'] as const,
   },
   crafter: {
     profile: (id?: string) => ['crafter', id] as const,

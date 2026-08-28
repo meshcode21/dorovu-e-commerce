@@ -52,10 +52,10 @@ export type User = Prisma.UserModel
  */
 export type CrafterApplication = Prisma.CrafterApplicationModel
 /**
- * Model CrafterProfile
+ * Model CrafterStore
  * 
  */
-export type CrafterProfile = Prisma.CrafterProfileModel
+export type CrafterStore = Prisma.CrafterStoreModel
 /**
  * Model Category
  * 

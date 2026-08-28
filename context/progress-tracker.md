@@ -69,8 +69,8 @@ Last updated: August 2026
 - ✅ shadcn/ui installed
 - ✅ TanStack Query provider setup
 - ✅ Axios instance configured
-- ✅ Zustand cart store created
-- ✅ Zustand auth store created
+- ✅ Query Key Factory implemented
+- ✅ Architecture: Removed Zustand, using React Query for state
 
 ### Auth Pages
 - ✅ Login page
@@ -103,7 +103,7 @@ Last updated: August 2026
 
 ## Database
 - ✅ PostgreSQL running locally
-- ✅ Prisma schema written (users, crafter_profiles, products)
+- ✅ Prisma schema written (users, crafter_stores, products)
 - ✅ Full schema (orders, order_items, reviews, messages, payouts, avg_rating, cart, cart_items)
 - ✅ Initial migration run (db push)
 

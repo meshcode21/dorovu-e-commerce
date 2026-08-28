@@ -32,4 +32,18 @@ export const CrafterController = {
       next(error);
     }
   },
+
+  async getCrafterStore(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const store = await CrafterService.getCrafterStore(id as string);
+      
+      res.json({
+        success: true,
+        data: store,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

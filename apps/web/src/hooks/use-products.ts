@@ -34,7 +34,7 @@ export interface Product {
   };
 }
 
-export const useProducts = (crafterId?: string, category?: string, search?: string) => {
+export const useAllProducts = (crafterId?: string, category?: string, search?: string) => {
   return useQuery({
     queryKey: queryKeys.products.list(crafterId, category, search),
     queryFn: async () => {
@@ -49,7 +49,7 @@ export const useProducts = (crafterId?: string, category?: string, search?: stri
   });
 };
 
-export const useCrafterProducts = (crafterId?: string) => {
+export const useProducts = (crafterId?: string) => {
   return useQuery({
     queryKey: queryKeys.products.crafter(crafterId),
     queryFn: async () => {

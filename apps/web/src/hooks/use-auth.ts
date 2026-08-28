@@ -2,6 +2,7 @@ import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { queryKeys } from '@/utils/queryKeys';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import type { LoginDTO, RegisterDTO } from '@dorovu/shared';
 
 export interface User {
@@ -12,10 +13,6 @@ export interface User {
   lastName: string;
   createdAt?: string;
   googleId?: string | null;
-  crafterProfile?: {
-    id: string;
-    storeName: string;
-  };
 }
 
 export const useUser = () => {
@@ -37,7 +34,7 @@ export const useUser = () => {
 export const useLogin = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (data: LoginDTO) => {
       const response = await api.post('/auth/login', data);
@@ -50,6 +47,9 @@ export const useLogin = () => {
       } else {
         router.push('/');
       }
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Login failed');
     },
   });
 };
@@ -71,6 +71,9 @@ export const useGoogleLogin = () => {
         router.push('/');
       }
     },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Google login failed');
+    },
   });
 };
 
@@ -86,6 +89,9 @@ export const useRegister = () => {
     onSuccess: (data) => {
       queryClient.setQueryData(queryKeys.auth.user(), data.user);
       router.push('/');
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Registration failed');
     },
   });
 };

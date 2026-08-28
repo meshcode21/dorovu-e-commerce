@@ -48,7 +48,7 @@ Build in this exact order. Do not jump ahead.
 ### Step 7 — Frontend Auth Pages
 - [x] /login page
 - [x] /register page
-- [x] auth store (Zustand)
+- [x] auth hooks (React Query)
 - [x] protected route middleware
 - [x] /profile page and User CRUD
 

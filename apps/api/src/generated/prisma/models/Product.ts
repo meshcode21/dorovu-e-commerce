@@ -300,7 +300,7 @@ export type ProductWhereInput = {
   totalReviews?: Prisma.IntFilter<"Product"> | number
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   variants?: Prisma.ProductVariantListRelationFilter
 }
 
@@ -320,7 +320,7 @@ export type ProductOrderByWithRelationInput = {
   totalReviews?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  crafter?: Prisma.CrafterProfileOrderByWithRelationInput
+  crafter?: Prisma.CrafterStoreOrderByWithRelationInput
   variants?: Prisma.ProductVariantOrderByRelationAggregateInput
 }
 
@@ -343,7 +343,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   totalReviews?: Prisma.IntFilter<"Product"> | number
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   variants?: Prisma.ProductVariantListRelationFilter
 }, "id">
 
@@ -406,7 +406,7 @@ export type ProductCreateInput = {
   totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutProductsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutProductsInput
   variants?: Prisma.ProductVariantCreateNestedManyWithoutProductInput
 }
 
@@ -444,7 +444,7 @@ export type ProductUpdateInput = {
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutProductsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutProductsNestedInput
   variants?: Prisma.ProductVariantUpdateManyWithoutProductNestedInput
 }
 
@@ -771,7 +771,7 @@ export type ProductCreateWithoutVariantsInput = {
   totalReviews?: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutProductsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutVariantsInput = {
@@ -823,7 +823,7 @@ export type ProductUpdateWithoutVariantsInput = {
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutProductsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutVariantsInput = {
@@ -961,7 +961,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   variants?: boolean | Prisma.Product$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
@@ -982,7 +982,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1001,7 +1001,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalReviews?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
 export type ProductSelectScalar = {
@@ -1024,21 +1024,21 @@ export type ProductSelectScalar = {
 
 export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "crafterId" | "title" | "description" | "price" | "images" | "tags" | "craftType" | "category" | "isCustomOrder" | "leadTime" | "avgRating" | "totalReviews" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   variants?: boolean | Prisma.Product$variantsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 export type ProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 
 export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Product"
   objects: {
-    crafter: Prisma.$CrafterProfilePayload<ExtArgs>
+    crafter: Prisma.$CrafterStorePayload<ExtArgs>
     variants: Prisma.$ProductVariantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1451,7 +1451,7 @@ readonly fields: ProductFieldRefs;
  */
 export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  crafter<T extends Prisma.CrafterProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crafter<T extends Prisma.CrafterStoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterStoreDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterStoreClient<runtime.Types.Result.GetResult<Prisma.$CrafterStorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   variants<T extends Prisma.Product$variantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$variantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

@@ -262,7 +262,7 @@ export type OrderItemWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"OrderItem"> | Date | string
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
 }
 
@@ -279,7 +279,7 @@ export type OrderItemOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   order?: Prisma.OrderOrderByWithRelationInput
   variant?: Prisma.ProductVariantOrderByWithRelationInput
-  crafter?: Prisma.CrafterProfileOrderByWithRelationInput
+  crafter?: Prisma.CrafterStoreOrderByWithRelationInput
   review?: Prisma.ReviewOrderByWithRelationInput
 }
 
@@ -299,7 +299,7 @@ export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"OrderItem"> | Date | string
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
   variant?: Prisma.XOR<Prisma.ProductVariantScalarRelationFilter, Prisma.ProductVariantWhereInput>
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
 }, "id">
 
@@ -347,7 +347,7 @@ export type OrderItemCreateInput = {
   updatedAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
   variant: Prisma.ProductVariantCreateNestedOneWithoutOrderItemsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutOrderItemsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutOrderItemsInput
   review?: Prisma.ReviewCreateNestedOneWithoutOrderItemInput
 }
 
@@ -375,7 +375,7 @@ export type OrderItemUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
   variant?: Prisma.ProductVariantUpdateOneRequiredWithoutOrderItemsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutOrderItemsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutOrderItemsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutOrderItemNestedInput
 }
 
@@ -714,7 +714,7 @@ export type OrderItemCreateWithoutVariantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutOrderItemsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutOrderItemsInput
   review?: Prisma.ReviewCreateNestedOneWithoutOrderItemInput
 }
 
@@ -766,7 +766,7 @@ export type OrderItemCreateWithoutOrderInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   variant: Prisma.ProductVariantCreateNestedOneWithoutOrderItemsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutOrderItemsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutOrderItemsInput
   review?: Prisma.ReviewCreateNestedOneWithoutOrderItemInput
 }
 
@@ -819,7 +819,7 @@ export type OrderItemCreateWithoutReviewInput = {
   updatedAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutOrderItemsInput
   variant: Prisma.ProductVariantCreateNestedOneWithoutOrderItemsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutOrderItemsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutOrderItemsInput
 }
 
 export type OrderItemUncheckedCreateWithoutReviewInput = {
@@ -861,7 +861,7 @@ export type OrderItemUpdateWithoutReviewInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
   variant?: Prisma.ProductVariantUpdateOneRequiredWithoutOrderItemsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutOrderItemsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutOrderItemsNestedInput
 }
 
 export type OrderItemUncheckedUpdateWithoutReviewInput = {
@@ -948,7 +948,7 @@ export type OrderItemUpdateWithoutVariantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutOrderItemsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutOrderItemsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutOrderItemNestedInput
 }
 
@@ -998,7 +998,7 @@ export type OrderItemUpdateWithoutOrderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   variant?: Prisma.ProductVariantUpdateOneRequiredWithoutOrderItemsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutOrderItemsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutOrderItemsNestedInput
   review?: Prisma.ReviewUpdateOneWithoutOrderItemNestedInput
 }
 
@@ -1042,7 +1042,7 @@ export type OrderItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   review?: boolean | Prisma.OrderItem$reviewArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
 
@@ -1059,7 +1059,7 @@ export type OrderItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
 
 export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1075,7 +1075,7 @@ export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderItem"]>
 
 export type OrderItemSelectScalar = {
@@ -1095,18 +1095,18 @@ export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type OrderItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   review?: boolean | Prisma.OrderItem$reviewArgs<ExtArgs>
 }
 export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 export type OrderItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   variant?: boolean | Prisma.ProductVariantDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 
 export type $OrderItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1114,7 +1114,7 @@ export type $OrderItemPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     order: Prisma.$OrderPayload<ExtArgs>
     variant: Prisma.$ProductVariantPayload<ExtArgs>
-    crafter: Prisma.$CrafterProfilePayload<ExtArgs>
+    crafter: Prisma.$CrafterStorePayload<ExtArgs>
     review: Prisma.$ReviewPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1524,7 +1524,7 @@ export interface Prisma__OrderItemClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   order<T extends Prisma.OrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderDefaultArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   variant<T extends Prisma.ProductVariantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductVariantDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  crafter<T extends Prisma.CrafterProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crafter<T extends Prisma.CrafterStoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterStoreDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterStoreClient<runtime.Types.Result.GetResult<Prisma.$CrafterStorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   review<T extends Prisma.OrderItem$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderItem$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

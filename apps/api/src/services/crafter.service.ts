@@ -6,14 +6,14 @@ export const CrafterService = {
   async applyCrafter(userId: string, data: ApplyCrafterDTO) {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      include: { crafterApplication: true, crafterProfile: true },
+      include: { crafterApplication: true, crafterStore: true },
     });
 
     if (!user) {
       throw new AppError(404, 'User not found');
     }
 
-    if (user.role === 'CRAFTER' || user.crafterProfile) {
+    if (user.role === 'CRAFTER' || user.crafterStore) {
       throw new AppError(400, 'You are already a crafter');
     }
 
@@ -49,15 +49,10 @@ export const CrafterService = {
   },
 
   async getCrafterById(id: string) {
-    const crafter = await prisma.crafterProfile.findUnique({
+    const crafter = await prisma.user.findUnique({
       where: { id },
       include: {
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
+
       },
     });
 
@@ -66,5 +61,17 @@ export const CrafterService = {
     }
 
     return crafter;
+  },
+
+  async getCrafterStore(userId: string) {
+    const store = await prisma.crafterStore.findUnique({
+      where: { crafterId: userId },
+    });
+
+    if (!store) {
+      throw new AppError(404, 'Crafter store not found');
+    }
+
+    return store;
   },
 };

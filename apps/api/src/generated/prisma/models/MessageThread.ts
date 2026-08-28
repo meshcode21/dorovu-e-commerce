@@ -183,7 +183,7 @@ export type MessageThreadWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MessageThread"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MessageThread"> | Date | string
   buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   messages?: Prisma.MessageListRelationFilter
 }
 
@@ -194,7 +194,7 @@ export type MessageThreadOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   buyer?: Prisma.UserOrderByWithRelationInput
-  crafter?: Prisma.CrafterProfileOrderByWithRelationInput
+  crafter?: Prisma.CrafterStoreOrderByWithRelationInput
   messages?: Prisma.MessageOrderByRelationAggregateInput
 }
 
@@ -208,7 +208,7 @@ export type MessageThreadWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MessageThread"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MessageThread"> | Date | string
   buyer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  crafter?: Prisma.XOR<Prisma.CrafterProfileScalarRelationFilter, Prisma.CrafterProfileWhereInput>
+  crafter?: Prisma.XOR<Prisma.CrafterStoreScalarRelationFilter, Prisma.CrafterStoreWhereInput>
   messages?: Prisma.MessageListRelationFilter
 }, "id">
 
@@ -239,7 +239,7 @@ export type MessageThreadCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   buyer: Prisma.UserCreateNestedOneWithoutMessageThreadsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutMessageThreadsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutMessageThreadsInput
   messages?: Prisma.MessageCreateNestedManyWithoutThreadInput
 }
 
@@ -257,7 +257,7 @@ export type MessageThreadUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   buyer?: Prisma.UserUpdateOneRequiredWithoutMessageThreadsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutMessageThreadsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutMessageThreadsNestedInput
   messages?: Prisma.MessageUpdateManyWithoutThreadNestedInput
 }
 
@@ -433,7 +433,7 @@ export type MessageThreadCreateWithoutBuyerInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutMessageThreadsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutMessageThreadsInput
   messages?: Prisma.MessageCreateNestedManyWithoutThreadInput
 }
 
@@ -529,7 +529,7 @@ export type MessageThreadCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   buyer: Prisma.UserCreateNestedOneWithoutMessageThreadsInput
-  crafter: Prisma.CrafterProfileCreateNestedOneWithoutMessageThreadsInput
+  crafter: Prisma.CrafterStoreCreateNestedOneWithoutMessageThreadsInput
 }
 
 export type MessageThreadUncheckedCreateWithoutMessagesInput = {
@@ -561,7 +561,7 @@ export type MessageThreadUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   buyer?: Prisma.UserUpdateOneRequiredWithoutMessageThreadsNestedInput
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutMessageThreadsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutMessageThreadsNestedInput
 }
 
 export type MessageThreadUncheckedUpdateWithoutMessagesInput = {
@@ -583,7 +583,7 @@ export type MessageThreadUpdateWithoutBuyerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  crafter?: Prisma.CrafterProfileUpdateOneRequiredWithoutMessageThreadsNestedInput
+  crafter?: Prisma.CrafterStoreUpdateOneRequiredWithoutMessageThreadsNestedInput
   messages?: Prisma.MessageUpdateManyWithoutThreadNestedInput
 }
 
@@ -670,7 +670,7 @@ export type MessageThreadSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   updatedAt?: boolean
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.MessageThread$messagesArgs<ExtArgs>
   _count?: boolean | Prisma.MessageThreadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messageThread"]>
@@ -682,7 +682,7 @@ export type MessageThreadSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messageThread"]>
 
 export type MessageThreadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -692,7 +692,7 @@ export type MessageThreadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   createdAt?: boolean
   updatedAt?: boolean
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messageThread"]>
 
 export type MessageThreadSelectScalar = {
@@ -706,24 +706,24 @@ export type MessageThreadSelectScalar = {
 export type MessageThreadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "buyerId" | "crafterId" | "createdAt" | "updatedAt", ExtArgs["result"]["messageThread"]>
 export type MessageThreadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.MessageThread$messagesArgs<ExtArgs>
   _count?: boolean | Prisma.MessageThreadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MessageThreadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 export type MessageThreadIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   buyer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  crafter?: boolean | Prisma.CrafterProfileDefaultArgs<ExtArgs>
+  crafter?: boolean | Prisma.CrafterStoreDefaultArgs<ExtArgs>
 }
 
 export type $MessageThreadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MessageThread"
   objects: {
     buyer: Prisma.$UserPayload<ExtArgs>
-    crafter: Prisma.$CrafterProfilePayload<ExtArgs>
+    crafter: Prisma.$CrafterStorePayload<ExtArgs>
     messages: Prisma.$MessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1127,7 +1127,7 @@ readonly fields: MessageThreadFieldRefs;
 export interface Prisma__MessageThreadClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   buyer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  crafter<T extends Prisma.CrafterProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterProfileClient<runtime.Types.Result.GetResult<Prisma.$CrafterProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  crafter<T extends Prisma.CrafterStoreDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CrafterStoreDefaultArgs<ExtArgs>>): Prisma.Prisma__CrafterStoreClient<runtime.Types.Result.GetResult<Prisma.$CrafterStorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.MessageThread$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageThread$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

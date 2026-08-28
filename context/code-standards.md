@@ -32,7 +32,8 @@ Route → Middleware → Controller → Service → Prisma → Response
 - One route file per resource
 - Components go in `components/<feature>/ComponentName.tsx`
 - Hooks go in `hooks/use-feature-name.ts`
-- Zustand stores go in `store/feature.store.ts`
+- **Zustand is prohibited.** Do not use Zustand.
+- Query keys are centralized in `apps/web/src/utils/queryKeys.ts`.
 
 ## Error Handling (Backend)
 Always use AppError for expected errors:
@@ -82,9 +83,10 @@ await prisma.$transaction([...])
 ```
 
 ## Frontend Rules
-- Use TanStack Query for ALL server data fetching — no raw fetch/axios in components
-- Use Zustand only for client-side state (cart, UI state)
-- Never call API directly from a page — use a custom hook
+- **No Zustand.** Use TanStack React Query for ALL server state and global client state.
+- **Query Key Factory:** All query keys must be defined in `apps/web/src/utils/queryKeys.ts`. Do not hardcode query keys in hooks. Drop `undefined` values from query key arrays to enable React Query fuzzy matching for invalidations.
+- **Suspense Boundaries:** Any client component utilizing `useSearchParams()` in Next.js App Router must be wrapped in a `<Suspense>` boundary to prevent build failures.
+- Never call API directly from a page — use a custom hook.
 - Forms use React Hook Form + Zod resolver
 - Never modify files in `components/ui/` — shadcn managed
 

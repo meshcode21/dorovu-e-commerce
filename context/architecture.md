@@ -52,8 +52,7 @@ dorovu/
 | TypeScript | Language |
 | Tailwind CSS | Styling |
 | shadcn/ui | Component library |
-| TanStack Query | Server state / data fetching |
-| Zustand | Client state (cart, UI) |
+| TanStack Query | Server state & Global state |
 | React Hook Form + Zod | Forms and validation |
 | Socket.io-client | Real-time (messages, order updates) |
 | `@dorovu/shared` | Shared schemas and types |
@@ -186,9 +185,6 @@ apps/web/src/
 │   ├── crafter/                ← CrafterCard, ShopBanner, CrafterForm
 │   └── order/                  ← OrderStatus, OrderTimeline, OrderItem
 ├── hooks/                      ← custom React hooks (useAuth, useCart etc)
-├── store/                      ← Zustand stores
-│   ├── cart.store.ts
-│   └── auth.store.ts
 └── lib/
     ├── api.ts                  ← axios instance with baseURL + credentials
     └── socket.ts               ← Socket.io client instance
@@ -217,22 +213,22 @@ All tables use **UUID primary keys**. All tables have `createdAt` and `updatedAt
 
 ```
 users
-  ├── crafter_profiles     (1:1 — only if role = CRAFTER)
+  ├── crafter_stores       (1:1 — only if role = CRAFTER)
   │    └── products
   │         └── product_variants
   └── orders               (as buyer)
        └── order_items
             └── reviews
 
-crafter_profiles → payouts
+crafter_stores → payouts
 users ↔ users    → message_threads → messages
 ```
 
 ### Core Tables
 
-**`users`** — Everyone on the platform. `role` field determines access.
+**`users`** — Everyone on the platform. `role` field determines access. Auth is verified using stateless JWT tokens.
 
-**`crafter_profiles`** — Extended profile for crafters. Contains shop name, bio, craft types, portfolio images, approval status, commission rate. Linked 1:1 to users.
+**`crafter_stores`** — Extended profile for crafters. Decoupled from the `User` auth object. Contains shop name, bio, craft types, portfolio images, approval status, commission rate. Linked 1:1 to users. Frontend fetches this via `useCrafterStore`.
 
 **`products`** — Items listed for sale. Belongs to a crafter. Has title, description, price, images (Cloudinary URLs), tags, craft type, category, custom order flag, lead time.
 
