@@ -158,6 +158,33 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const getPendingOrderCount = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = req.user!.userId;
+
+    const crafterStore = await prisma.crafterStore.findUnique({
+      where: { crafterId: userId }
+    });
+
+    if (!crafterStore) {
+      res.json({ count: 0 });
+      return;
+    }
+
+    const count = await prisma.orderItem.count({
+      where: {
+        crafterId: crafterStore.id,
+        status: 'PENDING'
+      }
+    });
+
+    res.json({ count });
+  } catch (error) {
+    console.error('Get pending order count error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 export const getOrderById = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = req.user!.userId;

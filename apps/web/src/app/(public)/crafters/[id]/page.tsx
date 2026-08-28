@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useProducts } from '@/hooks/use-products';
 import { useCrafter } from '@/hooks/use-crafter';
 import { ProductCard } from '@/components/products/product-card';
-import { MapPin, Star, Calendar } from 'lucide-react';
+import { MapPin, Star, Calendar, User } from 'lucide-react';
 
 export default function CrafterShopPage() {
   const { id } = useParams() as { id: string };
@@ -50,26 +50,24 @@ export default function CrafterShopPage() {
                 className="object-cover"
               />
             ) : (
-              <span className="text-4xl text-primary font-display font-bold">
-                {crafter.storeName.charAt(0)}
-              </span>
+              <User className='size-full text-primary p-5'/>
             )}
           </div>
           
           <div className="text-center md:text-left flex-1">
-            <div className="inline-block bg-primary/80 text-primary/70 px-3 py-1 rounded-full text-xs font-mono tracking-wider uppercase mb-4">
+            <div className="inline-block bg-white/20 text-white px-3 py-1 rounded-full text-xs font-mono tracking-wider uppercase mb-4 shadow-sm">
               {crafter.craftType} Artisan
             </div>
-            <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 drop-shadow-sm">
               {crafter.storeName}
             </h1>
-            <p className="text-primary/70 text-lg max-w-2xl mb-6">
+            <p className="text-white/90 text-lg max-w-2xl mb-6 leading-relaxed">
               {crafter.description}
             </p>
             
-            <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-primary/70">
+            <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-white/80">
               <div className="flex items-center gap-2">
-                <Star className="w-4 h-4 text-secondary/80" fill="currentColor" />
+                <Star className="w-4 h-4 text-secondary" fill="currentColor" />
                 {crafter.rating} Rating ({crafter.totalSales} sales)
               </div>
               <div className="flex items-center gap-2">

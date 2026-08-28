@@ -3,6 +3,7 @@ import { authenticate, requireRole } from '../middleware/auth.middleware';
 import { 
   createOrder, 
   getOrders, 
+  getPendingOrderCount,
   getOrderById, 
   updateOrderItemStatus, 
   cancelOrder 
@@ -22,6 +23,7 @@ router.put('/items/:itemId/status', requireRole('CRAFTER', 'ADMIN'), updateOrder
 
 // Shared routes
 router.get('/', getOrders);
+router.get('/pending-count', requireRole('CRAFTER'), getPendingOrderCount);
 router.get('/:id', getOrderById);
 
 export default router;

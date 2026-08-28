@@ -5,7 +5,9 @@ import Image from "next/image";
 import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle } from "lucide-react";
 import { useUser, useLogout } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
+import { usePendingOrdersCount } from "@/hooks/use-orders";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -192,14 +194,21 @@ export function NavbarBuyer() {
 export function NavbarCrafter() {
   const { data: user } = useUser();
   const { mutate: logout } = useLogout();
+  const { data: pendingCount } = usePendingOrdersCount();
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
       <div className="max-w-[1280px] mx-auto px-4 h-16 flex items-center justify-between gap-4">
         <Logo />
         <SearchBox />
         <div className="flex items-center gap-2 shrink-0">
-          <Link href="/crafter/orders" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
+          <Link href="/crafter/orders" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground relative" })}>
             Orders
+            {pendingCount ? (
+              <Badge variant="destructive" className="absolute -top-0.5 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[10px]">
+                {pendingCount > 9 ? '9+' : pendingCount}
+              </Badge>
+            ) : null}
           </Link>
           <Link href="/crafter" className={buttonVariants({ variant: "ghost", className: "hidden sm:inline-flex text-primary hover:text-primary hover:bg-accent-foreground" })}>
             My Store

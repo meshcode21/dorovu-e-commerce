@@ -24,6 +24,7 @@ export const queryKeys = {
     all: () => ['orders'] as const,
     buyer: () => ['orders', 'buyer'] as const,
     crafter: () => ['orders', 'crafter'] as const,
+    pendingCount: () => ['orders', 'pending-count'] as const,
   },
   categories: {
     all: () => ['categories'] as const,

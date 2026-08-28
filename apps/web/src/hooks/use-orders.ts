@@ -60,6 +60,17 @@ export const useCrafterOrders = () => {
   });
 };
 
+export const usePendingOrdersCount = () => {
+  return useQuery({
+    queryKey: queryKeys.orders.pendingCount(),
+    queryFn: async () => {
+      const { data } = await api.get('/orders/pending-count');
+      return data.count as number;
+    },
+    refetchInterval: 60000, // Refetch every 1 minute
+  });
+};
+
 export const useUpdateOrderStatus = () => {
   const queryClient = useQueryClient();
 
