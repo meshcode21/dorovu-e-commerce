@@ -88,7 +88,7 @@ export default function CrafterShopPage() {
       {/* Shop Products */}
       <div className="max-w-[1280px] mx-auto px-4 py-16">
         <h2 className="font-display text-3xl font-bold text-foreground mb-2">Shop Collection</h2>
-        <p className="text-muted-foreground mb-10">Handcrafted pieces by {crafter.user.firstName}</p>
+        <p className="text-muted-foreground mb-10">Handcrafted pieces by {crafter.crafter.firstName}</p>
 
         {productsLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

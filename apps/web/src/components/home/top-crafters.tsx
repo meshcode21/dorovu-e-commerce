@@ -35,7 +35,7 @@ export const TopCrafters = () => {
           : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(store.storeName)}`;
 
         return (
-          <Link href={`/shop/${store.id}`} key={store.id} className="group block">
+          <Link href={`/crafters/${store.id}`} key={store.id} className="group block">
             <div className="bg-card rounded-xl border border-border p-6 flex flex-col items-center text-center transition-all hover:shadow-md hover:border-primary/20 h-full">
               <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-background shadow-sm">
                 {/* <Image

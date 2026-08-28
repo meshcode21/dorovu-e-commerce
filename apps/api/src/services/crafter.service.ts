@@ -49,15 +49,22 @@ export const CrafterService = {
   },
 
   async getCrafterById(id: string) {
-    const crafter = await prisma.user.findUnique({
+    const crafter = await prisma.crafterStore.findUnique({
       where: { id },
       include: {
-
+        crafter: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+          }
+        }
       },
     });
 
     if (!crafter) {
-      throw new AppError(404, 'Crafter not found');
+      throw new AppError(404, 'Crafter store not found');
     }
 
     return crafter;
