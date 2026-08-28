@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { toast } from 'sonner';
 
 export type ApplicationStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
@@ -21,7 +22,7 @@ export interface CrafterApplication {
 
 export const useApplications = (status?: ApplicationStatus) => {
   return useQuery({
-    queryKey: ['admin', 'applications', status],
+    queryKey: queryKeys.admin.applications(status),
     queryFn: async () => {
       const { data } = await api.get('/admin/applications', {
         params: { status }
@@ -41,7 +42,7 @@ export const useApproveApplication = () => {
     },
     onSuccess: () => {
       toast.success('Application approved successfully');
-      queryClient.invalidateQueries({ queryKey: ['admin', 'applications'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.admin.applications() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to approve application');
@@ -59,7 +60,7 @@ export const useRejectApplication = () => {
     },
     onSuccess: () => {
       toast.success('Application rejected');
-      queryClient.invalidateQueries({ queryKey: ['admin', 'applications'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.admin.applications() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to reject application');

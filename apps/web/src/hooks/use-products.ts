@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
@@ -35,7 +36,7 @@ export interface Product {
 
 export const useProducts = (crafterId?: string, category?: string, search?: string) => {
   return useQuery({
-    queryKey: ['products', crafterId, category, search],
+    queryKey: queryKeys.products.list(crafterId, category, search),
     queryFn: async () => {
       const params = new URLSearchParams();
       if (crafterId) params.append('crafterId', crafterId);
@@ -50,7 +51,7 @@ export const useProducts = (crafterId?: string, category?: string, search?: stri
 
 export const useCrafterProducts = (crafterId?: string) => {
   return useQuery({
-    queryKey: ['products', 'crafter', crafterId],
+    queryKey: queryKeys.products.crafter(crafterId),
     queryFn: async () => {
       if (!crafterId) return [];
       const { data } = await api.get(`/products?crafterId=${crafterId}`);
@@ -62,7 +63,7 @@ export const useCrafterProducts = (crafterId?: string) => {
 
 export const useProduct = (id: string) => {
   return useQuery({
-    queryKey: ['product', id],
+    queryKey: queryKeys.products.detail(id),
     queryFn: async () => {
       const { data } = await api.get(`/products/${id}`);
       return data.product as Product;
@@ -86,7 +87,7 @@ export const useCreateProduct = () => {
     },
     onSuccess: () => {
       toast.success('Product created successfully');
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
       router.push('/crafter/products');
     },
     onError: (error: any) => {
@@ -110,8 +111,8 @@ export const useUpdateProduct = (id: string) => {
     },
     onSuccess: () => {
       toast.success('Product updated successfully');
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-      queryClient.invalidateQueries({ queryKey: ['product', id] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.detail(id) });
       router.push('/crafter/products');
     },
     onError: (error: any) => {
@@ -130,7 +131,7 @@ export const useDeleteProduct = () => {
     },
     onSuccess: () => {
       toast.success('Product deleted successfully');
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to delete product');

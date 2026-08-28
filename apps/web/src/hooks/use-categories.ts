@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { useUser } from './use-auth';
 import { toast } from 'sonner';
 
@@ -10,14 +11,10 @@ export interface Category {
   createdAt: string;
 }
 
-const api = axios.create({
-  baseURL: 'http://localhost:3001/api/v1',
-  withCredentials: true,
-});
 
 export const useCategories = () => {
   return useQuery({
-    queryKey: ['categories'],
+    queryKey: queryKeys.categories.all(),
     queryFn: async () => {
       const { data } = await api.get('/categories');
       return data.categories as Category[];
@@ -35,7 +32,7 @@ export const useCreateCategory = () => {
     },
     onSuccess: () => {
       toast.success('Category created successfully');
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.categories.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to create category');
@@ -52,7 +49,7 @@ export const useDeleteCategory = () => {
     },
     onSuccess: () => {
       toast.success('Category deleted successfully');
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.categories.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to delete category');

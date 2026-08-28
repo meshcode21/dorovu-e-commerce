@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { useRouter } from 'next/navigation';
 import type { LoginDTO, RegisterDTO } from '@dorovu/shared';
 
@@ -19,7 +20,7 @@ export interface User {
 
 export const useUser = () => {
   return useQuery({
-    queryKey: ['auth-user'],
+    queryKey: queryKeys.auth.user(),
     queryFn: async () => {
       try {
         const { data } = await api.get('/auth/me');
@@ -43,9 +44,9 @@ export const useLogin = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['auth-user'], data.user);
+      queryClient.setQueryData(queryKeys.auth.user(), data.user);
       if (data.user.role === 'ADMIN') {
-        router.push('/admin/applications');
+        router.push('/admin');
       } else {
         router.push('/');
       }
@@ -63,7 +64,7 @@ export const useGoogleLogin = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['auth-user'], data.user);
+      queryClient.setQueryData(queryKeys.auth.user(), data.user);
       if (data.user.role === 'ADMIN') {
         router.push('/admin/applications');
       } else {
@@ -83,7 +84,7 @@ export const useRegister = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(['auth-user'], data.user);
+      queryClient.setQueryData(queryKeys.auth.user(), data.user);
       router.push('/');
     },
   });
@@ -98,7 +99,7 @@ export const useLogout = () => {
       await api.post('/auth/logout');
     },
     onSuccess: () => {
-      queryClient.setQueryData(['auth-user'], null);
+      queryClient.setQueryData(queryKeys.auth.user(), null);
       queryClient.clear();
       router.push('/login');
     },

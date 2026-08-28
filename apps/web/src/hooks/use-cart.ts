@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { toast } from 'sonner';
 
 export interface CartItem {
@@ -30,7 +31,7 @@ export interface Cart {
 
 export const useCart = (isAuthenticated: boolean) => {
   return useQuery({
-    queryKey: ['cart'],
+    queryKey: queryKeys.cart.all(),
     queryFn: async () => {
       const { data } = await api.get('/cart');
       return data.cart as Cart;
@@ -51,7 +52,7 @@ export const useAddToCart = () => {
     },
     onSuccess: () => {
       toast.success('Added to cart');
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.cart.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to add to cart');
@@ -68,7 +69,7 @@ export const useUpdateCartItem = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.cart.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to update item');
@@ -86,7 +87,7 @@ export const useRemoveCartItem = () => {
     },
     onSuccess: () => {
       toast.success('Removed from cart');
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.cart.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to remove item');
@@ -103,7 +104,7 @@ export const useClearCart = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.cart.all() });
     },
   });
 };

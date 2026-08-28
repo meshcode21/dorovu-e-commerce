@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, type LoginDTO } from "@dorovu/shared";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button} from "@/components/ui/button";
 import Link from "next/link";
 import { useLogin, useGoogleLogin } from "@/hooks/use-auth";
 import { GoogleLogin } from "@react-oauth/google";

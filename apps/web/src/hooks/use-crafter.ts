@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import type { ApplyCrafterDTO } from '@dorovu/shared';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -25,7 +26,7 @@ export const useApplyCrafter = () => {
 
 export const useCrafter = (id: string) => {
   return useQuery({
-    queryKey: ['crafter', id],
+    queryKey: queryKeys.crafter.profile(id),
     queryFn: async () => {
       const { data } = await api.get(`/crafters/${id}`);
       return data.data; // the controller returns { success: true, data: crafter }

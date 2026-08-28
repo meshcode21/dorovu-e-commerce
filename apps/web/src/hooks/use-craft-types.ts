@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { useUser } from './use-auth';
 import { toast } from 'sonner';
 
@@ -12,7 +13,7 @@ export interface CraftType {
 
 export const useCraftTypes = () => {
   return useQuery({
-    queryKey: ['craft-types'],
+    queryKey: queryKeys.craftTypes.all(),
     queryFn: async () => {
       const { data } = await api.get('/craft-types');
       return data.craftTypes as CraftType[];
@@ -31,7 +32,7 @@ export const useCreateCraftType = () => {
     },
     onSuccess: () => {
       toast.success('Craft Type created successfully');
-      queryClient.invalidateQueries({ queryKey: ['craft-types'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.craftTypes.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to create craft type');
@@ -48,7 +49,7 @@ export const useDeleteCraftType = () => {
     },
     onSuccess: () => {
       toast.success('Craft Type deleted successfully');
-      queryClient.invalidateQueries({ queryKey: ['craft-types'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.craftTypes.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to delete craft type');

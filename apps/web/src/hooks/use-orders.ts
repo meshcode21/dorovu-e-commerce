@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
+import { queryKeys } from '@/utils/queryKeys';
 import { toast } from 'sonner';
 
 export const useCreateOrder = () => {
@@ -12,8 +13,8 @@ export const useCreateOrder = () => {
     },
     onSuccess: () => {
       toast.success('Order placed successfully!');
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.cart.all() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.orders.all() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to place order');
@@ -23,7 +24,7 @@ export const useCreateOrder = () => {
 
 export const useBuyerOrders = () => {
   return useQuery({
-    queryKey: ['orders', 'buyer'],
+    queryKey: queryKeys.orders.buyer(),
     queryFn: async () => {
       const { data } = await api.get('/orders?role=buyer');
       return data.orders;
@@ -41,7 +42,7 @@ export const useCancelOrder = () => {
     },
     onSuccess: () => {
       toast.success('Order cancelled successfully');
-      queryClient.invalidateQueries({ queryKey: ['orders', 'buyer'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.orders.buyer() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to cancel order');
@@ -51,7 +52,7 @@ export const useCancelOrder = () => {
 
 export const useCrafterOrders = () => {
   return useQuery({
-    queryKey: ['orders', 'crafter'],
+    queryKey: queryKeys.orders.crafter(),
     queryFn: async () => {
       const { data } = await api.get('/orders?role=crafter');
       return data.orderItems; // Crafter endpoint returns { orderItems: [...] }
@@ -69,7 +70,7 @@ export const useUpdateOrderStatus = () => {
     },
     onSuccess: () => {
       toast.success('Order status updated');
-      queryClient.invalidateQueries({ queryKey: ['orders', 'crafter'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.orders.crafter() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to update status');
