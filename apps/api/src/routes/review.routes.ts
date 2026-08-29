@@ -5,9 +5,9 @@ import { authenticate, requireRole } from '../middleware/auth.middleware';
 const router = Router();
 
 // Buyer endpoints
-router.post('/:orderItemId', authenticate, requireRole('BUYER'), reviewController.create);
-router.put('/:id', authenticate, requireRole('BUYER'), reviewController.update);
-router.delete('/:id', authenticate, requireRole('BUYER'), reviewController.remove);
+router.post('/:orderItemId', authenticate, reviewController.create);
+router.put('/:id', authenticate, reviewController.update);
+router.delete('/:id', authenticate, reviewController.remove);
 
 // Crafter endpoints
 router.put('/:id/reply', authenticate, requireRole('CRAFTER'), reviewController.reply);

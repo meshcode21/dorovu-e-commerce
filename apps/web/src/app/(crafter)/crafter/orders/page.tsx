@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Package, Truck, CheckCircle2, Clock, XCircle, Search, MapPin, User, FileText, Star } from 'lucide-react';
+import { Package, Truck, CheckCircle2, Clock, XCircle, Search, MapPin, User, FileText, Star, MessageCircle } from 'lucide-react';
 import CrafterReplyForm from '@/components/crafter/CrafterReplyForm';
 
 export default function CrafterOrdersPage() {
@@ -202,6 +202,17 @@ export default function CrafterOrdersPage() {
                       </div>
                     </div>
                     {item.review.comment && <p className="text-sm text-muted-foreground mb-4">{item.review.comment}</p>}
+                    
+                    {item.review.crafterReply && (
+                      <div className="mt-2 mb-4 bg-background p-3 rounded-md border border-border flex gap-3">
+                        <MessageCircle className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-xs font-semibold text-foreground mb-1">Your Response:</p>
+                          <p className="text-sm text-muted-foreground font-sans">{item.review.crafterReply}</p>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex justify-end">
                       <CrafterReplyForm 
                         reviewId={item.review.id} 

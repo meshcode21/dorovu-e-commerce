@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useBuyerOrders, useCancelOrder } from '@/hooks/use-orders';
-import { Package, Truck, CheckCircle2, Clock, XCircle, ArrowRight } from 'lucide-react';
+import { Package, Truck, CheckCircle2, Clock, XCircle, ArrowRight, MessageCircle, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -164,7 +164,39 @@ export default function BuyerOrdersPage() {
                         </div>
                       )}
 
-                      {item.status === 'DELIVERED' && (
+                      {item.review && (
+                        <div className="mt-4 bg-muted/20 border border-border rounded-lg p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <h5 className="text-sm font-semibold text-foreground">Your Review</h5>
+                            <div className="flex text-yellow-500">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <Star key={i} className={`w-3 h-3 ${i < item.review.rating ? 'fill-current' : 'text-gray-300'}`} />
+                              ))}
+                            </div>
+                          </div>
+                          {item.review.comment && <p className="text-sm text-muted-foreground mb-4">{item.review.comment}</p>}
+                          
+                          {item.review.crafterReply && (
+                            <div className="mt-2 mb-4 bg-background p-3 rounded-md border border-border flex gap-3">
+                              <MessageCircle className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
+                              <div>
+                                <p className="text-xs font-semibold text-foreground mb-1">Crafter's Response:</p>
+                                <p className="text-sm text-muted-foreground font-sans">{item.review.crafterReply}</p>
+                              </div>
+                            </div>
+                          )}
+                          
+                          <div className="flex justify-end">
+                            <ReviewForm 
+                              orderItemId={item.id} 
+                              productId={item.variant.product.id} 
+                              existingReview={item.review} 
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {!item.review && item.status === 'DELIVERED' && (
                         <div className="mt-4 flex justify-end">
                           <ReviewForm 
                             orderItemId={item.id} 

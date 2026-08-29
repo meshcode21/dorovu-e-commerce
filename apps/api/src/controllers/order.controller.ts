@@ -123,7 +123,8 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
                 select: { title: true, images: true }
               }
             }
-          }
+          },
+          review: true
         },
         orderBy: { createdAt: 'desc' }
       });
@@ -144,7 +145,8 @@ export const getOrders = async (req: Request, res: Response): Promise<void> => {
                   select: { id: true, title: true, images: true, crafter: { select: { storeName: true } } }
                 }
               }
-            }
+            },
+            review: true
           }
         }
       },
@@ -205,7 +207,8 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
             },
             crafter: {
               select: { crafterId: true }
-            }
+            },
+            review: true
           }
         }
       }
