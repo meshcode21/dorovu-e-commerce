@@ -16,6 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import ReviewForm from '@/components/order/ReviewForm';
 
 export default function BuyerOrdersPage() {
   const { data: orders, isLoading } = useBuyerOrders();
@@ -160,6 +161,16 @@ export default function BuyerOrdersPage() {
                         <div className="mt-4 bg-muted/50 rounded-lg p-3 text-sm flex items-center justify-between">
                           <span className="text-muted-foreground">Tracking Number: <span className="font-medium text-foreground">{item.trackingNumber}</span></span>
                           <Button variant="outline" size="sm" className="h-8 text-xs">Track Package</Button>
+                        </div>
+                      )}
+
+                      {item.status === 'DELIVERED' && (
+                        <div className="mt-4 flex justify-end">
+                          <ReviewForm 
+                            orderItemId={item.id} 
+                            productId={item.variant.product.id} 
+                            existingReview={item.review} 
+                          />
                         </div>
                       )}
                     </div>

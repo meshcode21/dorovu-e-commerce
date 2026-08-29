@@ -147,6 +147,22 @@ pnpm dlx shadcn@latest add form
 Never modify files in `components/ui/`.
 Import from `@/components/ui/button` etc.
 
+- **Dialog Component (Base-UI)**: The `Dialog` component in this project uses `@base-ui/react`. Elements like `DialogTrigger` do **not** use the `asChild` prop. Instead, use the `render` prop.
+  - **Correct**: `<DialogTrigger render={<Button>Open</Button>}>...</DialogTrigger>`
+  - **Incorrect**: `<DialogTrigger asChild><Button>...</Button></DialogTrigger>`
+
+---
+
+## Toast Notifications (Sonner)
+
+Always use `sonner` for toast notifications. **Do not** install or use `react-hot-toast`.
+```ts
+import { toast } from 'sonner'
+
+toast.success('Action successful!')
+toast.error('Something went wrong.')
+```
+
 ---
 
 ## Socket.io (Frontend + Backend)

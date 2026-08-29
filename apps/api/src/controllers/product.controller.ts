@@ -291,3 +291,37 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const getProductReviews = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const reviews = await prisma.review.findMany({
+      where: { orderItem: { variant: { productId: String(req.params.id) } } },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        orderItem: {
+          select: {
+            order: {
+              select: {
+                buyer: {
+                  select: {
+                    firstName: true,
+                    lastName: true,
+                  }
+                }
+              }
+            },
+            variant: {
+              select: {
+                name: true,
+              }
+            }
+          }
+        }
+      }
+    });
+    res.json({ reviews });
+  } catch (error) {
+    console.error('Get product reviews error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

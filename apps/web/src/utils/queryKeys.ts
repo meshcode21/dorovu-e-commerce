@@ -39,4 +39,7 @@ export const queryKeys = {
     profile: (id?: string) => ['crafter', id] as const,
     top: () => ['crafter', 'top'] as const,
   },
+  reviews: {
+    product: (id: string) => ['reviews', 'product', id] as const,
+  },
 } as const;

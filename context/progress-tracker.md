@@ -114,6 +114,7 @@ Last updated: August 2026
 - ✅ Trending Products dynamically fetched using actual `totalSales`
 - ✅ Dynamic Notification Badges for pending orders (Crafter Navbar) using shadcn
 - ✅ Crafter Store page routing and UI overhaul (fully public and themed)
+- ✅ Product Review System (Buyer reviews, Crafter replies, dynamic rating recalculation)
 
 ---
 

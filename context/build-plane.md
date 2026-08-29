@@ -71,7 +71,7 @@ Build in this exact order. Do not jump ahead.
 ## Phase 2 — Core (After MVP)
 - [ ] Khalti payment
 - [ ] Product variants
-- [ ] Reviews and ratings
+- [x] Reviews and ratings
 - [ ] Direct messaging (Socket.io)
 - [ ] Crafter analytics dashboard
 - [ ] Payout tracking

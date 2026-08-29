@@ -10,6 +10,7 @@ import { useUser } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Store, Package, Clock, ShieldCheck } from 'lucide-react';
+import ReviewList from '@/components/product/ReviewList';
 
 export default function ProductDetailPage() {
   const { id } = useParams() as { id: string };
@@ -193,6 +194,10 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-12 max-w-4xl mx-auto">
+        <ReviewList productId={id} />
       </div>
     </div>
   );

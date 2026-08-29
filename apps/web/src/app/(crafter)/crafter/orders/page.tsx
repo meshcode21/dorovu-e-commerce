@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Package, Truck, CheckCircle2, Clock, XCircle, Search, MapPin, User, FileText } from 'lucide-react';
+import { Package, Truck, CheckCircle2, Clock, XCircle, Search, MapPin, User, FileText, Star } from 'lucide-react';
+import CrafterReplyForm from '@/components/crafter/CrafterReplyForm';
 
 export default function CrafterOrdersPage() {
   const { data: orderItems, isLoading } = useCrafterOrders();
@@ -189,6 +190,27 @@ export default function CrafterOrdersPage() {
                   </div>
                 </div>
 
+                {/* Buyer Review Section */}
+                {item.review && (
+                  <div className="mt-4 bg-muted/20 border border-border rounded-lg p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <h5 className="text-sm font-semibold text-foreground">Buyer Review</h5>
+                      <div className="flex text-yellow-500">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className={`w-3 h-3 ${i < item.review.rating ? 'fill-current' : 'text-gray-300'}`} />
+                        ))}
+                      </div>
+                    </div>
+                    {item.review.comment && <p className="text-sm text-muted-foreground mb-4">{item.review.comment}</p>}
+                    <div className="flex justify-end">
+                      <CrafterReplyForm 
+                        reviewId={item.review.id} 
+                        productId={product.id} 
+                        existingReply={item.review.crafterReply} 
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           );

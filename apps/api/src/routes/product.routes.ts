@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createProduct, getProducts, getTrendingProducts, getProductById, updateProduct, deleteProduct } from '../controllers/product.controller';
+import { createProduct, getProducts, getTrendingProducts, getProductById, updateProduct, deleteProduct, getProductReviews } from '../controllers/product.controller';
 import { authenticate, requireRole } from '../middleware/auth.middleware';
 import { upload } from '../middleware/upload.middleware';
 
@@ -9,6 +9,7 @@ const router = Router();
 router.get('/', getProducts);
 router.get('/trending', getTrendingProducts);
 router.get('/:id', getProductById);
+router.get('/:id/reviews', getProductReviews);
 
 // Protected crafter routes
 // We use upload.array('images', 5) to handle multiple file uploads (up to 5 images)
