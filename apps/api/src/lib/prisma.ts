@@ -3,7 +3,12 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
 const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({ connectionString });
+const pool = new Pool({ 
+  connectionString,
+  ssl: process.env.NODE_ENV === 'production' || connectionString?.includes('render.com')
+    ? { rejectUnauthorized: false }
+    : false,
+});
 const adapter = new PrismaPg(pool);
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
