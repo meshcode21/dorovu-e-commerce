@@ -15,6 +15,7 @@ import cartRoutes from './routes/cart.routes';
 import reviewRoutes from './routes/review.routes';
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(
   cors({
