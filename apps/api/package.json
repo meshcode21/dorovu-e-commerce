@@ -1,5 +1,5 @@
 {
-  "name": "@dorovu/api",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "./src/server.ts",
