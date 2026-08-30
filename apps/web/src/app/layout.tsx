@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import type { Metadata } from "next";
 import "./globals.css";
 import { DM_Sans, Inter, JetBrains_Mono } from "next/font/google";
@@ -29,6 +30,7 @@ export default function RootLayout({
             <Toaster position="bottom-right" richColors />
           </QueryProvider>
         </GoogleOAuthProvider>
+        <Analytics />
       </body>
     </html>
   );
