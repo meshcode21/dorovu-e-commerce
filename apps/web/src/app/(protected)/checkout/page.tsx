@@ -240,7 +240,11 @@ export default function CheckoutPage() {
               {isPending || isInitiatingPayment ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Processing...</>
               ) : (
-                <><img src="https://merchant.esewa.com.np/assets/img/esewa_logo.png" alt="eSewa" className="h-4 mr-1 brightness-0 invert" /> Pay with eSewa</>
+                <>
+                <div className="relative size-5">
+                  <Image src="/esewa_logo.png" alt="eSewa" fill className="object-contain rounded-full" />
+                </div>
+                Pay with eSewa</>
               )}
             </Button>
             
