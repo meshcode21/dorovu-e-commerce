@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const createProductVariantSchema = z.object({
+  id: z.string().optional(),
   name: z.string().min(1, 'Variant name is required'),
   stock: z.string().or(z.number()).transform((val) => Number(val)).refine((val) => val >= 0, 'Stock cannot be negative'),
   priceAdjustment: z.string().or(z.number()).transform((val) => Number(val)).default(0),

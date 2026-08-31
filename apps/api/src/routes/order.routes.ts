@@ -7,10 +7,15 @@ import {
   getOrderById, 
   updateOrderItemStatus, 
   cancelOrder,
-  cancelPayment
+  cancelPayment,
+  getTrackingInfo,
+  getAdminLogistics
 } from '../controllers/order.controller';
 
 const router = Router();
+
+// Public routes
+router.get('/tracking/:trackingNumber', getTrackingInfo);
 
 // Apply authentication to all order routes
 router.use(authenticate);
@@ -20,12 +25,14 @@ router.post('/', createOrder);
 router.post('/:id/cancel', cancelOrder);
 router.post('/:id/cancel-payment', cancelPayment);
 
-// Crafter routes
+// Crafter & Admin routes
 router.put('/items/:itemId/status', requireRole('CRAFTER', 'ADMIN'), updateOrderItemStatus);
+
+// Admin Routes
+router.get('/admin/logistics', requireRole('ADMIN'), getAdminLogistics);
 
 // Shared routes
 router.get('/', getOrders);
 router.get('/pending-count', requireRole('CRAFTER'), getPendingOrderCount);
 router.get('/:id', getOrderById);
-
 export default router;

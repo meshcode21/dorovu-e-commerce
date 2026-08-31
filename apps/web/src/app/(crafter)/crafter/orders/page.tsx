@@ -4,21 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useCrafterOrders, useUpdateOrderStatus } from '@/hooks/use-orders';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Package, Truck, CheckCircle2, Clock, XCircle, Search, MapPin, User, FileText, Star, MessageCircle } from 'lucide-react';
+import { Package, Truck, CheckCircle2, Clock, XCircle, MapPin, User, FileText, Star, MessageCircle } from 'lucide-react';
 import CrafterReplyForm from '@/components/crafter/CrafterReplyForm';
 
 export default function CrafterOrdersPage() {
   const { data: orderItems, isLoading } = useCrafterOrders();
   const { mutate: updateStatus, isPending } = useUpdateOrderStatus();
-  
+
   // Local state for tracking numbers being edited
   const [trackingInputs, setTrackingInputs] = useState<Record<string, string>>({});
 
@@ -52,11 +44,24 @@ export default function CrafterOrdersPage() {
     switch (status) {
       case 'PENDING': return <Clock className="w-4 h-4 text-amber-500" />;
       case 'ACCEPTED': return <CheckCircle2 className="w-4 h-4 text-blue-500" />;
+      case 'READY_FOR_PICKUP': return <Package className="w-4 h-4 text-purple-500" />;
       case 'SHIPPED': return <Truck className="w-4 h-4 text-indigo-500" />;
+      case 'OUT_FOR_DELIVERY': return <Truck className="w-4 h-4 text-orange-500" />;
       case 'DELIVERED': return <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
       case 'CANCELLED': return <XCircle className="w-4 h-4 text-destructive" />;
       default: return <Clock className="w-4 h-4 text-muted-foreground" />;
     }
+  };
+
+  const getAvailableOptions = (currentStatus: string) => {
+    if (currentStatus === 'PENDING') return [{ value: 'PENDING', label: 'Pending' }, { value: 'ACCEPTED', label: 'Accept Order' }];
+    if (currentStatus === 'ACCEPTED') return [{ value: 'ACCEPTED', label: 'Accepted' }, { value: 'READY_FOR_PICKUP', label: 'Ready for Pickup' }];
+    if (currentStatus === 'READY_FOR_PICKUP') return [{ value: 'READY_FOR_PICKUP', label: 'Ready for Pickup' }];
+    if (currentStatus === 'SHIPPED') return [{ value: 'SHIPPED', label: 'Shipped' }];
+    if (currentStatus === 'OUT_FOR_DELIVERY') return [{ value: 'OUT_FOR_DELIVERY', label: 'Out for Delivery' }];
+    if (currentStatus === 'DELIVERED') return [{ value: 'DELIVERED', label: 'Delivered' }];
+    if (currentStatus === 'CANCELLED') return [{ value: 'CANCELLED', label: 'Cancelled' }];
+    return [{ value: currentStatus, label: currentStatus }];
   };
 
   return (
@@ -78,10 +83,10 @@ export default function CrafterOrdersPage() {
               <div className="p-6 border-b md:border-b-0 md:border-r border-border md:w-2/5 lg:w-1/3 bg-muted/10">
                 <div className="flex gap-4">
                   <div className="relative w-20 h-20 rounded-md overflow-hidden bg-background shrink-0 border border-border">
-                    <Image 
-                      src={product.images[0] || 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80'} 
-                      alt={product.title} 
-                      fill 
+                    <Image
+                      src={product.images[0] || 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80'}
+                      alt={product.title}
+                      fill
                       className="object-cover"
                     />
                   </div>
@@ -91,7 +96,7 @@ export default function CrafterOrdersPage() {
                     <p className="text-sm text-muted-foreground">Quantity: <span className="font-medium text-foreground">{item.quantity}</span></p>
                   </div>
                 </div>
-                
+
                 <div className="mt-6 pt-4 border-t border-border/50">
                   <div className="flex justify-between text-sm mb-1">
                     <span className="text-muted-foreground">Price at purchase:</span>
@@ -137,56 +142,60 @@ export default function CrafterOrdersPage() {
 
                 {/* Fulfillment Action Area */}
                 <div className="mt-auto bg-muted/30 rounded-lg border border-border p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Order: <span className="uppercase text-muted-foreground">#{order.id.split('-')[0]}</span></span>
-                    <span className="text-muted-foreground text-sm px-2">•</span>
-                    <span className="text-sm text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</span>
+                  <div className="flex flex-col items-start gap-2">
+                    <div className='flex items-center gap-1'>
+                      <FileText className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm font-medium">Order: <span className="uppercase text-muted-foreground">#{order.id.split('-')[0]}</span></span>
+                    </div>
+                    <div className='flex items-center gap-1'>
+                      <span className="text-muted-foreground text-sm px-2">•</span>
+                      <span className="text-sm text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</span>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-                    {/* Status Dropdown */}
-                    <div className="w-full sm:w-[160px]">
-                      <Select 
-                        value={item.status} 
-                        onValueChange={(val: string) => handleStatusChange(item.id, val)}
-                        disabled={isPending || item.status === 'CANCELLED'}
-                      >
-                        <SelectTrigger className="h-10">
-                          <div className="flex items-center gap-2">
-                            {getStatusIcon(item.status)}
-                            <SelectValue placeholder="Status" />
-                          </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="PENDING">Pending</SelectItem>
-                          <SelectItem value="ACCEPTED">Accepted</SelectItem>
-                          <SelectItem value="SHIPPED">Shipped</SelectItem>
-                          <SelectItem value="DELIVERED">Delivered</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Tracking Number Input */}
-                    {(item.status === 'ACCEPTED' || item.status === 'SHIPPED') && (
-                      <div className="flex items-center gap-2 w-full sm:w-auto mt-2 sm:mt-0">
-                        <Input 
-                          placeholder="Tracking number..." 
-                          className="h-10 w-full sm:w-[200px]"
-                          value={trackingInputs[item.id] !== undefined ? trackingInputs[item.id] : (item.trackingNumber || '')}
-                          onChange={(e) => setTrackingInputs({ ...trackingInputs, [item.id]: e.target.value })}
-                        />
-                        {(trackingInputs[item.id] !== undefined && trackingInputs[item.id] !== (item.trackingNumber || '')) && (
-                          <Button 
-                            size="sm" 
-                            onClick={() => handleStatusChange(item.id, item.status)}
-                            disabled={isPending}
-                          >
-                            Save
-                          </Button>
-                        )}
+                    {/* Tracking Number Display */}
+                    {(item.status === 'ACCEPTED' || item.status === 'READY_FOR_PICKUP' || item.status === 'SHIPPED' || item.status === 'OUT_FOR_DELIVERY' || item.status === 'DELIVERED') && item.trackingNumber && (
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+                        <span className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Tracking:</span>
+                        <div className="bg-primary/10 text-primary px-3 py-1.5 rounded-md font-mono text-sm font-bold border border-primary/20">
+                          {item.trackingNumber}
+                        </div>
                       </div>
                     )}
+
+                    {/* Status Action Buttons */}
+                    <div className="w-full sm:w-auto flex items-center gap-2">
+                      {item.status === 'PENDING' && (
+                        <Button
+                          onClick={() => handleStatusChange(item.id, 'ACCEPTED')}
+                          disabled={isPending}
+                          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          <CheckCircle2 className="w-4 h-4 mr-2" />
+                          Accept Order
+                        </Button>
+                      )}
+
+                      {item.status === 'ACCEPTED' && (
+                        <Button
+                          onClick={() => handleStatusChange(item.id, 'READY_FOR_PICKUP')}
+                          disabled={isPending}
+                          className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white"
+                        >
+                          <Package className="w-4 h-4 mr-2" />
+                          Mark Ready for Pickup
+                        </Button>
+                      )}
+
+                      {/* Display a badge for states where the crafter has no actions left */}
+                      {(item.status === 'READY_FOR_PICKUP' || item.status === 'SHIPPED' || item.status === 'OUT_FOR_DELIVERY' || item.status === 'DELIVERED' || item.status === 'CANCELLED') && (
+                        <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 border border-border rounded-md font-medium text-sm">
+                          {getStatusIcon(item.status)}
+                          <span className="capitalize">{item.status.replace(/_/g, ' ').toLowerCase()}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -202,7 +211,7 @@ export default function CrafterOrdersPage() {
                       </div>
                     </div>
                     {item.review.comment && <p className="text-sm text-muted-foreground mb-4">{item.review.comment}</p>}
-                    
+
                     {item.review.crafterReply && (
                       <div className="mt-2 mb-4 bg-background p-3 rounded-md border border-border flex gap-3">
                         <MessageCircle className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
@@ -214,10 +223,10 @@ export default function CrafterOrdersPage() {
                     )}
 
                     <div className="flex justify-end">
-                      <CrafterReplyForm 
-                        reviewId={item.review.id} 
-                        productId={product.id} 
-                        existingReply={item.review.crafterReply} 
+                      <CrafterReplyForm
+                        reviewId={item.review.id}
+                        productId={product.id}
+                        existingReply={item.review.crafterReply}
                       />
                     </div>
                   </div>

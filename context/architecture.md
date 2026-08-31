@@ -312,21 +312,30 @@ DELETE /api/v1/products/:id      ← delete (CRAFTER only, own products)
 
 ---
 
-## Order Lifecycle
+## Order Lifecycle & Logistics
+
+Order items flow through a strict, forward-only linear progression:
 
 ```
-PENDING_PAYMENT
-  → PAID              (payment confirmed)
-    → ACCEPTED         (crafter accepts the order item)
-      → IN_PRODUCTION  (crafter is making the item)
-        → SHIPPED      (crafter adds tracking, marks shipped)
-          → DELIVERED  (buyer confirms receipt)
-            → COMPLETED (review window opens)
+PENDING           (Waiting for crafter action)
+  → ACCEPTED         (Crafter accepts. Tracking Number DRV-[UUID] is generated)
+    → READY_FOR_PICKUP (Crafter finishes making the item and packages it)
+      → SHIPPED      (Admin logistics picks it up)
+        → OUT_FOR_DELIVERY (Admin marks it out for delivery. 6-digit OTP generated for Buyer)
+          → DELIVERED  (Admin enters OTP from buyer. Funds are released to Crafter)
+```
 
 At any point before ACCEPTED:
   → CANCELLED
   → REFUNDED
-```
+
+### Role Permissions
+- **Crafters**: Can only manage early fulfillment (`PENDING` → `ACCEPTED` → `READY_FOR_PICKUP`). They interact via action buttons (not dropdowns) in the Crafter Orders UI.
+- **Admins**: Handle the "Logistics" phase (`READY_FOR_PICKUP` → `SHIPPED` → `OUT_FOR_DELIVERY` → `DELIVERED`). They manage this via the dedicated `/admin/logistics` portal.
+
+### Tracking System & OTP Secure Delivery
+- **Tracking**: Tracking numbers are auto-generated when an item is `ACCEPTED`. A public tracking interface is available at `/tracking`.
+- **OTP Delivery**: Releasing funds to crafters is strictly tied to the `DELIVERED` state. When an Admin marks an item as `OUT_FOR_DELIVERY`, a 6-digit `deliveryOtp` is created. The Buyer views this in their orders UI. The Admin must collect this PIN and enter it in `/admin/logistics` to complete the delivery and release funds via a Prisma transaction.
 
 Each `order_item` has its own `crafterStatus` field — buyers can order from multiple crafters in one checkout and each crafter manages their item independently.
 
@@ -470,6 +479,8 @@ pnpm --filter @dorovu/shared add <package>
 5. Platform commission is deducted before payout (default 10%)
 6. Funds are held in escrow until order status is DELIVERED
 7. Crafter can only manage their own products and order items — never another crafter's
-8. Admin can approve/reject crafters, moderate any content, and resolve disputes
+8. Admin can approve/reject crafters, moderate any content, resolve disputes, and handles all logistics.
 9. Custom order listings require `leadTimeDays` to be set
 10. Product images are uploaded to Cloudinary — store only the URL in the database
+11. Crafters cannot mark items as `DELIVERED`. Only admins can complete deliveries using the buyer's 6-digit Delivery OTP.
+12. "Buy Now" flow operates on a separate checkout session than the main Cart.

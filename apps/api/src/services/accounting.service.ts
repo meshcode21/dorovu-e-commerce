@@ -6,12 +6,12 @@ export class AccountingService {
    * Records a sale and takes the platform commission.
    * This adds to the crafter's pendingBalance until the order is DELIVERED.
    */
-  static async recordSale(crafterId: string, amount: string | number, orderItemId: string) {
+  static async recordSale(storeId: string, amount: string | number, orderItemId: string) {
     const amountFloat = typeof amount === 'string' ? parseFloat(amount) : amount;
     
     return await prisma.$transaction(async (tx) => {
       const store = await tx.crafterStore.findUnique({
-        where: { crafterId },
+        where: { id: storeId },
       });
 
       if (!store) throw new Error('Crafter store not found');
@@ -23,7 +23,7 @@ export class AccountingService {
       // 1. Credit the sale amount to pending balance
       await tx.ledgerTransaction.create({
         data: {
-          crafterId,
+          crafterId: storeId,
           amount: amountFloat,
           type: 'ORDER_SALE',
           referenceId: orderItemId,
@@ -34,7 +34,7 @@ export class AccountingService {
       // 2. Debit the platform commission
       await tx.ledgerTransaction.create({
         data: {
-          crafterId,
+          crafterId: storeId,
           amount: -commissionAmount,
           type: 'PLATFORM_FEE',
           referenceId: orderItemId,
@@ -44,7 +44,7 @@ export class AccountingService {
 
       // 3. Update pending balance
       await tx.crafterStore.update({
-        where: { crafterId },
+        where: { id: storeId },
         data: {
           pendingBalance: {
             increment: netAmount,
@@ -59,12 +59,12 @@ export class AccountingService {
   /**
    * Moves funds from pendingBalance to availableBalance when an order is DELIVERED.
    */
-  static async releaseFunds(crafterId: string, orderItemId: string) {
+  static async releaseFunds(storeId: string, orderItemId: string) {
     return await prisma.$transaction(async (tx) => {
       // Find the transactions for this order item to calculate net amount
       const transactions = await tx.ledgerTransaction.findMany({
         where: {
-          crafterId,
+          crafterId: storeId,
           referenceId: orderItemId,
         },
       });
@@ -73,7 +73,7 @@ export class AccountingService {
 
       // Deduct from pending, add to available
       await tx.crafterStore.update({
-        where: { crafterId },
+        where: { id: storeId },
         data: {
           pendingBalance: {
             decrement: netAmount,
@@ -89,12 +89,12 @@ export class AccountingService {
   /**
    * Processes a payout withdrawal.
    */
-  static async processPayout(crafterId: string, amount: string | number, payoutMethod: string) {
+  static async processPayout(storeId: string, amount: string | number, payoutMethod: string) {
     const amountFloat = typeof amount === 'string' ? parseFloat(amount) : amount;
     
     return await prisma.$transaction(async (tx) => {
       const store = await tx.crafterStore.findUnique({
-        where: { crafterId },
+        where: { id: storeId },
       });
 
       if (!store) throw new Error('Crafter store not found');
@@ -106,7 +106,7 @@ export class AccountingService {
       // Create the payout record
       const payout = await tx.payout.create({
         data: {
-          crafterId,
+          crafterId: storeId,
           amount: amountFloat,
           commissionDeducted: 0, // Commission was already deducted at sale
           payoutMethod,
@@ -117,7 +117,7 @@ export class AccountingService {
       // Create ledger transaction
       await tx.ledgerTransaction.create({
         data: {
-          crafterId,
+          crafterId: storeId,
           amount: -amountFloat,
           type: 'PAYOUT_WITHDRAWAL',
           referenceId: payout.id,
@@ -127,7 +127,7 @@ export class AccountingService {
 
       // Deduct from available balance
       await tx.crafterStore.update({
-        where: { crafterId },
+        where: { id: storeId },
         data: {
           availableBalance: {
             decrement: amountFloat,

@@ -60,6 +60,16 @@ export const useCrafterOrders = () => {
   });
 };
 
+export const useAdminLogistics = () => {
+  return useQuery({
+    queryKey: queryKeys.admin.logistics(),
+    queryFn: async () => {
+      const { data } = await api.get('/orders/admin/logistics');
+      return data.logistics;
+    },
+  });
+};
+
 export const usePendingOrdersCount = () => {
   return useQuery({
     queryKey: queryKeys.orders.pendingCount(),
@@ -75,13 +85,14 @@ export const useUpdateOrderStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ itemId, status, trackingNumber }: { itemId: string; status: string; trackingNumber?: string }) => {
-      const { data } = await api.put(`/orders/items/${itemId}/status`, { status, trackingNumber });
+    mutationFn: async ({ itemId, status, trackingNumber, otp }: { itemId: string; status: string; trackingNumber?: string; otp?: string }) => {
+      const { data } = await api.put(`/orders/items/${itemId}/status`, { status, trackingNumber, otp });
       return data;
     },
     onSuccess: () => {
       toast.success('Order status updated');
       queryClient.invalidateQueries({ queryKey: queryKeys.orders.crafter() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.admin.logistics() });
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to update status');

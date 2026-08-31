@@ -1807,6 +1807,7 @@ export const OrderItemScalarFieldEnum = {
   priceAtPurchase: 'priceAtPurchase',
   status: 'status',
   trackingNumber: 'trackingNumber',
+  deliveryOtp: 'deliveryOtp',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

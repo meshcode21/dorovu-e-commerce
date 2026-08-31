@@ -115,6 +115,11 @@ Last updated: August 2026
 - ✅ Dynamic Notification Badges for pending orders (Crafter Navbar) using shadcn
 - ✅ Crafter Store page routing and UI overhaul (fully public and themed)
 - ✅ Product Review System (Buyer reviews, Crafter replies, dynamic rating recalculation)
+- ✅ "Buy Now" flow for instant checkout bypassing the cart
+- ✅ Strict Order State Machine (Pending -> Accepted -> Ready for Pickup -> Shipped -> Out for Delivery -> Delivered)
+- ✅ Public Order Tracking System (`/tracking`)
+- ✅ Admin Logistics Portal (`/admin/logistics`) to manage active shipments
+- ✅ Secure Delivery OTP system tied to crafter payouts
 
 ---
 

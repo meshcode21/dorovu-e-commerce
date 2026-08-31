@@ -34,6 +34,7 @@ export const queryKeys = {
   },
   admin: {
     applications: (status?: string) => status ? ['admin', 'applications', status] as const : ['admin', 'applications'] as const,
+    logistics: () => ['admin', 'logistics'] as const,
   },
   crafter: {
     profile: (id?: string) => ['crafter', id] as const,

@@ -210,37 +210,66 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
       });
     }
 
-    // For variants update, the easiest is to delete existing and recreate, or strictly update
-    // Since this is MVP, let's keep it simple: if variants are provided, delete old and create new.
-    let variantsUpdate = {};
-    if (validatedData.variants) {
-      variantsUpdate = {
-        deleteMany: {},
-        create: validatedData.variants.map((v) => ({
-          name: v.name,
-          stock: v.stock,
-          priceAdjustment: v.priceAdjustment,
-        }))
-      };
-    }
+    const updatedProduct = await prisma.$transaction(async (tx) => {
+      const p = await tx.product.update({
+        where: { id: String(req.params.id) },
+        data: {
+          title: validatedData.title,
+          description: validatedData.description,
+          price: validatedData.price,
+          category: validatedData.category,
+          craftType: validatedData.craftType,
+          tags: validatedData.tags,
+          isCustomOrder: validatedData.isCustomOrder,
+          leadTime: validatedData.leadTime,
+          images,
+        },
+      });
 
-    const updatedProduct = await prisma.product.update({
-      where: { id: String(req.params.id) },
-      data: {
-        title: validatedData.title,
-        description: validatedData.description,
-        price: validatedData.price,
-        category: validatedData.category,
-        craftType: validatedData.craftType,
-        tags: validatedData.tags,
-        isCustomOrder: validatedData.isCustomOrder,
-        leadTime: validatedData.leadTime,
-        images,
-        variants: variantsUpdate
-      },
-      include: {
-        variants: true
+      if (validatedData.variants) {
+        const existingVariants = await tx.productVariant.findMany({ where: { productId: p.id } });
+        const incomingVariants = validatedData.variants as any[];
+        
+        const incomingIds = incomingVariants.map(v => v.id).filter(Boolean);
+
+        // Try to delete removed variants, or soft-archive them if they have orders
+        for (const ev of existingVariants) {
+          if (!incomingIds.includes(ev.id)) {
+            try {
+              await tx.productVariant.delete({ where: { id: ev.id } });
+            } catch (e) {
+              await tx.productVariant.update({
+                where: { id: ev.id },
+                data: { stock: 0, name: `${ev.name} (Archived)` }
+              });
+            }
+          }
+        }
+
+        // Upsert incoming variants
+        for (const iv of incomingVariants) {
+          if (iv.id) {
+            await tx.productVariant.update({
+              where: { id: iv.id },
+              data: { name: iv.name, stock: iv.stock, priceAdjustment: iv.priceAdjustment }
+            });
+          } else {
+            await tx.productVariant.create({
+              data: {
+                productId: p.id,
+                name: iv.name,
+                stock: iv.stock,
+                priceAdjustment: iv.priceAdjustment
+              }
+            });
+          }
+        }
       }
+
+      return tx.product.findUnique({
+        where: { id: p.id },
+        include: { variants: true }
+      });
     });
 
     res.json({ message: 'Product updated successfully', product: updatedProduct });

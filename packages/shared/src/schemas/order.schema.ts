@@ -22,8 +22,9 @@ export const createOrderSchema = z.object({
 });
 
 export const updateOrderItemStatusSchema = z.object({
-  status: z.enum(['PENDING', 'ACCEPTED', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
+  status: z.enum(['PENDING', 'ACCEPTED', 'READY_FOR_PICKUP', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELLED']),
   trackingNumber: z.string().optional(),
+  otp: z.string().length(6, 'OTP must be 6 digits').optional(),
 });
 
 export type ShippingAddressDTO = z.infer<typeof shippingAddressSchema>;

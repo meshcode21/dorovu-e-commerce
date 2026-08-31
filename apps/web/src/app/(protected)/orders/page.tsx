@@ -52,7 +52,9 @@ export default function BuyerOrdersPage() {
     switch (status) {
       case 'PENDING': return <Clock className="w-4 h-4 text-amber-500" />;
       case 'ACCEPTED': return <CheckCircle2 className="w-4 h-4 text-blue-500" />;
+      case 'READY_FOR_PICKUP': return <Package className="w-4 h-4 text-purple-500" />;
       case 'SHIPPED': return <Truck className="w-4 h-4 text-indigo-500" />;
+      case 'OUT_FOR_DELIVERY': return <Truck className="w-4 h-4 text-orange-500" />;
       case 'DELIVERED': return <CheckCircle2 className="w-4 h-4 text-emerald-500" />;
       case 'CANCELLED': return <XCircle className="w-4 h-4 text-destructive" />;
       default: return <Clock className="w-4 h-4 text-muted-foreground" />;
@@ -63,7 +65,9 @@ export default function BuyerOrdersPage() {
     switch (status) {
       case 'PENDING': return 'bg-amber-500/10 text-amber-600 border-amber-200';
       case 'ACCEPTED': return 'bg-blue-500/10 text-blue-600 border-blue-200';
+      case 'READY_FOR_PICKUP': return 'bg-purple-500/10 text-purple-600 border-purple-200';
       case 'SHIPPED': return 'bg-indigo-500/10 text-indigo-600 border-indigo-200';
+      case 'OUT_FOR_DELIVERY': return 'bg-orange-500/10 text-orange-600 border-orange-200';
       case 'DELIVERED': return 'bg-emerald-500/10 text-emerald-600 border-emerald-200';
       case 'CANCELLED': return 'bg-destructive/10 text-destructive border-destructive/20';
       default: return 'bg-muted text-muted-foreground border-border';
@@ -158,9 +162,30 @@ export default function BuyerOrdersPage() {
                       </div>
 
                       {item.trackingNumber && (
-                        <div className="mt-4 bg-muted/50 rounded-lg p-3 text-sm flex items-center justify-between">
-                          <span className="text-muted-foreground">Tracking Number: <span className="font-medium text-foreground">{item.trackingNumber}</span></span>
-                          <Button variant="outline" size="sm" className="h-8 text-xs">Track Package</Button>
+                        <div className="mt-4 flex flex-col sm:flex-row gap-4">
+                          <div className="bg-muted/50 rounded-lg p-3 text-sm flex-1 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border border-border">
+                            <div>
+                              <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">Tracking Number</p>
+                              <p className="font-medium text-foreground">{item.trackingNumber}</p>
+                            </div>
+                            <Link href={`/tracking?trackingNumber=${item.trackingNumber}`}>
+                              <Button variant="outline" size="sm" className="h-8 text-xs shrink-0 w-full sm:w-auto">Track Package</Button>
+                            </Link>
+                          </div>
+                          
+                          {item.deliveryOtp && (item.status === 'OUT_FOR_DELIVERY' || item.status === 'DELIVERED') && (
+                            <div className={`rounded-lg p-3 text-sm sm:w-48 flex flex-col border ${item.status === 'DELIVERED' ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-orange-500/10 border-orange-500/20'}`}>
+                              <p className={`text-xs uppercase font-bold tracking-wider mb-1 ${item.status === 'DELIVERED' ? 'text-emerald-700 dark:text-emerald-400' : 'text-orange-700 dark:text-orange-400'}`}>
+                                Delivery PIN
+                              </p>
+                              <p className={`font-mono font-bold text-lg tracking-widest ${item.status === 'DELIVERED' ? 'text-emerald-800 dark:text-emerald-300 line-through opacity-50' : 'text-orange-800 dark:text-orange-300'}`}>
+                                {item.deliveryOtp}
+                              </p>
+                              {item.status === 'OUT_FOR_DELIVERY' && (
+                                <p className="text-[10px] text-orange-600/80 dark:text-orange-400/80 leading-tight mt-1">Provide this to the agent</p>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )}
 

@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 interface VariantInput {
+  id?: string;
   name: string;
   stock: number;
   priceAdjustment: number;
@@ -41,6 +42,7 @@ export default function EditProductPage() {
       }
       if (product.variants && product.variants.length > 0) {
         setVariants(product.variants.map(v => ({
+          id: v.id,
           name: v.name,
           stock: v.stock,
           priceAdjustment: v.priceAdjustment || 0

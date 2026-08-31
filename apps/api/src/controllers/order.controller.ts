@@ -242,20 +242,15 @@ export const getOrderById = async (req: Request, res: Response): Promise<void> =
 export const updateOrderItemStatus = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = req.user!.userId;
+    const userRole = req.user!.role;
     const { itemId } = req.params as { itemId: string };
     const validatedData = updateOrderItemStatusSchema.parse(req.body);
 
-    const crafterStore = await prisma.crafterStore.findUnique({
-      where: { crafterId: userId }
-    });
-
-    if (!crafterStore) {
-      res.status(403).json({ message: 'Not authorized' });
-      return;
-    }
-
     const orderItem = await prisma.orderItem.findUnique({
-      where: { id: itemId }
+      where: { id: itemId },
+      include: {
+        crafter: true
+      }
     });
 
     if (!orderItem) {
@@ -263,21 +258,75 @@ export const updateOrderItemStatus = async (req: Request, res: Response): Promis
       return;
     }
 
-    if (orderItem.crafterId !== crafterStore.id) {
+    let isCrafter = false;
+    let isAdmin = userRole === 'ADMIN';
+
+    if (userRole === 'CRAFTER') {
+      const crafterStore = await prisma.crafterStore.findUnique({
+        where: { crafterId: userId }
+      });
+      if (crafterStore && orderItem.crafterId === crafterStore.id) {
+        isCrafter = true;
+      }
+    }
+
+    if (!isCrafter && !isAdmin) {
       res.status(403).json({ message: 'Not authorized to update this item' });
       return;
+    }
+
+    const currentStatus = orderItem.status;
+    const newStatus = validatedData.status;
+    let trackingNumber = orderItem.trackingNumber;
+    let deliveryOtp = orderItem.deliveryOtp;
+
+    if (isCrafter && !isAdmin) {
+      if (newStatus === 'ACCEPTED' && currentStatus === 'PENDING') {
+        const crypto = require('crypto');
+        trackingNumber = `DRV-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+      } else if (newStatus === 'READY_FOR_PICKUP' && currentStatus === 'ACCEPTED') {
+        // Ok
+      } else if (newStatus === 'CANCELLED' && (currentStatus === 'PENDING' || currentStatus === 'ACCEPTED')) {
+        // Ok
+      } else if (currentStatus === newStatus) {
+        // No-op
+      } else {
+        res.status(400).json({ message: `Crafter cannot transition status from ${currentStatus} to ${newStatus}` });
+        return;
+      }
+    }
+
+    if (isAdmin) {
+      if (newStatus === 'SHIPPED' && currentStatus === 'READY_FOR_PICKUP') {
+        // Ok
+      } else if (newStatus === 'OUT_FOR_DELIVERY' && currentStatus === 'SHIPPED') {
+        deliveryOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      } else if (newStatus === 'DELIVERED' && currentStatus === 'OUT_FOR_DELIVERY') {
+        if (!validatedData.otp || orderItem.deliveryOtp !== validatedData.otp) {
+          res.status(400).json({ message: 'Invalid delivery OTP' });
+          return;
+        }
+      } else if (newStatus === 'CANCELLED') {
+        // Ok
+      } else if (currentStatus === newStatus) {
+        // No-op
+      } else {
+        res.status(400).json({ message: `Admin cannot transition status from ${currentStatus} to ${newStatus}` });
+        return;
+      }
     }
 
     const updatedItem = await prisma.orderItem.update({
       where: { id: itemId },
       data: {
-        status: validatedData.status,
-        trackingNumber: validatedData.trackingNumber || orderItem.trackingNumber
+        status: newStatus,
+        trackingNumber,
+        deliveryOtp,
       }
     });
 
-    if (orderItem.status !== 'DELIVERED' && validatedData.status === 'DELIVERED') {
-      await AccountingService.releaseFunds(crafterStore.id, updatedItem.id);
+    if (currentStatus !== 'DELIVERED' && newStatus === 'DELIVERED') {
+      await AccountingService.releaseFunds(orderItem.crafterId, updatedItem.id);
     }
 
     res.json({ message: 'Status updated successfully', orderItem: updatedItem });
@@ -433,6 +482,59 @@ export const cancelPayment = async (req: Request, res: Response): Promise<void> 
       return;
     }
     console.error('Cancel payment error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getTrackingInfo = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const trackingNumber = req.params.trackingNumber as string;
+
+    const orderItem = await prisma.orderItem.findFirst({
+      where: { trackingNumber },
+      include: {
+        variant: {
+          select: { name: true, product: { select: { title: true, images: true } } }
+        },
+        crafter: { select: { storeName: true } }
+      }
+    });
+
+    if (!orderItem) {
+      res.status(404).json({ message: 'Tracking number not found' });
+      return;
+    }
+
+    res.json({ tracking: orderItem });
+  } catch (error) {
+    console.error('Get tracking info error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const getAdminLogistics = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const orderItems = await prisma.orderItem.findMany({
+      where: {
+        status: {
+          in: ['READY_FOR_PICKUP', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED']
+        }
+      },
+      include: {
+        variant: {
+          select: { name: true, product: { select: { title: true, images: true } } }
+        },
+        crafter: { select: { storeName: true } }
+      },
+      orderBy: [
+        { status: 'asc' }, // Will roughly group them
+        { updatedAt: 'desc' }
+      ]
+    });
+
+    res.json({ logistics: orderItems });
+  } catch (error) {
+    console.error('Get admin logistics error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

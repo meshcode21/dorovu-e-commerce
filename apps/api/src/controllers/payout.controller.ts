@@ -18,7 +18,15 @@ export const requestPayout = async (req: Request, res: Response, next: NextFunct
       throw new AppError(400, 'Payout method is required');
     }
 
-    const payout = await AccountingService.processPayout(crafterId, amount, method);
+    const store = await prisma.crafterStore.findUnique({
+      where: { crafterId }
+    });
+
+    if (!store) {
+      throw new AppError(404, 'Crafter store not found');
+    }
+
+    const payout = await AccountingService.processPayout(store.id, amount, method);
     
     res.status(200).json({
       message: 'Payout requested successfully',

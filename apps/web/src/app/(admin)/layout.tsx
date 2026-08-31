@@ -4,7 +4,7 @@ import { useUser, useLogout } from "@/hooks/use-auth";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors } from "lucide-react";
+import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function AdminLayout({
@@ -89,6 +89,16 @@ export default function AdminLayout({
             Craft Types
           </Link>
           <Link
+            href="/admin/logistics"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/logistics')
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
+          >
+            <Truck className="w-4 h-4" />
+            Logistics
+          </Link>
+          <Link
             href="/admin"
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"
           >
@@ -117,7 +127,11 @@ export default function AdminLayout({
       <main className="flex-1 min-w-0 overflow-y-auto">
         <header className="bg-white border-b border-sand h-16 flex items-center px-8 shadow-sm">
           <h2 className="text-lg font-semibold text-foreground font-display">
-            {pathname.includes('/applications') ? 'Crafter Applications' : 'Dashboard'}
+            {pathname.includes('/applications') ? 'Crafter Applications' 
+             : pathname.includes('/categories') ? 'Categories'
+             : pathname.includes('/craft-types') ? 'Craft Types'
+             : pathname.includes('/logistics') ? 'Logistics Portal'
+             : 'Dashboard'}
           </h2>
         </header>
         <div className="p-8">

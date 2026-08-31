@@ -19,10 +19,12 @@ Think Etsy — but built specifically for Nepal.
 - Supports custom/made-to-order listings
 - Nepal-first payments: eSewa and Khalti
 - Buyers can message crafters before purchasing
+- **Secure Delivery & Payouts**: Uses a 6-digit OTP delivery system. Admins manage logistics; crafters only handle making and packaging the item.
+- **Buy Now**: Supports direct instant purchases alongside traditional cart checkout.
 
 ## Current Stage
 MVP — building core features: auth, crafter onboarding, product listings,
-cart, checkout, eSewa payment, order management.
+cart, Buy Now, checkout, eSewa payment, strict order state machine, admin logistics portal, and delivery OTPs.
 
 ## Stack
 - Frontend: Next.js 14 (App Router), TypeScript, Tailwind, shadcn/ui
