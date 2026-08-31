@@ -12,21 +12,21 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-primary text-white py-20 px-4">
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="font-display text-5xl md:text-6xl font-bold leading-tight mb-6">
+      <section className="bg-primary text-white py-12 md:py-20 px-4 overflow-hidden">
+        <div className="max-w-[1280px] mx-auto flex flex-col-reverse md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="text-center md:text-left flex flex-col items-center md:items-start">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6">
               Threaded with love, <br /> made for you.
             </h1>
-            <p className="text-white/80 text-lg mb-8 max-w-md">
+            <p className="text-white/80 text-base md:text-lg mb-8 max-w-md">
               Discover unique, handcrafted treasures from Nepal's most talented artisans. Every piece tells a story.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
                 href="/products"
                 className={buttonVariants({
                   size: "lg",
-                  className: "bg-white !text-primary hover:!bg-background shadow-md font-semibold px-8"
+                  className: "bg-white !text-primary hover:!bg-background shadow-md font-semibold px-8 w-full sm:w-auto"
                 })}
               >
                 Shop Now
@@ -35,7 +35,7 @@ export default function Home() {
                 href="/apply"
                 className={buttonVariants({
                   size: "lg",
-                  className: "border-white text-white bg-transparent hover:bg-white/10"
+                  className: "border-white text-white bg-transparent hover:bg-white/10 w-full sm:w-auto"
                 })}
               >
                 Start Selling

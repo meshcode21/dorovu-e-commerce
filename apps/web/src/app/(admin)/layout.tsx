@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors, Truck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function AdminLayout({
   children,
@@ -125,14 +125,17 @@ export default function AdminLayout({
 
       {/* Main Content */}
       <main className="flex-1 min-w-0 overflow-y-auto">
-        <header className="bg-white border-b border-sand h-16 flex items-center px-8 shadow-sm">
+        <header className="bg-white border-b border-sand h-16 flex items-center justify-between px-8 shadow-sm">
           <h2 className="text-lg font-semibold text-foreground font-display">
-            {pathname.includes('/applications') ? 'Crafter Applications' 
-             : pathname.includes('/categories') ? 'Categories'
-             : pathname.includes('/craft-types') ? 'Craft Types'
-             : pathname.includes('/logistics') ? 'Logistics Portal'
-             : 'Dashboard'}
+            {pathname.includes('/applications') ? 'Crafter Applications'
+              : pathname.includes('/categories') ? 'Categories'
+                : pathname.includes('/craft-types') ? 'Craft Types'
+                  : pathname.includes('/logistics') ? 'Logistics Portal'
+                    : 'Dashboard'}
           </h2>
+          <Link href="/" className={buttonVariants({ variant: "outline", className: "border-primary-subtle text-primary hover:bg-primary/5" })}>
+            View Storefront
+          </Link>
         </header>
         <div className="p-8">
           {children}

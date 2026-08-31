@@ -30,13 +30,13 @@ export const DynamicHeroImage = () => {
   }, [displayImages.length]);
 
   return (
-    <div className="hidden md:flex justify-center relative w-full h-[500px]">
-      <div className="w-80 h-80 bg-secondary/30 rounded-full absolute -top-10 -right-10 blur-3xl"></div>
+    <div className="flex justify-center relative w-full max-w-md mx-auto aspect-square md:aspect-auto md:w-auto md:h-[500px]">
+      <div className="w-60 h-60 md:w-80 md:h-80 bg-secondary/30 rounded-full absolute -top-5 -right-5 md:-top-10 md:-right-10 blur-3xl"></div>
       
       {isLoading ? (
-        <div className="w-[500px] h-[500px] bg-white/10 rounded-2xl animate-pulse z-10 relative" />
+        <div className="w-full h-full md:w-[500px] md:h-[500px] bg-white/10 rounded-2xl animate-pulse z-10 relative" />
       ) : (
-        <div className="w-[500px] h-[500px] relative z-10">
+        <div className="w-full h-full md:w-[500px] md:h-[500px] relative z-10">
           {displayImages.map((src, index) => (
             <Image
               key={`${src}-${index}`}
