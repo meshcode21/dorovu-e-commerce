@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-display" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
           <QueryProvider>
-            {children}
-            <Toaster position="bottom-right" richColors />
+            <TooltipProvider>
+              {children}
+              <Toaster position="bottom-right" richColors />
+            </TooltipProvider>
           </QueryProvider>
         </GoogleOAuthProvider>
         <Analytics />

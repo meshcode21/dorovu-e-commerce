@@ -6,6 +6,17 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { LogOut, Users, LayoutDashboard, Settings, Tag, Scissors, Truck } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
+} from "@/components/ui/sidebar";
 
 export default function AdminLayout({
   children,
@@ -38,109 +49,112 @@ export default function AdminLayout({
   if (!user || user.role !== "ADMIN") return null;
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Sidebar */}
-      <aside className="w-64 bg-primary text-white flex flex-col shrink-0 sticky top-0 h-screen overflow-y-auto">
-        <div className="p-6 border-b border-border">
-          <Link href="/admin" className="font-display font-bold text-2xl tracking-tight text-white">
-            Dorovu Admin
-          </Link>
-        </div>
+    <SidebarProvider>
+      <div className="flex min-h-screen bg-background w-full">
+        {/* Sidebar */}
+        <Sidebar className="border-r border-border">
+          <SidebarHeader className="p-6 border-b border-sidebar-border">
+            <Link href="/admin" className="font-display font-bold text-2xl tracking-tight text-sidebar-foreground">
+              Dorovu Admin
+            </Link>
+          </SidebarHeader>
 
-        <nav className="flex-1 p-4 space-y-1">
-          <Link
-            href="/admin"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname === '/admin'
-              ? 'bg-white/20 text-white font-medium shadow-sm'
-              : 'text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
-          >
-            <LayoutDashboard className="w-4 h-4" />
-            Overview
-          </Link>
-          <Link
-            href="/admin/applications"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/applications')
-              ? 'bg-white/20 text-white font-medium shadow-sm'
-              : 'text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
-          >
-            <Users className="w-4 h-4" />
-            Applications
-          </Link>
-          <Link
-            href="/admin/categories"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/categories')
-              ? 'bg-white/20 text-white font-medium shadow-sm'
-              : 'text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
-          >
-            <Tag className="w-4 h-4" />
-            Categories
-          </Link>
-          <Link
-            href="/admin/craft-types"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/craft-types')
-              ? 'bg-white/20 text-white font-medium shadow-sm'
-              : 'text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
-          >
-            <Scissors className="w-4 h-4" />
-            Craft Types
-          </Link>
-          <Link
-            href="/admin/logistics"
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/logistics')
-              ? 'bg-white/20 text-white font-medium shadow-sm'
-              : 'text-white/70 hover:bg-white/10 hover:text-white'
-              }`}
-          >
-            <Truck className="w-4 h-4" />
-            Logistics
-          </Link>
-          <Link
-            href="/admin"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/70 hover:bg-white/10 hover:text-white transition-colors"
-          >
-            <Settings className="w-4 h-4" />
-            Settings
-          </Link>
-        </nav>
+          <SidebarContent>
+            <SidebarMenu className="p-4 space-y-1">
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  isActive={pathname === '/admin'} 
+                  render={<Link href="/admin" />}
+                >
+                  <LayoutDashboard />
+                  <span>Overview</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  isActive={pathname.includes('/applications')} 
+                  render={<Link href="/admin/applications" />}
+                >
+                  <Users />
+                  <span>Applications</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  isActive={pathname.includes('/categories')} 
+                  render={<Link href="/admin/categories" />}
+                >
+                  <Tag />
+                  <span>Categories</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  isActive={pathname.includes('/craft-types')} 
+                  render={<Link href="/admin/craft-types" />}
+                >
+                  <Scissors />
+                  <span>Craft Types</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  isActive={pathname.includes('/logistics')} 
+                  render={<Link href="/admin/logistics" />}
+                >
+                  <Truck />
+                  <span>Logistics</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  render={<Link href="/admin" />}
+                >
+                  <Settings />
+                  <span>Settings</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarContent>
 
-        <div className="p-4 border-t border-border">
-          <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 rounded-full bg-secondary/80 text-white flex items-center justify-center font-medium text-sm shrink-0">
-              {user.firstName[0]}
+          <SidebarFooter className="p-4 border-t border-sidebar-border">
+            <div className="flex items-center gap-3 px-3 py-2">
+              <div className="w-8 h-8 rounded-full bg-sidebar-accent text-sidebar-accent-foreground flex items-center justify-center font-medium text-sm shrink-0">
+                {user.firstName[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-sidebar-foreground truncate">{user.firstName} {user.lastName}</p>
+                <p className="text-xs text-sidebar-foreground/70 truncate">Administrator</p>
+              </div>
+              <Button variant="ghost" size="icon" onClick={() => logout()} className="text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent">
+                <LogOut className="w-4 h-4" />
+              </Button>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">{user.firstName} {user.lastName}</p>
-              <p className="text-xs text-white/50 truncate">Administrator</p>
+          </SidebarFooter>
+        </Sidebar>
+
+        {/* Main Content */}
+        <main className="flex-1 min-w-0 overflow-y-auto">
+          <header className="bg-white border-b border-sand h-16 flex items-center justify-between px-4 md:px-8 shadow-sm">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger className="md:hidden text-primary" />
+              <h2 className="text-lg font-semibold text-foreground font-display">
+                {pathname.includes('/applications') ? 'Crafter Applications'
+                  : pathname.includes('/categories') ? 'Categories'
+                    : pathname.includes('/craft-types') ? 'Craft Types'
+                      : pathname.includes('/logistics') ? 'Logistics Portal'
+                        : 'Dashboard'}
+              </h2>
             </div>
-            <Button variant="ghost" size="icon" onClick={() => logout()} className="text-white/50 hover:text-secondary/80 hover:bg-secondary/80/10">
-              <LogOut className="w-4 h-4" />
-            </Button>
+            <Link href="/" className={buttonVariants({ variant: "outline", className: "border-primary-subtle text-primary hover:bg-primary/5 hidden sm:inline-flex" })}>
+              View Storefront
+            </Link>
+          </header>
+          <div className="p-4 md:p-8">
+            {children}
           </div>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 min-w-0 overflow-y-auto">
-        <header className="bg-white border-b border-sand h-16 flex items-center justify-between px-8 shadow-sm">
-          <h2 className="text-lg font-semibold text-foreground font-display">
-            {pathname.includes('/applications') ? 'Crafter Applications'
-              : pathname.includes('/categories') ? 'Categories'
-                : pathname.includes('/craft-types') ? 'Craft Types'
-                  : pathname.includes('/logistics') ? 'Logistics Portal'
-                    : 'Dashboard'}
-          </h2>
-          <Link href="/" className={buttonVariants({ variant: "outline", className: "border-primary-subtle text-primary hover:bg-primary/5" })}>
-            View Storefront
-          </Link>
-        </header>
-        <div className="p-8">
-          {children}
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 }
