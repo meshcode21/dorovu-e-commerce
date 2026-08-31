@@ -5,7 +5,7 @@ import { useCrafterStore } from "@/hooks/use-crafter-store";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { LogOut, Store, LayoutDashboard, Settings, Package, ShoppingBag } from "lucide-react";
+import { LogOut, Store, LayoutDashboard, Settings, Package, ShoppingBag, Banknote } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function CrafterLayout({
@@ -80,6 +80,16 @@ export default function CrafterLayout({
           >
             <ShoppingBag className="w-4 h-4" />
             Orders
+          </Link>
+          <Link
+            href="/crafter/payouts"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${pathname.includes('/payouts')
+              ? 'bg-white/20 text-white font-medium shadow-sm'
+              : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`}
+          >
+            <Banknote className="w-4 h-4" />
+            Payouts & Accounting
           </Link>
           <Link
             href="/crafter/settings"

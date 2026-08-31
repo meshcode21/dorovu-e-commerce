@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { createOrderSchema, updateOrderItemStatusSchema } from '@dorovu/shared';
+import { AccountingService } from '../services/accounting.service';
 
 export const createOrder = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -272,6 +273,10 @@ export const updateOrderItemStatus = async (req: Request, res: Response): Promis
       }
     });
 
+    if (orderItem.status !== 'DELIVERED' && validatedData.status === 'DELIVERED') {
+      await AccountingService.releaseFunds(crafterStore.id, updatedItem.id);
+    }
+
     res.json({ message: 'Status updated successfully', orderItem: updatedItem });
   } catch (error: any) {
     console.error('Update order item status error:', error);
@@ -338,6 +343,74 @@ export const cancelOrder = async (req: Request, res: Response): Promise<void> =>
     res.json({ message: 'Order cancelled successfully' });
   } catch (error) {
     console.error('Cancel order error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const cancelPayment = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const userId = req.user!.userId;
+    const { id } = req.params;
+
+    const order = await prisma.order.findUnique({
+      where: { id: id as string },
+      include: { orderItems: true }
+    });
+
+    if (!order) {
+      res.status(404).json({ message: 'Order not found' });
+      return;
+    }
+
+    if (order.buyerId !== userId) {
+      res.status(403).json({ message: 'Not authorized' });
+      return;
+    }
+
+    if (order.paymentStatus !== 'PENDING') {
+      res.status(400).json({ message: 'Cannot cancel payment for this order' });
+      return;
+    }
+
+    await prisma.$transaction(async (tx) => {
+      // 1. Cancel order items and restore stock
+      for (const item of order.orderItems) {
+        await tx.orderItem.update({
+          where: { id: item.id },
+          data: { status: 'CANCELLED' }
+        });
+
+        await tx.productVariant.update({
+          where: { id: item.variantId },
+          data: { stock: { increment: item.quantity } }
+        });
+      }
+
+      // 2. Mark order as failed
+      await tx.order.update({
+        where: { id: id as string },
+        data: { paymentStatus: 'FAILED' }
+      });
+
+      // 3. Restore cart
+      const cart = await tx.cart.upsert({
+        where: { userId },
+        create: { userId },
+        update: {}
+      });
+
+      for (const item of order.orderItems) {
+        await tx.cartItem.upsert({
+          where: { cartId_variantId: { cartId: cart.id, variantId: item.variantId } },
+          create: { cartId: cart.id, variantId: item.variantId, quantity: item.quantity },
+          update: { quantity: { increment: item.quantity } }
+        });
+      }
+    });
+
+    res.json({ message: 'Payment cancelled and cart restored' });
+  } catch (error) {
+    console.error('Cancel payment error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

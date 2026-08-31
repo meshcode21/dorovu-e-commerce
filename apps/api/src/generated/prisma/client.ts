@@ -116,3 +116,8 @@ export type Message = Prisma.MessageModel
  * 
  */
 export type Payout = Prisma.PayoutModel
+/**
+ * Model LedgerTransaction
+ * 
+ */
+export type LedgerTransaction = Prisma.LedgerTransactionModel

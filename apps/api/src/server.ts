@@ -13,6 +13,8 @@ import orderRoutes from './routes/order.routes';
 import userRoutes from './routes/user.routes';
 import cartRoutes from './routes/cart.routes';
 import reviewRoutes from './routes/review.routes';
+import paymentRoutes from './routes/payment.routes';
+import payoutRoutes from './routes/payout.routes';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -41,6 +43,8 @@ app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/cart', cartRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/payments', paymentRoutes);
+app.use('/api/v1/payouts', payoutRoutes);
 
 // Error Handling
 app.use(errorHandler);

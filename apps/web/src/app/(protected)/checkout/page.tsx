@@ -1,22 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { shippingAddressSchema, ShippingAddressDTO } from '@dorovu/shared';
 import { useCart } from '@/hooks/use-cart';
 import { useCreateOrder } from '@/hooks/use-orders';
+import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Package, ShieldCheck } from 'lucide-react';
+import { Package, ShieldCheck, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { data: cart, isLoading } = useCart(true);
   const { mutate: createOrder, isPending } = useCreateOrder();
+  const [isInitiatingPayment, setIsInitiatingPayment] = useState(false);
 
   const form = useForm<ShippingAddressDTO>({
     resolver: zodResolver(shippingAddressSchema),
@@ -53,8 +55,40 @@ export default function CheckoutPage() {
         })),
       },
       {
-        onSuccess: () => {
-          router.push('/orders');
+        onSuccess: async (res) => {
+          try {
+            setIsInitiatingPayment(true);
+            const orderId = res.order.id;
+            
+            // Initiate eSewa Payment
+            const paymentRes = await api.post('/payments/esewa/initiate', { orderId });
+            const formData = paymentRes.data.data;
+
+            // Dynamically create and submit eSewa form
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = formData.action;
+
+            for (const key in formData) {
+              if (key === 'action') continue;
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = key;
+              input.value = formData[key];
+              form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+          } catch (error) {
+            console.error('Failed to initiate payment:', error);
+            setIsInitiatingPayment(false);
+            // Optionally redirect to orders if payment fails but order is created
+            router.push('/orders');
+          }
+        },
+        onError: () => {
+          setIsInitiatingPayment(false);
         }
       }
     );
@@ -160,7 +194,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-muted-foreground text-sm">
                 <span>Payment Method</span>
-                <span className="text-foreground font-medium">Cash on Delivery</span>
+                <span className="text-foreground font-medium text-[#60bb46]">eSewa Digital Wallet</span>
               </div>
               <div className="flex justify-between font-bold text-foreground text-lg pt-3 border-t border-border">
                 <span>Total</span>
@@ -171,10 +205,14 @@ export default function CheckoutPage() {
             <Button 
               type="submit" 
               form="checkout-form"
-              className="w-full h-12 text-base font-medium shadow-md gap-2"
-              disabled={isPending}
+              className="w-full h-12 text-base font-medium shadow-md gap-2 bg-[#60bb46] hover:bg-[#52a33b] text-white"
+              disabled={isPending || isInitiatingPayment}
             >
-              {isPending ? 'Processing...' : 'Place Order'} <Package className="w-4 h-4" />
+              {isPending || isInitiatingPayment ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Processing...</>
+              ) : (
+                <><img src="https://merchant.esewa.com.np/assets/img/esewa_logo.png" alt="eSewa" className="h-4 mr-1 brightness-0 invert" /> Pay with eSewa</>
+              )}
             </Button>
             
             <div className="mt-4 flex justify-center items-center text-xs text-muted-foreground gap-1.5">

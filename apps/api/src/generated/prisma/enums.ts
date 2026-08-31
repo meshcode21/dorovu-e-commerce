@@ -55,3 +55,13 @@ export const PayoutStatus = {
 } as const
 
 export type PayoutStatus = (typeof PayoutStatus)[keyof typeof PayoutStatus]
+
+
+export const TransactionType = {
+  ORDER_SALE: 'ORDER_SALE',
+  PLATFORM_FEE: 'PLATFORM_FEE',
+  PAYOUT_WITHDRAWAL: 'PAYOUT_WITHDRAWAL',
+  REFUND: 'REFUND'
+} as const
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]

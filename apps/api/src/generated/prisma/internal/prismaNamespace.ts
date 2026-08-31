@@ -411,7 +411,8 @@ export const ModelName = {
   Review: 'Review',
   MessageThread: 'MessageThread',
   Message: 'Message',
-  Payout: 'Payout'
+  Payout: 'Payout',
+  LedgerTransaction: 'LedgerTransaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "crafterApplication" | "crafterStore" | "category" | "craftType" | "product" | "productVariant" | "cart" | "cartItem" | "order" | "orderItem" | "review" | "messageThread" | "message" | "payout"
+    modelProps: "user" | "crafterApplication" | "crafterStore" | "category" | "craftType" | "product" | "productVariant" | "cart" | "cartItem" | "order" | "orderItem" | "review" | "messageThread" | "message" | "payout" | "ledgerTransaction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1541,6 +1542,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LedgerTransaction: {
+      payload: Prisma.$LedgerTransactionPayload<ExtArgs>
+      fields: Prisma.LedgerTransactionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LedgerTransactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LedgerTransactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        findFirst: {
+          args: Prisma.LedgerTransactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LedgerTransactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        findMany: {
+          args: Prisma.LedgerTransactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>[]
+        }
+        create: {
+          args: Prisma.LedgerTransactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        createMany: {
+          args: Prisma.LedgerTransactionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LedgerTransactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>[]
+        }
+        delete: {
+          args: Prisma.LedgerTransactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        update: {
+          args: Prisma.LedgerTransactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        deleteMany: {
+          args: Prisma.LedgerTransactionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LedgerTransactionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LedgerTransactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>[]
+        }
+        upsert: {
+          args: Prisma.LedgerTransactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LedgerTransactionPayload>
+        }
+        aggregate: {
+          args: Prisma.LedgerTransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLedgerTransaction>
+        }
+        groupBy: {
+          args: Prisma.LedgerTransactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerTransactionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LedgerTransactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LedgerTransactionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1618,6 +1693,8 @@ export const CrafterStoreScalarFieldEnum = {
   portfolioImages: 'portfolioImages',
   isApproved: 'isApproved',
   commissionRate: 'commissionRate',
+  availableBalance: 'availableBalance',
+  pendingBalance: 'pendingBalance',
   rating: 'rating',
   totalSales: 'totalSales',
   createdAt: 'createdAt',
@@ -1785,6 +1862,19 @@ export const PayoutScalarFieldEnum = {
 } as const
 
 export type PayoutScalarFieldEnum = (typeof PayoutScalarFieldEnum)[keyof typeof PayoutScalarFieldEnum]
+
+
+export const LedgerTransactionScalarFieldEnum = {
+  id: 'id',
+  crafterId: 'crafterId',
+  amount: 'amount',
+  type: 'type',
+  referenceId: 'referenceId',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type LedgerTransactionScalarFieldEnum = (typeof LedgerTransactionScalarFieldEnum)[keyof typeof LedgerTransactionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1979,6 +2069,20 @@ export type EnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 export type ListEnumPayoutStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'TransactionType'
+ */
+export type EnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType'>
+    
+
+
+/**
+ * Reference to a field of type 'TransactionType[]'
+ */
+export type ListEnumTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionType[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2145,6 +2249,7 @@ export type GlobalOmitConfig = {
   messageThread?: Prisma.MessageThreadOmit
   message?: Prisma.MessageOmit
   payout?: Prisma.PayoutOmit
+  ledgerTransaction?: Prisma.LedgerTransactionOmit
 }
 
 /* Types for Logging */

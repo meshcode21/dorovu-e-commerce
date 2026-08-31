@@ -65,7 +65,8 @@ export const ModelName = {
   Review: 'Review',
   MessageThread: 'MessageThread',
   Message: 'Message',
-  Payout: 'Payout'
+  Payout: 'Payout',
+  LedgerTransaction: 'LedgerTransaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -122,6 +123,8 @@ export const CrafterStoreScalarFieldEnum = {
   portfolioImages: 'portfolioImages',
   isApproved: 'isApproved',
   commissionRate: 'commissionRate',
+  availableBalance: 'availableBalance',
+  pendingBalance: 'pendingBalance',
   rating: 'rating',
   totalSales: 'totalSales',
   createdAt: 'createdAt',
@@ -289,6 +292,19 @@ export const PayoutScalarFieldEnum = {
 } as const
 
 export type PayoutScalarFieldEnum = (typeof PayoutScalarFieldEnum)[keyof typeof PayoutScalarFieldEnum]
+
+
+export const LedgerTransactionScalarFieldEnum = {
+  id: 'id',
+  crafterId: 'crafterId',
+  amount: 'amount',
+  type: 'type',
+  referenceId: 'referenceId',
+  description: 'description',
+  createdAt: 'createdAt'
+} as const
+
+export type LedgerTransactionScalarFieldEnum = (typeof LedgerTransactionScalarFieldEnum)[keyof typeof LedgerTransactionScalarFieldEnum]
 
 
 export const SortOrder = {

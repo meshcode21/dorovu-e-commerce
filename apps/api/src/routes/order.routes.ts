@@ -6,7 +6,8 @@ import {
   getPendingOrderCount,
   getOrderById, 
   updateOrderItemStatus, 
-  cancelOrder 
+  cancelOrder,
+  cancelPayment
 } from '../controllers/order.controller';
 
 const router = Router();
@@ -17,6 +18,7 @@ router.use(authenticate);
 // Buyer routes
 router.post('/', createOrder);
 router.post('/:id/cancel', cancelOrder);
+router.post('/:id/cancel-payment', cancelPayment);
 
 // Crafter routes
 router.put('/items/:itemId/status', requireRole('CRAFTER', 'ADMIN'), updateOrderItemStatus);

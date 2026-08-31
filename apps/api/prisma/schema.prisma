@@ -70,6 +70,8 @@ model CrafterStore {
   portfolioImages String[] @default([])
   isApproved      Boolean  @default(true)
   commissionRate  Float    @default(0.10)
+  availableBalance Float   @default(0)
+  pendingBalance   Float   @default(0)
   rating          Float    @default(0)
   totalSales      Int      @default(0)
   createdAt       DateTime @default(now())
@@ -79,6 +81,7 @@ model CrafterStore {
   orderItems     OrderItem[]
   messageThreads MessageThread[] @relation("CrafterThreads")
   payouts        Payout[]
+  ledgerTransactions LedgerTransaction[]
 
   @@map("crafter_stores")
 }
@@ -279,4 +282,24 @@ model Payout {
   updatedAt          DateTime       @updatedAt
 
   @@map("payouts")
+}
+
+enum TransactionType {
+  ORDER_SALE
+  PLATFORM_FEE
+  PAYOUT_WITHDRAWAL
+  REFUND
+}
+
+model LedgerTransaction {
+  id            String          @id @default(uuid())
+  crafterId     String
+  crafter       CrafterStore    @relation(fields: [crafterId], references: [id])
+  amount        Float
+  type          TransactionType
+  referenceId   String?         
+  description   String
+  createdAt     DateTime        @default(now())
+
+  @@map("ledger_transactions")
 }
