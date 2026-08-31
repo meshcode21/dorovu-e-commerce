@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { shippingAddressSchema, ShippingAddressDTO } from '@dorovu/shared';
+import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/hooks/use-cart';
+import { useProduct } from '@/hooks/use-products';
 import { useCreateOrder } from '@/hooks/use-orders';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -16,7 +18,16 @@ import Image from 'next/image';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { data: cart, isLoading } = useCart(true);
+  const searchParams = useSearchParams();
+  const buyNowVariant = searchParams.get('buyNowVariant');
+  const buyNowProduct = searchParams.get('productId');
+  const buyNowQty = parseInt(searchParams.get('qty') || '1', 10);
+  const isBuyNow = !!(buyNowVariant && buyNowProduct);
+
+  const { data: cart, isLoading: isCartLoading } = useCart(true);
+  const { data: buyNowProductData, isLoading: isProductLoading } = useProduct(isBuyNow ? (buyNowProduct as string) : '');
+
+  const isLoading = isBuyNow ? isProductLoading : isCartLoading;
   const { mutate: createOrder, isPending } = useCreateOrder();
   const [isInitiatingPayment, setIsInitiatingPayment] = useState(false);
 
@@ -33,10 +44,27 @@ export default function CheckoutPage() {
     },
   });
 
-  const items = cart?.items || [];
+  let items: any[] = [];
+  if (isBuyNow && buyNowProductData) {
+    const variant = buyNowProductData.variants?.find((v: any) => v.id === buyNowVariant);
+    if (variant) {
+      items = [{
+        id: 'temp-buy-now',
+        variantId: variant.id,
+        quantity: buyNowQty,
+        variant: {
+          ...variant,
+          product: buyNowProductData
+        }
+      }];
+    }
+  } else if (!isBuyNow) {
+    items = cart?.items || [];
+  }
+
   const subtotal = items.reduce((sum, item) => sum + (item.variant.product.price + item.variant.priceAdjustment) * item.quantity, 0);
 
-  // Redirect if cart is empty
+  // Redirect if empty
   useEffect(() => {
     if (!isLoading && items.length === 0) {
       router.push('/cart');
@@ -53,6 +81,7 @@ export default function CheckoutPage() {
           variantId: item.variantId,
           quantity: item.quantity,
         })),
+        isBuyNow: isBuyNow,
       },
       {
         onSuccess: async (res) => {

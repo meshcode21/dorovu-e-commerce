@@ -172,21 +172,39 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="mt-auto">
-              <Button
-                className="w-full h-14 text-lg bg-primary hover:bg-primary/90 text-white rounded-xl font-medium shadow-md"
-                disabled={!activeVariant || activeVariant.stock === 0 || isAdding}
-                onClick={() => {
-                  if (!user) {
-                    router.push('/login');
-                    return;
-                  }
-                  if (activeVariant) {
-                    addToCart({ variantId: activeVariant.id, quantity: 1 });
-                  }
-                }}
-              >
-                {!activeVariant || activeVariant.stock === 0 ? 'Out of Stock' : isAdding ? 'Adding...' : 'Add to Cart'}
-              </Button>
+              <div className="flex gap-4">
+                <Button
+                  variant="outline"
+                  className="flex-1 h-14 text-lg border-primary text-primary hover:bg-primary/5 rounded-xl font-medium"
+                  disabled={!activeVariant || activeVariant.stock === 0 || isAdding}
+                  onClick={() => {
+                    if (!user) {
+                      router.push('/login');
+                      return;
+                    }
+                    if (activeVariant) {
+                      addToCart({ variantId: activeVariant.id, quantity: 1 });
+                    }
+                  }}
+                >
+                  {!activeVariant || activeVariant.stock === 0 ? 'Out of Stock' : isAdding ? 'Adding...' : 'Add to Cart'}
+                </Button>
+                <Button
+                  className="flex-1 h-14 text-lg bg-primary hover:bg-primary/90 text-white rounded-xl font-medium shadow-md"
+                  disabled={!activeVariant || activeVariant.stock === 0}
+                  onClick={() => {
+                    if (!user) {
+                      router.push(`/login?redirect=/products/${id}`);
+                      return;
+                    }
+                    if (activeVariant) {
+                      router.push(`/checkout?buyNowVariant=${activeVariant.id}&productId=${product.id}&qty=1`);
+                    }
+                  }}
+                >
+                  Buy Now
+                </Button>
+              </div>
               <div className="mt-4 flex items-center justify-center text-sm text-muted-foreground gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 Secure checkout and buyer protection

@@ -220,6 +220,7 @@ export const OrderScalarFieldEnum = {
   paymentStatus: 'paymentStatus',
   paymentReference: 'paymentReference',
   shippingAddress: 'shippingAddress',
+  isBuyNow: 'isBuyNow',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

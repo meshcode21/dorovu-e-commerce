@@ -60,6 +60,7 @@ export const createOrder = async (req: Request, res: Response): Promise<void> =>
           buyerId: userId,
           totalAmount: totalAmount,
           shippingAddress: validatedData.shippingAddress,
+          isBuyNow: validatedData.isBuyNow || false,
           orderItems: {
             create: orderItemsData
           }
@@ -69,10 +70,12 @@ export const createOrder = async (req: Request, res: Response): Promise<void> =>
         }
       });
 
-      // Clear the user's cart
-      const cart = await tx.cart.findUnique({ where: { userId } });
-      if (cart) {
-        await tx.cartItem.deleteMany({ where: { cartId: cart.id } });
+      // Clear the user's cart if this is not a "Buy Now" checkout
+      if (!validatedData.isBuyNow) {
+        const cart = await tx.cart.findUnique({ where: { userId } });
+        if (cart) {
+          await tx.cartItem.deleteMany({ where: { cartId: cart.id } });
+        }
       }
 
       return order;
@@ -321,6 +324,16 @@ export const cancelOrder = async (req: Request, res: Response): Promise<void> =>
 
     // Cancel order items and restore stock in transaction
     await prisma.$transaction(async (tx) => {
+      // 1. Atomically check and update to prevent race conditions
+      const updateResult = await tx.order.updateMany({
+        where: { id: id as string, paymentStatus: 'PENDING' },
+        data: { paymentStatus: 'FAILED' }
+      });
+
+      if (updateResult.count === 0) {
+        throw new Error('ALREADY_PROCESSED');
+      }
+
       for (const item of order.orderItems) {
         await tx.orderItem.update({
           where: { id: item.id },
@@ -333,15 +346,14 @@ export const cancelOrder = async (req: Request, res: Response): Promise<void> =>
           data: { stock: { increment: item.quantity } }
         });
       }
-
-      await tx.order.update({
-        where: { id: id as string },
-        data: { paymentStatus: 'FAILED' } // Or add CANCELLED to PaymentStatus enum if we updated schema
-      });
     });
 
     res.json({ message: 'Order cancelled successfully' });
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message === 'ALREADY_PROCESSED') {
+      res.json({ message: 'Order was already cancelled' });
+      return;
+    }
     console.error('Cancel order error:', error);
     res.status(500).json({ message: 'Server error' });
   }
@@ -373,7 +385,17 @@ export const cancelPayment = async (req: Request, res: Response): Promise<void> 
     }
 
     await prisma.$transaction(async (tx) => {
-      // 1. Cancel order items and restore stock
+      // 1. Atomically mark order as failed to prevent race conditions (e.g. from React double-firing)
+      const updateResult = await tx.order.updateMany({
+        where: { id: id as string, paymentStatus: 'PENDING' },
+        data: { paymentStatus: 'FAILED' }
+      });
+
+      if (updateResult.count === 0) {
+        throw new Error('ALREADY_PROCESSED');
+      }
+
+      // 2. Cancel order items and restore stock
       for (const item of order.orderItems) {
         await tx.orderItem.update({
           where: { id: item.id },
@@ -386,30 +408,30 @@ export const cancelPayment = async (req: Request, res: Response): Promise<void> 
         });
       }
 
-      // 2. Mark order as failed
-      await tx.order.update({
-        where: { id: id as string },
-        data: { paymentStatus: 'FAILED' }
-      });
-
-      // 3. Restore cart
-      const cart = await tx.cart.upsert({
-        where: { userId },
-        create: { userId },
-        update: {}
-      });
-
-      for (const item of order.orderItems) {
-        await tx.cartItem.upsert({
-          where: { cartId_variantId: { cartId: cart.id, variantId: item.variantId } },
-          create: { cartId: cart.id, variantId: item.variantId, quantity: item.quantity },
-          update: { quantity: { increment: item.quantity } }
+      // 3. Restore cart ONLY if this was not a "Buy Now" order
+      if (!order.isBuyNow) {
+        const cart = await tx.cart.upsert({
+          where: { userId },
+          create: { userId },
+          update: {}
         });
+
+        for (const item of order.orderItems) {
+          await tx.cartItem.upsert({
+            where: { cartId_variantId: { cartId: cart.id, variantId: item.variantId } },
+            create: { cartId: cart.id, variantId: item.variantId, quantity: item.quantity },
+            update: { quantity: { increment: item.quantity } }
+          });
+        }
       }
     });
 
-    res.json({ message: 'Payment cancelled and cart restored' });
-  } catch (error) {
+    res.json({ message: 'Payment cancelled and handled appropriately' });
+  } catch (error: any) {
+    if (error.message === 'ALREADY_PROCESSED') {
+      res.json({ message: 'Payment already processed' });
+      return;
+    }
     console.error('Cancel payment error:', error);
     res.status(500).json({ message: 'Server error' });
   }
