@@ -17,7 +17,7 @@ export default function CrafterShopPage() {
       <div className="animate-pulse">
         <div className="h-64 bg-muted w-full"></div>
         <div className="max-w-[1280px] mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="bg-card rounded-xl border border-border aspect-[3/4]"></div>
             ))}
@@ -90,7 +90,7 @@ export default function CrafterShopPage() {
         <p className="text-muted-foreground mb-10">Handcrafted pieces by {crafter.crafter.firstName}</p>
 
         {productsLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="animate-pulse bg-card rounded-xl border border-border aspect-[3/4]"></div>
             ))}
@@ -100,7 +100,7 @@ export default function CrafterShopPage() {
             <p className="text-muted-foreground text-lg">This crafter hasn't listed any products yet.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {products?.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

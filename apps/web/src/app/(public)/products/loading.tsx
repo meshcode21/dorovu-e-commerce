@@ -14,7 +14,7 @@ export default function ProductsLoading() {
         </aside>
 
         <main className="flex-1">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="animate-pulse bg-card rounded-xl border border-border aspect-[3/4]"></div>
             ))}
