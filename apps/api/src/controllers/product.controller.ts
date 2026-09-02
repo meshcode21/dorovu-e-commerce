@@ -354,3 +354,45 @@ export const getProductReviews = async (req: Request, res: Response): Promise<vo
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const getProductRecommendations = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: String(req.params.id) },
+    });
+
+    if (!product) {
+      res.status(404).json({ message: 'Product not found' });
+      return;
+    }
+
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 4;
+
+    const recommendations = await prisma.product.findMany({
+      where: {
+        id: { not: product.id },
+        OR: [
+          { category: product.category },
+          ...(product.tags.length > 0 ? [{ tags: { hasSome: product.tags } }] : [])
+        ]
+      },
+      orderBy: [
+        { totalSales: 'desc' },
+        { avgRating: 'desc' },
+        { createdAt: 'desc' }
+      ],
+      take: limit,
+      include: {
+        crafter: {
+          select: { storeName: true }
+        },
+        variants: true
+      }
+    });
+
+    res.json({ products: recommendations });
+  } catch (error) {
+    console.error('Get recommendations error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

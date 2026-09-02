@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Search, ShoppingCart, LogOut, UserCircle, Package, Heart, Star, XCircle } from "lucide-react";
 import { useUser, useLogout } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
@@ -33,15 +35,29 @@ function Logo() {
 }
 
 function SearchBox() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      router.push(`/products`);
+    }
+  };
+
   return (
-    <div className="flex-1 max-w-xl mx-auto hidden md:flex items-center relative">
+    <form onSubmit={handleSearch} className="flex-1 max-w-xl mx-auto hidden md:flex items-center relative">
       <Search className="absolute left-3 w-4 h-4 text-muted-foreground" />
       <input
         type="text"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="Search for handmade crafts..."
         className="w-full h-10 pl-10 pr-4 rounded-full border border-border bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
       />
-    </div>
+    </form>
   );
 }
 

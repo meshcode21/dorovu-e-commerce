@@ -84,6 +84,17 @@ export const useProduct = (id: string) => {
   });
 };
 
+export const useProductRecommendations = (id: string, limit: number = 4) => {
+  return useQuery({
+    queryKey: [...queryKeys.products.detail(id), 'recommendations', limit],
+    queryFn: async () => {
+      const { data } = await api.get(`/products/${id}/recommendations?limit=${limit}`);
+      return data.products as Product[];
+    },
+    enabled: !!id,
+  });
+};
+
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
   const router = useRouter();

@@ -4,7 +4,8 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useProduct } from '@/hooks/use-products';
+import { useProduct, useProductRecommendations } from '@/hooks/use-products';
+import { ProductCard } from '@/components/products/product-card';
 import { useAddToCart } from '@/hooks/use-cart';
 import { useUser } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
@@ -15,6 +16,7 @@ import ReviewList from '@/components/product/ReviewList';
 export default function ProductDetailPage() {
   const { id } = useParams() as { id: string };
   const { data: product, isLoading } = useProduct(id);
+  const { data: recommendedProducts } = useProductRecommendations(id);
   const [selectedVariantId, setSelectedVariantId] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
@@ -217,6 +219,18 @@ export default function ProductDetailPage() {
       <div className="mt-12 max-w-4xl mx-auto">
         <ReviewList productId={id} />
       </div>
+
+      {/* Similar Products Grid */}
+      {recommendedProducts && recommendedProducts.length > 0 && (
+        <div className="mt-20">
+          <h2 className="font-display text-3xl font-bold text-foreground mb-8">Similar Products You Might Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {recommendedProducts.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
