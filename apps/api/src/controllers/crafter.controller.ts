@@ -1,8 +1,47 @@
 import { Request, Response, NextFunction } from 'express';
 import { CrafterService } from '../services/crafter.service';
-import { ApplyCrafterSchema } from '@dorovu/shared';
+import { ApplyCrafterSchema, UpdateCrafterStoreSchema } from '@dorovu/shared';
 
 export const CrafterController = {
+  async updateCrafterStore(req: Request, res: Response, next: NextFunction) {
+    try {
+      const bodyData = { ...req.body };
+      
+      let existingImages: string[] | null = null;
+      if (bodyData.existingImages !== undefined) {
+        if (typeof bodyData.existingImages === 'string') {
+          try {
+            existingImages = JSON.parse(bodyData.existingImages);
+          } catch {
+            existingImages = [bodyData.existingImages];
+          }
+        } else if (Array.isArray(bodyData.existingImages)) {
+          existingImages = bodyData.existingImages;
+        }
+      }
+
+      const validatedData = UpdateCrafterStoreSchema.parse(bodyData);
+      const userId = req.user!.userId;
+
+      // Extract new image files
+      const newImages: string[] = [];
+      if (req.files && Array.isArray(req.files)) {
+        req.files.forEach((file: Express.Multer.File) => {
+          newImages.push(file.path);
+        });
+      }
+
+      const store = await CrafterService.updateCrafterStore(userId, validatedData, existingImages, newImages);
+      
+      res.json({
+        success: true,
+        data: store,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async applyCrafter(req: Request, res: Response, next: NextFunction) {
     try {
       const validatedData = ApplyCrafterSchema.parse(req.body);

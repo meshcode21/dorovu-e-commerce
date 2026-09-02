@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Star, User } from "lucide-react";
 import { serverFetch } from "@/lib/server-fetch";
+import Image from "next/image";
 
 export async function TopCrafters() {
   let crafters: any[] = [];
@@ -27,13 +28,13 @@ export async function TopCrafters() {
           <Link href={`/crafters/${store.id}`} key={store.id} className="group block">
             <div className="bg-card rounded-xl border border-border p-6 flex flex-col items-center text-center transition-all hover:shadow-md hover:border-primary/20 h-full">
               <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-background shadow-sm">
-                {/* <Image
+                <Image
                   src={avatarImage}
                   alt={store.storeName}
                   fill
+                  sizes="96px"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                /> */}
-                <User className="size-full"/>
+                />
               </div>
 
               <h3 className="font-display font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1 mb-1">

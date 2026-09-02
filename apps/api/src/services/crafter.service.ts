@@ -1,8 +1,34 @@
 import { prisma } from '../lib/prisma';
 import { AppError } from '../middleware/error.middleware';
-import type { ApplyCrafterDTO } from '@dorovu/shared';
+import type { ApplyCrafterDTO, UpdateCrafterStoreDTO } from '@dorovu/shared';
 
 export const CrafterService = {
+  async updateCrafterStore(userId: string, data: UpdateCrafterStoreDTO, existingImages: string[] | null, newImages: string[] = []) {
+    const store = await prisma.crafterStore.findUnique({
+      where: { crafterId: userId },
+    });
+
+    if (!store) {
+      throw new AppError(404, 'Crafter store not found');
+    }
+
+    let images: string[] = existingImages !== null
+      ? (Array.isArray(existingImages) ? existingImages.filter(img => typeof img === 'string') : [])
+      : [...store.portfolioImages];
+    
+    images = [...images, ...newImages];
+
+    return await prisma.crafterStore.update({
+      where: { crafterId: userId },
+      data: {
+        storeName: data.storeName,
+        description: data.description,
+        craftType: data.craftType,
+        portfolioImages: images,
+      },
+    });
+  },
+
   async applyCrafter(userId: string, data: ApplyCrafterDTO) {
     const user = await prisma.user.findUnique({
       where: { id: userId },

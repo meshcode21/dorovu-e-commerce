@@ -47,6 +47,7 @@ export default function CrafterShopPage() {
                 src={crafter.portfolioImages[0]}
                 alt={crafter.storeName}
                 fill
+                sizes="(max-width: 768px) 128px, 160px"
                 className="object-cover"
               />
             ) : (

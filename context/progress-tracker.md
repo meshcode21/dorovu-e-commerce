@@ -97,7 +97,7 @@ Last updated: August 2026
 - [x] Dashboard overview
 - [x] Product manager
 - [x] Order manager
-- ⬜ Shop settings
+- ✅ Shop settings
 
 ---
 
