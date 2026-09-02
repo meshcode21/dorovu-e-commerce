@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useCategories } from "@/hooks/use-categories";
+import { serverFetch } from "@/lib/server-fetch";
+import type { Category } from "@/hooks/use-categories";
 
 // A fallback map of images for common craft types.
 const FALLBACK_IMAGES: Record<string, string> = {
@@ -15,20 +14,13 @@ const FALLBACK_IMAGES: Record<string, string> = {
   "Default": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=400&auto=format&fit=crop"
 };
 
-export const DynamicCategories = () => {
-  const { data: categories, isLoading } = useCategories();
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="animate-pulse">
-            <div className="aspect-square rounded-xl bg-muted mb-3"></div>
-            <div className="h-6 bg-muted rounded w-1/2"></div>
-          </div>
-        ))}
-      </div>
-    );
+export async function DynamicCategories() {
+  let categories: Category[] = [];
+  try {
+    const res = await serverFetch<{ categories: Category[] }>('/categories');
+    categories = res.categories;
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
   }
 
   // Use the first 6 categories, or fallback to default ones if API is empty

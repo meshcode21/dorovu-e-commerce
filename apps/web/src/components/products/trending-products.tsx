@@ -1,27 +1,25 @@
-'use client';
-
-import { useTrendingProducts } from '@/hooks/use-products';
 import { ProductCard } from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useAllProducts } from '@/hooks/use-products';
+import { serverFetch } from '@/lib/server-fetch';
+import type { Product } from '@/hooks/use-products';
 
-export function TrendingProducts() {
-  const { data: trending, isLoading } = useTrendingProducts(4);
-  const { data: fallback, isLoading: fallbackLoading } = useAllProducts(undefined, undefined, undefined, 4);
+export async function TrendingProducts() {
+  let trending: Product[] = [];
+  let fallback: Product[] = [];
 
-  if (isLoading || fallbackLoading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="animate-pulse bg-card rounded-xl border border-border aspect-[3/4]"></div>
-        ))}
-      </div>
-    );
+  try {
+    const resTrending = await serverFetch<{ products: Product[] }>('/products/trending?limit=4');
+    trending = resTrending.products;
+
+    if (!trending || trending.length === 0 || !trending.some(p => p.totalSales && p.totalSales > 0)) {
+      const resFallback = await serverFetch<{ products: Product[] }>('/products?limit=4');
+      fallback = resFallback.products;
+    }
+  } catch (error) {
+    console.error('Failed to fetch trending products:', error);
   }
 
-  // Filter out products with 0 sales if we want to be strict, but for MVP let's just use trending
-  // If all trending have 0 sales, fallback to recently added
   const hasSales = trending && trending.length > 0 && trending.some(p => p.totalSales && p.totalSales > 0);
   const displayProducts = hasSales ? trending : fallback?.slice(0, 4) || [];
 

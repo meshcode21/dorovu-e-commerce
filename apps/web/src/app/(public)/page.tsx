@@ -7,8 +7,21 @@ import { DynamicCategories } from "@/components/home/dynamic-categories";
 import { DynamicHeroImage } from "@/components/home/dynamic-hero-image";
 import { TopCrafters } from "@/components/home/top-crafters";
 import { RecentlyAddedProducts } from "@/components/products/recently-added-products";
+import { serverFetch } from "@/lib/server-fetch";
+import type { Product } from "@/hooks/use-products";
 
-export default function Home() {
+export default async function Home() {
+  let heroImages: string[] = [];
+  try {
+    const res = await serverFetch<{ products: Product[] }>('/products?limit=5');
+    heroImages = res.products
+      .filter((p) => p.images && p.images.length > 0)
+      .map((p) => p.images[0])
+      .slice(0, 5);
+  } catch (error) {
+    console.error('Failed to fetch hero products:', error);
+  }
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -42,7 +55,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <DynamicHeroImage />
+          <DynamicHeroImage images={heroImages} />
         </div>
       </section>
 

@@ -1,20 +1,14 @@
-"use client";
-
-import { useAllProducts } from "@/hooks/use-products";
 import { ProductCard } from "@/components/products/product-card";
+import { serverFetch } from "@/lib/server-fetch";
+import type { Product } from "@/hooks/use-products";
 
-export const RecentlyAddedProducts = () => {
-  // Fetch up to 8 recent products
-  const { data: products, isLoading } = useAllProducts(undefined, undefined, undefined, 8);
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="animate-pulse bg-card rounded-xl border border-border aspect-[3/4]"></div>
-        ))}
-      </div>
-    );
+export async function RecentlyAddedProducts() {
+  let products: Product[] = [];
+  try {
+    const res = await serverFetch<{ products: Product[] }>('/products?limit=8');
+    products = res.products;
+  } catch (error) {
+    console.error('Failed to fetch recent products:', error);
   }
 
   if (!products || products.length === 0) {

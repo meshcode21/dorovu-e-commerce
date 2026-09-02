@@ -35,21 +35,7 @@ export interface Product {
   };
 }
 
-export const useAllProducts = (crafterId?: string, category?: string, search?: string, limit?: number) => {
-  return useQuery({
-    queryKey: queryKeys.products.list(crafterId, category, search, limit),
-    queryFn: async () => {
-      const params = new URLSearchParams();
-      if (crafterId) params.append('crafterId', crafterId);
-      if (category) params.append('category', category);
-      if (search) params.append('search', search);
-      if (limit) params.append('limit', limit.toString());
 
-      const { data } = await api.get(`/products?${params.toString()}`);
-      return data.products as Product[];
-    },
-  });
-};
 
 export const useProducts = (crafterId?: string) => {
   return useQuery({
@@ -63,15 +49,7 @@ export const useProducts = (crafterId?: string) => {
   });
 };
 
-export const useTrendingProducts = (limit: number = 4) => {
-  return useQuery({
-    queryKey: queryKeys.products.trending(limit),
-    queryFn: async () => {
-      const { data } = await api.get(`/products/trending?limit=${limit}`);
-      return data.products as Product[];
-    },
-  });
-};
+
 
 export const useProduct = (id: string) => {
   return useQuery({
@@ -84,16 +62,7 @@ export const useProduct = (id: string) => {
   });
 };
 
-export const useProductRecommendations = (id: string, limit: number = 4) => {
-  return useQuery({
-    queryKey: [...queryKeys.products.detail(id), 'recommendations', limit],
-    queryFn: async () => {
-      const { data } = await api.get(`/products/${id}/recommendations?limit=${limit}`);
-      return data.products as Product[];
-    },
-    enabled: !!id,
-  });
-};
+
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();

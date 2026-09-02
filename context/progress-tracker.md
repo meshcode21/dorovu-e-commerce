@@ -120,6 +120,9 @@ Last updated: August 2026
 - ✅ Public Order Tracking System (`/tracking`)
 - ✅ Admin Logistics Portal (`/admin/logistics`) to manage active shipments
 - ✅ Secure Delivery OTP system tied to crafter payouts
+- ✅ **Major Architecture Refactor:** Migrated public frontend pages to React Server Components (RSC) for SSR/SEO, dropping client-side SPA fetching and replacing custom loaders with Next.js native `loading.tsx` streaming.
+- ✅ Implemented `/:id/recommendations` API and Similar Products Grid on product details page.
+- ✅ Fixed Global Navbar Search to properly sync URL query params and filter products.
 
 ---
 

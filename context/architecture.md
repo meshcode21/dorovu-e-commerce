@@ -146,6 +146,13 @@ src/
 
 ## Frontend Architecture Pattern
 
+We leverage Next.js 14 App Router. Our core architectural rule for the frontend is **Server Components First**:
+
+### Data Fetching & State
+- **Server Components (Default):** All public pages (`page.tsx`) must default to Server Components. They use `lib/server-fetch.ts` to fetch data directly from the Express backend via absolute URL. This ensures the HTML is fully generated server-side before reaching the browser, optimizing SEO and eliminating "blank screen" flashes.
+- **Client Components (`'use client'`):** Strictly reserved for leaf-node components that require interactivity, browser APIs, or React state (e.g., Add to Cart buttons, product variant selectors, filter sidebars). These components use **TanStack Query** for client-side caching and mutations.
+- **Loading States:** We use Next.js's built-in `loading.tsx` convention to instantly stream skeleton loaders while the server fetches data. Custom full-screen global overlays are forbidden for initial page loads.
+
 Next.js 14 App Router with **route groups** separating concerns:
 
 ```

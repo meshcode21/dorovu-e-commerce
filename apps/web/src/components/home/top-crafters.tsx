@@ -1,25 +1,14 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
-import { useTopCrafters } from "@/hooks/use-crafter";
 import { Star, User } from "lucide-react";
+import { serverFetch } from "@/lib/server-fetch";
 
-export const TopCrafters = () => {
-  const { data: crafters, isLoading } = useTopCrafters(4);
-
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="animate-pulse bg-card rounded-xl border border-border p-6 flex flex-col items-center">
-            <div className="w-24 h-24 rounded-full bg-muted mb-4"></div>
-            <div className="h-5 bg-muted rounded w-2/3 mb-2"></div>
-            <div className="h-4 bg-muted rounded w-1/2"></div>
-          </div>
-        ))}
-      </div>
-    );
+export async function TopCrafters() {
+  let crafters: any[] = [];
+  try {
+    const res = await serverFetch<{ data: any[] }>('/crafters/top?limit=4');
+    crafters = res.data;
+  } catch (error) {
+    console.error('Failed to fetch top crafters:', error);
   }
 
   if (!crafters || crafters.length === 0) {
