@@ -5,6 +5,7 @@ import { z } from 'zod';
 const createCategorySchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   description: z.string().optional(),
+  image: z.string().url().optional(),
 });
 
 export const getCategories = async (req: Request, res: Response): Promise<void> => {
@@ -22,9 +23,17 @@ export const getCategories = async (req: Request, res: Response): Promise<void> 
 export const createCategory = async (req: Request, res: Response): Promise<void> => {
   try {
     const validatedData = createCategorySchema.parse(req.body);
+    let imageUrl = validatedData.image;
+
+    if (req.file) {
+      imageUrl = req.file.path;
+    }
 
     const category = await prisma.category.create({
-      data: validatedData,
+      data: {
+        ...validatedData,
+        image: imageUrl,
+      },
     });
 
     res.status(201).json({ message: 'Category created successfully', category });
@@ -46,10 +55,18 @@ export const updateCategory = async (req: Request, res: Response): Promise<void>
   try {
     const id = String(req.params.id);
     const validatedData = createCategorySchema.parse(req.body);
+    let imageUrl = validatedData.image;
+
+    if (req.file) {
+      imageUrl = req.file.path;
+    }
 
     const category = await prisma.category.update({
       where: { id },
-      data: validatedData,
+      data: {
+        ...validatedData,
+        ...(imageUrl && { image: imageUrl }), // only update if provided
+      },
     });
 
     res.json({ message: 'Category updated successfully', category });

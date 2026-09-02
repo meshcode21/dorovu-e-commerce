@@ -40,6 +40,24 @@ export const useCreateCraftType = () => {
   });
 };
 
+export const useUpdateCraftType = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: { name: string; description?: string } }) => {
+      const response = await api.put(`/craft-types/${id}`, data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success('Craft Type updated successfully');
+      queryClient.invalidateQueries({ queryKey: queryKeys.craftTypes.all() });
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Failed to update craft type');
+    },
+  });
+};
+
 export const useDeleteCraftType = () => {
   const queryClient = useQueryClient();
 

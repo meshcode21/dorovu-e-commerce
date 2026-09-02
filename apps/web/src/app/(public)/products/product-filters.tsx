@@ -24,11 +24,31 @@ export function ProductFilters({ categories }: ProductFiltersProps) {
   const [searchTerm, setSearchTerm] = useState(searchParam);
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
 
-  // Sync state when URL changes
+  // Sync state when URL changes externally
   useEffect(() => {
     setSelectedCategory(categoryParam);
     setSearchTerm(searchParam);
   }, [categoryParam, searchParam]);
+
+  // Debounced search term updater
+  useEffect(() => {
+    // Skip if input matches the current URL parameter
+    if (searchTerm === searchParam) return;
+
+    const handler = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (searchTerm.trim()) {
+        params.set('search', searchTerm.trim());
+      } else {
+        params.delete('search');
+      }
+      router.push(`/products?${params.toString()}`);
+    }, 350);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm, searchParam, searchParams, router]);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -43,13 +63,6 @@ export function ProductFilters({ categories }: ProductFiltersProps) {
 
   const handleSearchChange = (val: string) => {
     setSearchTerm(val);
-    const params = new URLSearchParams(searchParams.toString());
-    if (val) {
-      params.set('search', val);
-    } else {
-      params.delete('search');
-    }
-    router.push(`/products?${params.toString()}`);
   };
 
   return (

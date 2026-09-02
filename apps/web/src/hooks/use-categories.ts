@@ -8,9 +8,10 @@ export interface Category {
   id: string;
   name: string;
   description: string | null;
+  image: string | null;
   createdAt: string;
+  updatedAt: string;
 }
-
 
 export const useCategories = () => {
   return useQuery({
@@ -26,9 +27,13 @@ export const useCreateCategory = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { name: string; description?: string }) => {
-      const response = await api.post('/categories', data);
-      return response.data;
+    mutationFn: async (data: FormData) => {
+      const response = await api.post('/categories', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data.category as Category;
     },
     onSuccess: () => {
       toast.success('Category created successfully');
@@ -36,6 +41,28 @@ export const useCreateCategory = () => {
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || 'Failed to create category');
+    },
+  });
+};
+
+export const useUpdateCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: FormData }) => {
+      const response = await api.put(`/categories/${id}`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data.category as Category;
+    },
+    onSuccess: () => {
+      toast.success('Category updated successfully');
+      queryClient.invalidateQueries({ queryKey: queryKeys.categories.all() });
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Failed to update category');
     },
   });
 };

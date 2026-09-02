@@ -1,30 +1,56 @@
 "use client";
 
 import { useState } from "react";
-import { useCraftTypes, useCreateCraftType, useDeleteCraftType } from "@/hooks/use-craft-types";
+import { useCraftTypes, useCreateCraftType, useUpdateCraftType, useDeleteCraftType, type CraftType } from "@/hooks/use-craft-types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Trash2, Scissors, Plus } from "lucide-react";
+import { Trash2, Scissors, Plus, Edit2 } from "lucide-react";
 
 export default function AdminCraftTypesPage() {
   const { data: craftTypes, isLoading } = useCraftTypes();
-  const { mutate: createCraftType, isPending } = useCreateCraftType();
+  const { mutate: createCraftType, isPending: isCreating } = useCreateCraftType();
+  const { mutate: updateCraftType, isPending: isUpdating } = useUpdateCraftType();
   const { mutate: deleteCraftType } = useDeleteCraftType();
 
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const isPending = isCreating || isUpdating;
+
+  const startEdit = (craftType: CraftType) => {
+    setEditingId(craftType.id);
+    setName(craftType.name);
+    setDescription(craftType.description || "");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setName("");
+    setDescription("");
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    createCraftType({ name, description }, {
-      onSuccess: () => {
-        setName("");
-        setDescription("");
-      }
-    });
+    if (editingId) {
+      updateCraftType(
+        { id: editingId, data: { name, description } },
+        {
+          onSuccess: () => cancelEdit(),
+        }
+      );
+    } else {
+      createCraftType(
+        { name, description },
+        {
+          onSuccess: () => cancelEdit(),
+        }
+      );
+    }
   };
 
   return (
@@ -35,10 +61,12 @@ export default function AdminCraftTypesPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Create Form */}
+        {/* Create/Edit Form */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl border border-sand p-6 shadow-sm sticky top-6">
-            <h2 className="text-lg font-medium text-foreground mb-4">Add New Craft Type</h2>
+            <h2 className="text-lg font-medium text-foreground mb-4">
+              {editingId ? "Edit Craft Type" : "Add New Craft Type"}
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Craft Type Name</Label>
@@ -46,7 +74,7 @@ export default function AdminCraftTypesPage() {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Woodworking, Pottery"
+                  placeholder="e.g. Crochet, Woodworking, Pottery"
                   required
                 />
               </div>
@@ -60,14 +88,33 @@ export default function AdminCraftTypesPage() {
                   placeholder="Brief description of this craft type"
                 ></textarea>
               </div>
-              <Button type="submit" className="w-full bg-primary text-white hover:bg-primary/90" disabled={isPending || !name.trim()}>
-                {isPending ? 'Adding...' : (
-                  <>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Craft Type
-                  </>
+              <div className="pt-2 flex gap-2">
+                {editingId && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="flex-1"
+                    onClick={cancelEdit}
+                    disabled={isPending}
+                  >
+                    Cancel
+                  </Button>
                 )}
-              </Button>
+                <Button
+                  type="submit"
+                  className="flex-1 bg-primary text-white hover:bg-primary/90"
+                  disabled={isPending || !name.trim()}
+                >
+                  {isPending ? (
+                    editingId ? "Updating..." : "Adding..."
+                  ) : (
+                    <>
+                      {editingId ? <Edit2 className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+                      {editingId ? "Update" : "Add Craft Type"}
+                    </>
+                  )}
+                </Button>
+              </div>
             </form>
           </div>
         </div>
@@ -98,11 +145,19 @@ export default function AdminCraftTypesPage() {
                       <td className="px-6 py-4 text-muted-foreground">
                         {type.description || <span className="italic text-foreground-40">No description</span>}
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-6 py-4 text-right space-x-2">
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="text-muted-foreground hover:text-secondary/80 hover:bg-secondary/80/10"
+                          className="text-muted-foreground hover:text-primary hover:bg-primary/10"
+                          onClick={() => startEdit(type)}
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                           onClick={() => {
                             if (confirm(`Are you sure you want to delete the craft type "${type.name}"?`)) {
                               deleteCraftType(type.id);

@@ -27,8 +27,8 @@ export default function EditProductPage() {
   const { data: categories } = useCategories();
   const { data: craftTypes } = useCraftTypes();
 
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
+  const [newFiles, setNewFiles] = useState<{ file: File; preview: string }[]>([]);
 
   const [variants, setVariants] = useState<VariantInput[]>([
     { name: 'Default', stock: 0, priceAdjustment: 0 }
@@ -38,7 +38,7 @@ export default function EditProductPage() {
   useEffect(() => {
     if (product) {
       if (product.images && product.images.length > 0) {
-        setImagePreviews(product.images);
+        setExistingImages(product.images);
       }
       if (product.variants && product.variants.length > 0) {
         setVariants(product.variants.map(v => ({
@@ -50,6 +50,13 @@ export default function EditProductPage() {
       }
     }
   }, [product]);
+
+  // Clean up object URLs on unmount
+  useEffect(() => {
+    return () => {
+      newFiles.forEach(({ preview }) => URL.revokeObjectURL(preview));
+    };
+  }, [newFiles]);
 
   const addVariant = () => {
     setVariants([...variants, { name: '', stock: 0, priceAdjustment: 0 }]);
@@ -69,47 +76,47 @@ export default function EditProductPage() {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const selectedFiles = Array.from(e.target.files).slice(0, 5 - (files.length + (product?.images?.length || 0))); // Max 5 total
+      const remainingSlots = 5 - (existingImages.length + newFiles.length);
+      const selectedFiles = Array.from(e.target.files).slice(0, remainingSlots);
 
-      const newFiles = [...files, ...selectedFiles];
-      setFiles(newFiles);
+      const added = selectedFiles.map(file => ({
+        file,
+        preview: URL.createObjectURL(file),
+      }));
 
-      // Generate previews for new files
-      const newPreviews = selectedFiles.map(file => URL.createObjectURL(file));
-      setImagePreviews([...imagePreviews, ...newPreviews]);
+      setNewFiles(prev => [...prev, ...added]);
     }
     e.target.value = '';
   };
 
-  const removeImage = (index: number) => {
-    const newPreviews = [...imagePreviews];
-    const removedPreview = newPreviews.splice(index, 1)[0];
-    setImagePreviews(newPreviews);
-
-    // If it's a newly added file (object URL), remove from files array
-    if (removedPreview.startsWith('blob:')) {
-      const fileIndex = files.findIndex(f => URL.createObjectURL(f) === removedPreview);
-      if (fileIndex !== -1) {
-        const newFiles = [...files];
-        newFiles.splice(fileIndex, 1);
-        setFiles(newFiles);
-      }
-      URL.revokeObjectURL(removedPreview);
-    }
+  const removeExistingImage = (index: number) => {
+    setExistingImages(prev => prev.filter((_, i) => i !== index));
   };
+
+  const removeNewFile = (index: number) => {
+    setNewFiles(prev => {
+      const fileToRemove = prev[index];
+      if (fileToRemove) {
+        URL.revokeObjectURL(fileToRemove.preview);
+      }
+      return prev.filter((_, i) => i !== index);
+    });
+  };
+
+  const totalImagesCount = existingImages.length + newFiles.length;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    // The native input is uncontrolled, we need to inject the manually managed files
-    formData.delete('images'); // Remove any default
-    files.forEach(file => {
+    // Send the remaining existing images
+    formData.append('existingImages', JSON.stringify(existingImages));
+
+    // Send newly uploaded images
+    formData.delete('images');
+    newFiles.forEach(({ file }) => {
       formData.append('images', file);
     });
-
-    // In a real app, we'd also send the remaining existing image URLs so the backend knows which to keep.
-    // For MVP, backend just appends new images if any are uploaded. 
 
     // Add variants to form data
     formData.append('variants', JSON.stringify(variants));
@@ -164,24 +171,42 @@ export default function EditProductPage() {
           <div className="space-y-3">
             <div className="flex justify-between items-end">
               <Label>Product Images</Label>
-              <span className="text-xs text-muted-foreground">{imagePreviews.length} / 5 uploaded</span>
+              <span className="text-xs text-muted-foreground">{totalImagesCount} / 5 uploaded</span>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {imagePreviews.map((preview, idx) => (
-                <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border border-sand group">
-                  <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+              {/* Existing Images */}
+              {existingImages.map((src, idx) => (
+                <div key={`existing-${idx}`} className="relative aspect-square rounded-xl overflow-hidden border border-sand group">
+                  <img src={src} alt={`Product ${idx + 1}`} className="w-full h-full object-cover" />
                   <button
                     type="button"
-                    onClick={() => removeImage(idx)}
-                    className="absolute top-2 right-2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-secondary/80"
+                    onClick={() => removeExistingImage(idx)}
+                    className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive"
+                    title="Remove image"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               ))}
 
-              {imagePreviews.length < 5 && (
+              {/* Newly Added Files */}
+              {newFiles.map((item, idx) => (
+                <div key={`new-${idx}`} className="relative aspect-square rounded-xl overflow-hidden border border-primary/40 group">
+                  <img src={item.preview} alt={`New upload ${idx + 1}`} className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => removeNewFile(idx)}
+                    className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive"
+                    title="Remove image"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  <span className="absolute bottom-1 left-1 bg-primary text-[10px] text-white px-1.5 py-0.5 rounded font-medium">New</span>
+                </div>
+              ))}
+
+              {totalImagesCount < 5 && (
                 <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center aspect-square border-2 border-sand border-dashed rounded-xl cursor-pointer bg-sand/10 hover:bg-sand/30 transition-colors">
                   <div className="flex flex-col items-center justify-center p-4 text-center">
                     <ImageIcon className="w-6 h-6 text-foreground-40 mb-2" />
@@ -334,7 +359,7 @@ export default function EditProductPage() {
             <Link href="/crafter/products" className={buttonVariants({ variant: "outline" })}>
               Cancel
             </Link>
-            <Button type="submit" className="bg-primary text-white hover:bg-primary/90" disabled={isPending || imagePreviews.length === 0}>
+            <Button type="submit" className="bg-primary text-white hover:bg-primary/90" disabled={isPending || totalImagesCount === 0}>
               {isPending ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>

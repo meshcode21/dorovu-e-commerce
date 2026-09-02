@@ -7,23 +7,25 @@ async function main() {
 
   // --- Seed Categories ---
   const categories = [
-    { name: 'Home Decor', description: 'Handcrafted items for your home' },
-    { name: 'Kitchen', description: 'Pottery, utensils, and kitchen accessories' },
-    { name: 'Accessories', description: 'Bags, wallets, and wearable accessories' },
-    { name: 'Jewelry', description: 'Handmade rings, necklaces, and earrings' },
-    { name: 'Art', description: 'Original paintings, prints, and sculptures' }
+    { name: 'Home Decor', description: 'Handcrafted items for your home', image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=800&auto=format&fit=crop' },
+    { name: 'Kitchen', description: 'Pottery, utensils, and kitchen accessories', image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&auto=format&fit=crop' },
+    { name: 'Accessories', description: 'Bags, wallets, and wearable accessories', image: 'https://images.unsplash.com/photo-1599643477873-ce830919fcd4?w=800&auto=format&fit=crop' },
+    { name: 'Jewelry', description: 'Handmade rings, necklaces, and earrings', image: 'https://images.unsplash.com/photo-1599643477873-ce830919fcd4?w=800&auto=format&fit=crop' }, // re-used accessories image for jewelry
+    { name: 'Art', description: 'Original paintings, prints, and sculptures', image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop' }
   ];
 
   for (const cat of categories) {
     await prisma.category.upsert({
       where: { name: cat.name },
-      update: {},
-      create: { name: cat.name, description: cat.description }
+      update: { image: cat.image },
+      create: { name: cat.name, description: cat.description, image: cat.image }
     });
   }
 
   // --- Seed Craft Types ---
   const craftTypes = [
+    { name: 'Crochet', description: 'Yarn crafts and amigurumi' },
+    { name: 'Knitting', description: 'Hand-knitted garments and textiles' },
     { name: 'Weaving', description: 'Textile arts and weaving' },
     { name: 'Pottery', description: 'Ceramic arts and clay throwing' },
     { name: 'Leatherwork', description: 'Handcrafted leather goods' },

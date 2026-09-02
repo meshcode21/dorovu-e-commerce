@@ -10,6 +10,8 @@ import { RecentlyAddedProducts } from "@/components/products/recently-added-prod
 import { serverFetch } from "@/lib/server-fetch";
 import type { Product } from "@/hooks/use-products";
 
+import { HeroActionButtons } from "@/components/home/hero-action-buttons";
+
 export default async function Home() {
   let heroImages: string[] = [];
   try {
@@ -34,26 +36,7 @@ export default async function Home() {
             <p className="text-white/80 text-base md:text-lg mb-8 max-w-md">
               Discover unique, handcrafted treasures from Nepal's most talented artisans. Every piece tells a story.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <Link
-                href="/products"
-                className={buttonVariants({
-                  size: "lg",
-                  className: "bg-white !text-primary hover:!bg-background shadow-md font-semibold px-8 w-full sm:w-auto"
-                })}
-              >
-                Shop Now
-              </Link>
-              <Link
-                href="/apply"
-                className={buttonVariants({
-                  size: "lg",
-                  className: "border-white text-white bg-transparent hover:bg-white/10 w-full sm:w-auto"
-                })}
-              >
-                Start Selling
-              </Link>
-            </div>
+            <HeroActionButtons />
           </div>
           <DynamicHeroImage images={heroImages} />
         </div>

@@ -123,6 +123,11 @@ Last updated: August 2026
 - ✅ **Major Architecture Refactor:** Migrated public frontend pages to React Server Components (RSC) for SSR/SEO, dropping client-side SPA fetching and replacing custom loaders with Next.js native `loading.tsx` streaming.
 - ✅ Implemented `/:id/recommendations` API and Similar Products Grid on product details page.
 - ✅ Fixed Global Navbar Search to properly sync URL query params and filter products.
+- ✅ **Admin Category Management:** Added database-backed images for categories with Cloudinary upload and full CRUD support.
+- ✅ **Admin Craft Types CRUD:** Implemented full CRUD management for craft types with edit capabilities.
+- ✅ **Crafter Product Image Management:** Fixed image removal and state synchronization on product edit.
+- ✅ **Dynamic Hero Action Buttons:** Role-aware landing page hero CTA adapting between Crafter Studio, Admin Portal, and Start Selling.
+- ✅ **Debounced Product Search:** Added 350ms search debounce for smooth, responsive product filtering.
 
 ---
 

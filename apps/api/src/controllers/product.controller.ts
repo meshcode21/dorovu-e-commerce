@@ -195,16 +195,26 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
       try { bodyData.tags = JSON.parse(bodyData.tags); } catch (e) {}
     }
 
+    let existingImages: string[] | null = null;
+    if (bodyData.existingImages !== undefined) {
+      if (typeof bodyData.existingImages === 'string') {
+        try {
+          existingImages = JSON.parse(bodyData.existingImages);
+        } catch {
+          existingImages = [bodyData.existingImages];
+        }
+      } else if (Array.isArray(bodyData.existingImages)) {
+        existingImages = bodyData.existingImages;
+      }
+    }
+
     const validatedData = updateProductSchema.parse(bodyData);
 
-    let images = [...product.images];
+    let images: string[] = existingImages !== null
+      ? (Array.isArray(existingImages) ? existingImages.filter(img => typeof img === 'string') : [])
+      : [...product.images];
     
-    // If the user wants to keep some existing images, they might send a JSON string of existing URLs
-    // For now, any new files simply get appended to the existing ones (or replace if logic is strictly overwrite)
-    // To support full replacement or merging, we need explicit instructions. For MVP, let's append new images.
     if (req.files && Array.isArray(req.files) && req.files.length > 0) {
-      // If we want to replace entirely when new files are sent:
-      // images = [];
       req.files.forEach((file: Express.Multer.File) => {
         images.push(file.path);
       });
